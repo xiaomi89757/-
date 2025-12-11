@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="description" content="第二炼钢厂综合管理平台：集主页通知、重要文件、精益管理、岗位规范、安全应急、查询服务及应用下载于一体的现代化信息化服务平台。" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Performance Optimization: Preconnect to CDNs -->
+    <link rel="preconnect" href="https://aistudiocdn.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://cdn-icons-png.flaticon.com" crossorigin>
+
+    <!-- Performance Optimization: Preload Critical Image -->
+    <link rel="preload" href="/images/home_bg.jpg" as="image">
+    
+    <!-- iOS Support -->
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2892/2892550.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="二炼钢平台">
+
+    <title>第二炼钢厂综合管理平台</title>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-blue-200 selection:text-blue-900">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('PWA ServiceWorker registration successful');
+            })
+            .catch((err) => {
+              console.log('PWA ServiceWorker registration failed: ', err);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

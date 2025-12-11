@@ -1,0 +1,1 @@
+// This file is no longer used as the dashboard structure has been replaced by a direct menu-driven content area.
