@@ -97,16 +97,16 @@ export const HomePage: React.FC = () => {
           100% { transform: translateX(-50%); }
         }
         
-        /* PC端速度：放慢至 40s */
+        /* PC端速度：放慢至 30s */
         .marquee-wrapper {
-          animation: marquee-scroll 40s linear infinite;
+          animation: marquee-scroll 30s linear infinite;
           width: fit-content;
         }
 
         /* 手机端速度：放慢至 30s (数值越大越慢) */
         @media (max-width: 768px) {
           .marquee-wrapper {
-            animation-duration: 30s;
+            animation-duration: 35s;
           }
         }
 
