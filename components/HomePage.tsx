@@ -21,9 +21,9 @@ export const HomePage: React.FC = () => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/15 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      {/* 标题区域 */}
-      <div className="relative z-10 mb-10 md:mb-16 space-y-6 md:space-y-8 max-w-full">
-        {/* 标题：手机端字号从 2.1rem 增大至 2.4rem，强制单行并使用重阴影 */}
+      {/* 标题区域：在手机端通过 relative -top-12 向上偏移，增加与下方卡片的间距 */}
+      <div className="relative z-10 mb-10 md:mb-16 space-y-6 md:space-y-8 max-w-full -top-12 md:top-0">
+        {/* 标题：手机端字号 2.4rem，强制单行并使用重阴影 */}
         <h1 className="text-[2.4rem] sm:text-5xl md:text-7xl font-black text-white tracking-tight sm:tracking-wider drop-shadow-[0_8px_24px_rgba(0,0,0,0.8)] leading-tight px-2 whitespace-nowrap overflow-hidden text-ellipsis">
           <span className="md:hidden">第二炼钢厂管理平台</span>
           <span className="hidden md:inline">第二炼钢厂综合管理平台</span>
@@ -103,7 +103,7 @@ export const HomePage: React.FC = () => {
           width: fit-content;
         }
 
-        /* 手机端速度：放慢至 30s (数值越大越慢) */
+        /* 手机端速度：放慢至 25s (数值越小越快) */
         @media (max-width: 768px) {
           .marquee-wrapper {
             animation-duration: 25s;
