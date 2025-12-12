@@ -1,7 +1,0 @@
-name = "steel-plant-platform"
-compatibility_date = "2024-12-11"
-
-# 告诉 Cloudflare 这是一个包含静态资源的项目，构建输出目录是 ./dist
-[assets]
-directory = "./dist"
-binding = "ASSETS"

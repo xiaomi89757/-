@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { HomePage } from './components/HomePage';
+import { DocumentPage } from './components/DocumentPage';
 import { IframeViewer } from './components/IframeViewer';
 import { LinkGroupPage } from './components/LinkGroupPage';
 import { DownloadGuidePage } from './components/DownloadGuidePage';
@@ -8,49 +10,91 @@ import { ExamDownloadPage } from './components/ExamDownloadPage';
 import { ProceduresPage } from './components/ProceduresPage';
 import { SafetyResponsibilitiesPage } from './components/SafetyResponsibilitiesPage';
 import { AppDownloadsLandingPage } from './components/AppDownloadsLandingPage';
-import { ViewState } from './types';
+import { NavLinkItem, ViewState } from './types';
 import { Menu } from 'lucide-react';
-import { SIDEBAR_MENU_ITEMS } from './constants';
+import { SIDEBAR_MENU_ITEMS, DOCUMENT_CONTENTS } from './constants';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const activeMenuItem = SIDEBAR_MENU_ITEMS.find(item => item.id === currentView) || SIDEBAR_MENU_ITEMS.find(item => item.id === ViewState.HOME);
+  const activeMenuItem = SIDEBAR_MENU_ITEMS.find(item => item.id === currentView);
 
   const renderContent = () => {
-    if (!activeMenuItem) return <div className="p-10 text-center text-slate-400">页面内容未找到。</div>;
+    if (!activeMenuItem) {
+      return <div className="text-center text-red-500 p-8">未找到对应页面内容。</div>;
+    }
 
     switch (activeMenuItem.type) {
       case 'component':
-        if (activeMenuItem.id === ViewState.HOME) return <HomePage setView={setCurrentView} />;
-        if (activeMenuItem.id === ViewState.APP_SHOUAN) return <DownloadGuidePage />;
-        if (activeMenuItem.id === ViewState.APP_EXAM_STAR) return <ExamDownloadPage />;
-        if (activeMenuItem.id === ViewState.APP_DOWNLOADS) return <AppDownloadsLandingPage setView={setCurrentView} />;
-        if (activeMenuItem.id === ViewState.JOB_OPERATING_PROCEDURES) return <ProceduresPage />;
-        if (activeMenuItem.id === ViewState.JOB_SAFETY_RESPONSIBILITIES) return <SafetyResponsibilitiesPage />;
-        return null;
+        if (activeMenuItem.id === ViewState.HOME) {
+          return <HomePage />;
+        }
+        if (activeMenuItem.id === ViewState.APP_SHOUAN) {
+          return <DownloadGuidePage />;
+        }
+        if (activeMenuItem.id === ViewState.APP_EXAM_STAR) {
+          return <ExamDownloadPage />;
+        }
+        if (activeMenuItem.id === ViewState.APP_DOWNLOADS) {
+          return <AppDownloadsLandingPage setView={setCurrentView} />;
+        }
+        if (activeMenuItem.id === ViewState.JOB_OPERATING_PROCEDURES) {
+          return <ProceduresPage />;
+        }
+        if (activeMenuItem.id === ViewState.JOB_SAFETY_RESPONSIBILITIES) {
+          return <SafetyResponsibilitiesPage />;
+        }
+        return <div className="p-8">未知组件页面。</div>;
+      
+      case 'document':
+        if (activeMenuItem.documentKey) {
+          const content = DOCUMENT_CONTENTS[activeMenuItem.documentKey];
+          if (content) {
+            return <DocumentPage content={content} />;
+          }
+        }
+        return <div className="p-8">文档内容缺失。</div>;
+
       case 'iframe':
-        return activeMenuItem.path ? <IframeViewer src={activeMenuItem.path} title={activeMenuItem.label} /> : null;
+        if (activeMenuItem.path) {
+          return <IframeViewer src={activeMenuItem.path} title={activeMenuItem.label} />;
+        }
+        return <div className="p-8">Iframe链接缺失。</div>;
+
       case 'link_group':
-        return activeMenuItem.subLinks ? <LinkGroupPage title={activeMenuItem.label} links={activeMenuItem.subLinks} onNavigate={setCurrentView} /> : null;
+        if (activeMenuItem.subLinks) {
+          return <LinkGroupPage title={activeMenuItem.label} links={activeMenuItem.subLinks} onNavigate={setCurrentView} />;
+        }
+        return <div className="p-8">链接组内容缺失。</div>;
+
       case 'external_single_tab':
-         // This view type opens a new tab, so we can show a confirmation message.
+        // This type of link should open in a new tab directly from the sidebar.
+        // If a user navigates to it here, it implies they clicked it directly from the Sidebar,
+        // which is handled by the `a` tag in Sidebar.tsx.
+        // For now, we'll just show a message.
         return (
-          <div className="flex items-center justify-center h-full bg-slate-100">
-            <div className="text-center p-8">
-              <h2 className="text-xl font-bold text-slate-600">操作确认</h2>
-              <p className="text-slate-500 mt-2">相关页面已在新浏览器窗口中打开。</p>
-            </div>
+          <div className="p-8 text-center text-slate-600">
+            请通过左侧菜单点击“{activeMenuItem.label}”直接跳转到新页面。
           </div>
         );
+
       default:
-        return <HomePage setView={setCurrentView} />;
+        return <div className="p-8">未知页面类型。</div>;
     }
   };
 
+  // Determine if the current view should take up the full width (like the Home page or Iframes)
+  // or be constrained to a centered container (like documents and lists)
+  // Procedures page also takes full height for its split view
+  const isIframe = activeMenuItem?.type === 'iframe';
+  const isProcedures = activeMenuItem?.id === ViewState.JOB_OPERATING_PROCEDURES;
+  const isResponsibilities = activeMenuItem?.id === ViewState.JOB_SAFETY_RESPONSIBILITIES;
+  const isFullWidthPage = currentView === ViewState.HOME || isIframe || isProcedures || isResponsibilities;
+
   return (
-    <div className="flex h-screen bg-slate-100 overflow-hidden">
+    <div className="flex h-screen bg-white md:bg-slate-50 overflow-hidden">
+      {/* Sidebar */}
       <Sidebar 
         currentView={currentView} 
         setView={setCurrentView} 
@@ -58,21 +102,31 @@ const App: React.FC = () => {
         setIsOpen={setIsSidebarOpen} 
       />
 
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile Header */}
-        <header className="lg:hidden flex items-center justify-between bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 h-16 shrink-0 z-40 shadow-sm sticky top-0">
-          <div className="flex items-center gap-3">
-             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-lg shadow-md">二</div>
-            <h1 className="text-slate-800 font-bold text-base">综合管理平台</h1>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        {/* Mobile Header - Sticky & Compact */}
+        <header className="lg:hidden sticky top-0 z-10 flex items-center justify-between bg-white/95 backdrop-blur-sm border-b border-slate-200 px-4 py-2.5 shadow-sm">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+              二
+            </div>
+            <div>
+              <span className="font-bold text-base text-slate-800 block leading-none">第二炼钢厂</span>
+              <span className="text-[10px] text-slate-500 font-medium">综合管理平台</span>
+            </div>
           </div>
-          <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-slate-600 active:bg-slate-200 rounded-full transition-all">
+          <button 
+            onClick={() => setIsSidebarOpen(true)}
+            className="p-2 -mr-2 text-slate-600 hover:bg-slate-100 rounded-lg active:scale-95 transition-transform"
+          >
             <Menu size={24} />
           </button>
         </header>
 
-        {/* Content Area */}
-        <main className="flex-1 overflow-y-auto overflow-x-hidden relative">
-          <div className="h-full w-full">
+        {/* Scrollable Content */}
+        {/* Adjusted logic: Procedures and Responsibilities pages manage their own scrolling */}
+        <main className={`flex-1 ${isIframe || isProcedures || isResponsibilities ? 'overflow-hidden flex flex-col' : 'overflow-y-auto'} bg-white md:bg-slate-50 scroll-smooth`}>
+          <div className={`${isFullWidthPage ? 'w-full h-full' : 'max-w-7xl mx-auto w-full min-h-full'}`}>
             {renderContent()}
           </div>
         </main>
