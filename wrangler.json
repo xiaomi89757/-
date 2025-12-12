@@ -1,4 +1,5 @@
 {
+  "name": "eg-website",
   "pages_build_output_dir": "dist",
   "compatibility_date": "2024-11-01"
 }
