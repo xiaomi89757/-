@@ -106,7 +106,7 @@ export const HomePage: React.FC = () => {
         /* 手机端速度：放慢至 30s (数值越大越慢) */
         @media (max-width: 768px) {
           .marquee-wrapper {
-            animation-duration: 35s;
+            animation-duration: 25s;
           }
         }
 
