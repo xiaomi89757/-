@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as LucideIcons from 'lucide-react';
+import { Bell } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   const [notices, setNotices] = useState<string[]>([]);
@@ -9,79 +9,85 @@ export const HomePage: React.FC = () => {
       '重要通知：【2025年冬季安全生产专项检查】工作已全面启动，请各部门积极配合。',
       '事项提醒：【精益提案申报】截止日期为每月25日，请按时提交。',
       '最新动态：热烈祝贺公司成功荣获EPD平台及全国首家长流程【低碳排放钢双认证】。',
-      '温馨提示：请全体职工提高警惕，注意【冬季低温冻害】和防寒保暖工作。',
       '政策宣贯：【公司治本攻坚三年专项整治方案】文件已发布，请认真学习。',
     ];
     setNotices(mockNotices);
   }, []);
 
   return (
-    <div className="relative w-full h-full bg-slate-900 overflow-hidden flex flex-col">
-      {/* 工业风背景图 */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center filter brightness-[0.35]"
-        style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2069&auto=format&fit=crop')`,
-        }}
-      ></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/30 to-slate-900/80"></div>
+    <div className="min-h-full w-full bg-gradient-to-b from-indigo-700 via-blue-600 to-indigo-900 flex flex-col items-center justify-center text-center px-4 md:px-6 relative animate-fade-in overflow-hidden">
+      
+      {/* 背景装饰光晕 */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="relative z-10 p-6 md:p-12 flex flex-col flex-1 justify-center items-center text-center">
-        {/* 标题部分 - 恢复简洁风格 */}
-        <div className="max-w-4xl animate-fade-in-up">
-          <div className="inline-block px-3 py-1 rounded bg-blue-600/80 backdrop-blur-sm text-white text-[10px] md:text-xs font-bold tracking-widest uppercase mb-6 shadow-lg">
-            数字化赋能 · 精益管理
-          </div>
-          <h1 className="text-3xl md:text-6xl font-black text-white tracking-tight mb-4 drop-shadow-2xl">
-            第二炼钢厂综合管理平台
-          </h1>
-          <p className="text-sm md:text-xl text-slate-300 font-light mb-8 max-w-2xl mx-auto leading-relaxed">
-            构建安全、绿色、高效的现代化信息化服务阵地
+      {/* 标题区域 */}
+      <div className="relative z-10 mb-10 md:mb-16 space-y-6 md:space-y-8">
+        {/* 适配手机单行显示，进一步增大字号增强视觉冲击力 */}
+        <h1 className="text-[2.1rem] sm:text-5xl md:text-7xl font-black text-white tracking-wider drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] whitespace-nowrap">
+          第二炼钢厂综合管理平台
+        </h1>
+        
+        <p className="text-slate-200 text-xl md:text-3xl font-bold tracking-[0.2em] drop-shadow-md">
+          数字化转型，我们在行动
+        </p>
+
+        <div className="py-4 md:py-6">
+          <h2 className="text-4xl md:text-6xl font-extrabold text-yellow-300 tracking-widest mb-2 md:mb-4 drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)]">
+            精益松钢 绿色发展
+          </h2>
+          <p className="text-white text-xl md:text-4xl font-black tracking-[0.1em] md:tracking-[0.2em] font-sans uppercase opacity-100 drop-shadow-xl">
+            LEAN STEEL, GREEN DEVELOPMENT
           </p>
         </div>
+      </div>
 
-        {/* 底部通知栏 */}
-        <div className="w-full max-w-5xl mt-auto">
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl border border-white/10 shadow-2xl overflow-hidden">
-            <div className="flex items-center px-4 py-3 border-b border-white/5 bg-black/30">
-              <div className="flex items-center gap-2">
-                <div className="relative">
-                  <LucideIcons.Bell className="text-yellow-400 animate-bounce" size={18} />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border border-slate-900 shadow-sm"></span>
-                </div>
-                <h2 className="text-xs md:text-sm font-bold text-white tracking-widest">通知公告</h2>
-              </div>
-            </div>
-            
-            <div className="relative h-12 overflow-hidden">
-              <div className="marquee-container flex items-center h-full whitespace-nowrap">
-                <div className="marquee-content flex items-center gap-12 pr-12">
-                  {notices.map((notice, index) => (
-                    <div key={`n1-${index}`} className="flex items-center gap-2 text-white/90 text-xs md:text-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                      {notice}
-                    </div>
-                  ))}
-                </div>
-                {/* 循环部分确保无缝滚动 */}
-                <div className="marquee-content flex items-center gap-12 pr-12">
-                  {notices.map((notice, index) => (
-                    <div key={`n2-${index}`} className="flex items-center gap-2 text-white/90 text-xs md:text-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                      {notice}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+      {/* 毛玻璃通知卡片 */}
+      <div className="relative z-10 w-full max-w-[96%] lg:max-w-7xl bg-white/15 backdrop-blur-lg border border-white/25 rounded-[2.5rem] py-2 px-6 md:py-3 md:px-10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300">
+        <div className="flex items-center gap-3 mb-2 md:mb-3">
+          {/* 铃铛容器 */}
+          <div className="relative flex items-center justify-center shrink-0 p-1">
+            <Bell size={24} className="text-amber-500 animate-bounce" style={{ color: '#DAA520' }} />
+            {/* 红色小点：缩小尺寸 (w-2.5 h-2.5)，颜色使用极艳红色 (#ff0000)，发光效果更亮 */}
+            <div 
+              className="absolute -top-0.5 -right-1 w-2.5 h-2.5 bg-[#ff0000] rounded-full shadow-[0_0_12px_#ff0000] z-20 border border-white/40"
+              style={{ backgroundColor: '#ff0000' }}
+            ></div>
           </div>
-          
-          <div className="mt-8 text-center pb-4">
-            <p className="text-[10px] text-slate-500 font-medium uppercase tracking-[0.3em]">
-              © {new Date().getFullYear()} Second Steelmaking Plant · All Rights Reserved
-            </p>
+          {/* 缩小“通知通告”字号 */}
+          <h3 className="text-sm md:text-lg font-bold text-white tracking-wide">
+            通知通告
+          </h3>
+        </div>
+
+        <div className="relative w-full overflow-hidden h-10 flex items-center border-t border-white/15 pt-2 md:pt-3">
+          <span className="text-white/90 font-black mr-2 shrink-0 text-lg md:text-xl">:</span>
+          <div className="flex-1 h-full overflow-hidden">
+            <div className="marquee-wrapper flex items-center h-full whitespace-nowrap">
+              <div className="marquee-content flex items-center gap-16 pr-16">
+                {notices.map((n, i) => (
+                  <span key={i} className="text-white text-base md:text-xl font-bold opacity-100 tracking-wide">
+                    {n}
+                  </span>
+                ))}
+              </div>
+              <div className="marquee-content flex items-center gap-16 pr-16">
+                {notices.map((n, i) => (
+                  <span key={i} className="text-white text-base md:text-xl font-bold opacity-100 tracking-wide">
+                    {n}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* 版权页脚 */}
+      <div className="absolute bottom-8 left-0 right-0 z-10">
+        <p className="text-white/70 text-xs md:text-base font-bold tracking-[0.2em] uppercase">
+          © 2025 第二炼钢厂 版权所有
+        </p>
       </div>
 
       <style>{`
@@ -90,22 +96,25 @@ export const HomePage: React.FC = () => {
           100% { transform: translateX(-50%); }
         }
         
-        @keyframes fade-in-up {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .marquee-container {
-          animation: marquee-scroll 45s linear infinite;
+        /* PC端速度：保持40秒 */
+        .marquee-wrapper {
+          animation: marquee-scroll 40s linear infinite;
           width: fit-content;
         }
 
-        .marquee-container:hover {
-          animation-play-state: paused;
+        /* 移动端滚动速度：保持35秒 */
+        @media (max-width: 768px) {
+          .marquee-wrapper {
+            animation-duration: 35s;
+          }
         }
 
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
+        .marquee-wrapper:hover {
+          animation-play-state: paused;
+        }
+        
+        .marquee-content {
+          display: inline-flex;
         }
       `}</style>
     </div>
