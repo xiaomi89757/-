@@ -5,6 +5,8 @@ import { HomePage } from './components/HomePage';
 import { DocumentPage } from './components/DocumentPage';
 import { IframeViewer } from './components/IframeViewer';
 import { LinkGroupPage } from './components/LinkGroupPage';
+import { LeanProposalPage } from './components/LeanProposalPage';
+import { MicroImprovementPage } from './components/MicroImprovementPage';
 import { DownloadGuidePage } from './components/DownloadGuidePage';
 import { ExamDownloadPage } from './components/ExamDownloadPage';
 import { ProceduresPage } from './components/ProceduresPage';
@@ -63,16 +65,18 @@ const App: React.FC = () => {
         return <div className="p-8">Iframe链接缺失。</div>;
 
       case 'link_group':
+        if (activeMenuItem.id === ViewState.LEAN_PROPOSAL) {
+          return <LeanProposalPage title={activeMenuItem.label} links={activeMenuItem.subLinks || []} onNavigate={setCurrentView} />;
+        }
+        if (activeMenuItem.id === ViewState.MICRO_IMPROVEMENT) {
+          return <MicroImprovementPage title={activeMenuItem.label} links={activeMenuItem.subLinks || []} onNavigate={setCurrentView} />;
+        }
         if (activeMenuItem.subLinks) {
           return <LinkGroupPage title={activeMenuItem.label} links={activeMenuItem.subLinks} onNavigate={setCurrentView} />;
         }
         return <div className="p-8">链接组内容缺失。</div>;
 
       case 'external_single_tab':
-        // This type of link should open in a new tab directly from the sidebar.
-        // If a user navigates to it here, it implies they clicked it directly from the Sidebar,
-        // which is handled by the `a` tag in Sidebar.tsx.
-        // For now, we'll just show a message.
         return (
           <div className="p-8 text-center text-slate-600">
             请通过左侧菜单点击“{activeMenuItem.label}”直接跳转到新页面。
@@ -84,13 +88,12 @@ const App: React.FC = () => {
     }
   };
 
-  // Determine if the current view should take up the full width (like the Home page or Iframes)
-  // or be constrained to a centered container (like documents and lists)
-  // Procedures page also takes full height for its split view
   const isIframe = activeMenuItem?.type === 'iframe';
   const isProcedures = activeMenuItem?.id === ViewState.JOB_OPERATING_PROCEDURES;
   const isResponsibilities = activeMenuItem?.id === ViewState.JOB_SAFETY_RESPONSIBILITIES;
-  const isFullWidthPage = currentView === ViewState.HOME || isIframe || isProcedures || isResponsibilities;
+  const isLeanProposal = activeMenuItem?.id === ViewState.LEAN_PROPOSAL;
+  const isMicroImprovement = activeMenuItem?.id === ViewState.MICRO_IMPROVEMENT;
+  const isFullWidthPage = currentView === ViewState.HOME || isIframe || isProcedures || isResponsibilities || isLeanProposal || isMicroImprovement;
 
   return (
     <div className="flex h-screen bg-white md:bg-slate-50 overflow-hidden">
@@ -124,8 +127,7 @@ const App: React.FC = () => {
         </header>
 
         {/* Scrollable Content */}
-        {/* Adjusted logic: Procedures and Responsibilities pages manage their own scrolling */}
-        <main className={`flex-1 ${isIframe || isProcedures || isResponsibilities ? 'overflow-hidden flex flex-col' : 'overflow-y-auto'} bg-white md:bg-slate-50 scroll-smooth`}>
+        <main className={`flex-1 ${isFullWidthPage ? 'overflow-hidden flex flex-col' : 'overflow-y-auto'} bg-white md:bg-slate-50 scroll-smooth`}>
           <div className={`${isFullWidthPage ? 'w-full h-full' : 'max-w-7xl mx-auto w-full min-h-full'}`}>
             {renderContent()}
           </div>
