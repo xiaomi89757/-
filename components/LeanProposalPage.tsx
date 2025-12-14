@@ -40,7 +40,7 @@ const THEMES: Record<string, { bg: string, iconBg: string, text: string, shadow:
 
 export const LeanProposalPage: React.FC<LeanProposalPageProps> = ({ title, links, onNavigate }) => {
   const [isIframeLoading, setIsIframeLoading] = useState(true);
-  const dashboardUrl = "https://www.kdocs.cn/wo/sl/v120sp8Y";
+  const dashboardUrl = "https://www.kdocs.cn/l/cshW3GzmadPZ?R=L1MvMw==&disableNoviceGuide=";
 
   return (
     <div className="h-full flex flex-col bg-slate-50 overflow-hidden animate-fade-in font-sans">

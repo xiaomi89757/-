@@ -172,14 +172,14 @@ export const SafetyResponsibilitiesPage: React.FC = () => {
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${isExpanded ? `bg-${itemTheme.color}-50 text-${itemTheme.color}-600 rotate-180` : 'text-slate-300 bg-slate-50'}`}><ChevronDown size={20} /></div>
                   </button>
                   <div className={`relative border-t border-slate-50 transition-all duration-500 ease-in-out origin-top ${isExpanded ? 'max-h-[3000px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-                    <div className="p-6 md:p-8 relative">
-                      <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6 bg-white border shadow-sm ${itemTheme.text} ${itemTheme.border}`}><AlertCircle size={14} />岗位安全责任清单</div>
-                      <div className="space-y-0 relative ml-2 md:ml-4">
-                        <div className="absolute left-[15px] top-4 bottom-4 w-0.5 bg-slate-200/80 rounded-full" />
+                    <div className="p-4 md:p-6 relative">
+                      <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-white border shadow-sm ${itemTheme.text} ${itemTheme.border}`}><AlertCircle size={14} />岗位安全责任清单</div>
+                      <div className="space-y-0 relative ml-1 md:ml-3">
+                        <div className="absolute left-[13px] top-4 bottom-4 w-0.5 bg-slate-200/80 rounded-full" />
                         {role.items.map((item: string, i: number) => (
-                          <div key={i} className="relative pl-10 md:pl-12 py-3 group">
-                            <div className={`absolute left-0 top-3.5 w-8 h-8 rounded-full border-[3px] bg-white flex items-center justify-center z-10 transition-all duration-300 ${itemTheme.border} text-slate-400 group-hover:${itemTheme.text}`}><span className="text-xs font-bold">{i + 1}</span></div>
-                            <div className="p-3.5 rounded-lg border border-transparent transition-all duration-200 hover:bg-white hover:shadow-sm"><p className="text-sm md:text-base text-slate-700 leading-relaxed">{item}</p></div>
+                          <div key={i} className="relative pl-9 md:pl-10 py-0.5 group">
+                            <div className={`absolute left-0 top-1 w-7 h-7 rounded-full border-[2.5px] bg-white flex items-center justify-center z-10 transition-all duration-300 ${itemTheme.border} text-slate-400 group-hover:${itemTheme.text}`}><span className="text-[10px] font-bold">{i + 1}</span></div>
+                            <div className="px-2 py-1 md:p-2 rounded-lg border border-transparent transition-all duration-200 hover:bg-white hover:shadow-sm"><p className="text-sm md:text-base text-slate-700 leading-relaxed">{item}</p></div>
                           </div>
                         ))}
                       </div>

@@ -1,3 +1,4 @@
+
 import { MenuItem, ViewState, DocumentContent } from './types';
 
 // 定义侧边栏菜单项
@@ -11,6 +12,7 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
     subLinks: [
       { 
         label: '治本攻坚三年专项整治方案', 
+        // Fixed typo: COMPRE_REMEDIATION_PLAN -> COMPREHENSIVE_REMEDIATION_PLAN
         viewId: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, 
         description: '查看公司发布的治本攻坚三年行动详细工作目标、组织机构及任务清单。',
         icon: 'FileText',
@@ -58,7 +60,7 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
       },
       { 
         label: '已提报提案查看', 
-        url: 'https://www.kdocs.cn/l/cshW3GzmadPZ', 
+        url: 'https://www.kdocs.cn/l/cshW3GzmadPZ?R=L1MvMw==&disableNoviceGuide=', 
         openInNewTab: true,
         description: '查询您已经提交的提案进度及历史记录。',
         icon: 'Search',
@@ -90,7 +92,7 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
       },
       { 
         label: '已提报微改善查看', 
-        url: 'https://www.kdocs.cn/l/cd3K7qIlQZqx?R=L1MvMg==', 
+        url: 'https://www.kdocs.cn/l/ccWZAfWXWgR6?R=L1MvNA==&disableNoviceGuide=', 
         openInNewTab: true,
         description: '查看全厂微改善提报公示及采纳情况。',
         icon: 'ListChecks',

@@ -33,7 +33,7 @@ const THEMES: Record<string, { bg: string, iconBg: string, text: string, shadow:
 
 export const MicroImprovementPage: React.FC<MicroImprovementPageProps> = ({ title, links, onNavigate }) => {
   const [isIframeLoading, setIsIframeLoading] = useState(true);
-  const dashboardUrl = "https://www.kdocs.cn/wo/sl/v12oW5qM";
+  const dashboardUrl = "https://www.kdocs.cn/l/ccWZAfWXWgR6?R=L1MvNA==&disableNoviceGuide=";
 
   return (
     <div className="h-full flex flex-col bg-slate-50 overflow-hidden animate-fade-in font-sans">
