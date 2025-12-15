@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Bell, Activity } from 'lucide-react';
+import { Bell, Users } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   const [notices, setNotices] = useState<string[]>([]);
@@ -14,25 +15,20 @@ export const HomePage: React.FC = () => {
     ];
     setNotices(mockNotices);
 
-    // 解决单页应用不蒜子不刷新的问题
+    // 加载不蒜子统计脚本
+    // 使用 UV 统计逻辑：即使用户反复切换页面，只要是同一台设备，当天内计数不会增加
     const loadBusuanzi = () => {
-      // 检查是否已经存在脚本，如果存在则移除以强制重新运行
       const existingScript = document.getElementById('busuanzi-core');
-      if (existingScript) {
-        existingScript.remove();
-      }
+      if (existingScript) existingScript.remove();
 
       const script = document.createElement('script');
       script.id = 'busuanzi-core';
-      // 增加随机参数防止浏览器缓存旧的统计结果
-      script.src = `https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js?t=${Date.now()}`;
+      script.src = `https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js`;
       script.async = true;
       document.body.appendChild(script);
     };
 
-    // 延时加载，给 React 渲染留出时间
     const timer = setTimeout(loadBusuanzi, 1000);
-
     return () => {
       clearTimeout(timer);
       const script = document.getElementById('busuanzi-core');
@@ -108,21 +104,21 @@ export const HomePage: React.FC = () => {
 
       {/* 版权页脚与访问计数 */}
       <div className="absolute bottom-6 md:bottom-8 left-0 right-0 z-10 flex flex-col items-center gap-2 md:gap-3">
-        {/* 关键修改：强制显示容器，确保字样不消失 */}
+        {/* 核心优化点：切换为 site_uv (独立访客) 统计逻辑 */}
         <div 
-          id="busuanzi_container_site_pv" 
+          id="busuanzi_container_site_uv" 
           className="!flex inline-flex items-center gap-2 text-white/80 text-[10px] md:text-xs font-bold tracking-widest bg-white/5 px-5 py-2 rounded-full border border-white/10 backdrop-blur-lg shadow-xl"
         >
-          <Activity size={14} className="text-blue-400 animate-pulse shrink-0" />
+          <Users size={14} className="text-blue-400 shrink-0" />
           <span className="flex items-center whitespace-nowrap">
             平台已累计服务：
             <span 
-              id="busuanzi_value_site_pv" 
+              id="busuanzi_value_site_uv" 
               className="text-blue-400 mx-1.5 font-black text-xs md:text-sm transition-all duration-1000 [text-shadow:0_0_10px_rgba(96,165,250,0.9)]"
             >
               ...
             </span> 
-            人次访问
+            位职工
           </span>
         </div>
         
