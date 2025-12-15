@@ -57,7 +57,7 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
     path: 'https://www.kdocs.cn/l/cmagm8QKt8Sz', 
     hidden: true
   },
-  { id: ViewState.LEAN_LEARNING, label: '精益学习资料', icon: 'BookOpen', type: 'iframe', path: 'https://www.123865.com/s/pR9rVv-lb' },
+  { id: ViewState.LEAN_LEARNING, label: '精益学习资料', icon: 'BookOpen', type: 'component' },
   { 
     id: ViewState.LEAN_PROPOSAL, 
     label: '精益提案', 

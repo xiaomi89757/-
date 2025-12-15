@@ -12,6 +12,7 @@ import { ExamDownloadPage } from './components/ExamDownloadPage';
 import { ProceduresPage } from './components/ProceduresPage';
 import { SafetyResponsibilitiesPage } from './components/SafetyResponsibilitiesPage';
 import { AppDownloadsLandingPage } from './components/AppDownloadsLandingPage';
+import { LeanLearningComingSoon } from './components/LeanLearningComingSoon';
 import { NavLinkItem, ViewState } from './types';
 import { Menu } from 'lucide-react';
 import { SIDEBAR_MENU_ITEMS, DOCUMENT_CONTENTS } from './constants';
@@ -46,6 +47,9 @@ const App: React.FC = () => {
         }
         if (activeMenuItem.id === ViewState.JOB_SAFETY_RESPONSIBILITIES) {
           return <SafetyResponsibilitiesPage />;
+        }
+        if (activeMenuItem.id === ViewState.LEAN_LEARNING) {
+          return <LeanLearningComingSoon />;
         }
         return <div className="p-8">未知组件页面。</div>;
       
@@ -93,7 +97,8 @@ const App: React.FC = () => {
   const isResponsibilities = activeMenuItem?.id === ViewState.JOB_SAFETY_RESPONSIBILITIES;
   const isLeanProposal = activeMenuItem?.id === ViewState.LEAN_PROPOSAL;
   const isMicroImprovement = activeMenuItem?.id === ViewState.MICRO_IMPROVEMENT;
-  const isFullWidthPage = currentView === ViewState.HOME || isIframe || isProcedures || isResponsibilities || isLeanProposal || isMicroImprovement;
+  const isComingSoon = activeMenuItem?.id === ViewState.LEAN_LEARNING;
+  const isFullWidthPage = currentView === ViewState.HOME || isIframe || isProcedures || isResponsibilities || isLeanProposal || isMicroImprovement || isComingSoon;
 
   return (
     <div className="flex h-screen bg-white md:bg-slate-50 overflow-hidden">
