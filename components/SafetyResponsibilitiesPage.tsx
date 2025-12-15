@@ -20,6 +20,12 @@ const CATEGORY_THEMES = [
   { color: 'violet', label: '钢渣加工', gradient: 'from-violet-500 to-purple-600', shadow: 'shadow-violet-200', border: 'border-violet-200', text: 'text-violet-600', bg: 'bg-violet-50', light: 'bg-violet-100' }, 
 ];
 
+const ShieldCheckIcon = ({ size }: { size: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="m9 12 2 2 4-4" />
+  </svg>
+);
+
 export const SafetyResponsibilitiesPage: React.FC = () => {
   const [responsibilitiesData, setResponsibilitiesData] = useState<ProcedureCategory[]>([]);
   const [loading, setLoading] = useState(true);
@@ -194,9 +200,3 @@ export const SafetyResponsibilitiesPage: React.FC = () => {
     </div>
   );
 };
-
-const ShieldCheckIcon = ({ size }: { size: number }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="m9 12 2 2 4-4" />
-  </svg>
-);

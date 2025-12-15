@@ -7,7 +7,7 @@ import {
   PlusCircle, ListChecks, FolderOpen, BarChart3, HelpCircle,
   // New Icons
   Shield, Flame, Zap, Wrench, BookOpen, Siren, HardHat,
-  Activity, Component, LayoutGrid, ChevronRight
+  Activity, Component, LayoutGrid, ChevronRight, ClipboardList
 } from 'lucide-react';
 
 interface LinkGroupPageProps {
@@ -21,7 +21,7 @@ const ICONS: Record<string, React.FC<any>> = {
   FileText, AlertTriangle, Send, Search, Presentation, 
   PlusCircle, ListChecks, FolderOpen, BarChart3, HelpCircle,
   Shield, Flame, Zap, Wrench, BookOpen, Siren, HardHat,
-  Activity, Component
+  Activity, Component, ClipboardList
 };
 
 // 升级版主题配置：增加渐变色背景和阴影效果
@@ -121,7 +121,8 @@ export const LinkGroupPage: React.FC<LinkGroupPageProps> = ({ title, links, onNa
           <div className="flex flex-col gap-4 md:gap-6">
             {links.map((navLink, index) => {
               const isInternal = !!navLink.viewId;
-              const IconComponent = navLink.icon ? ICONS[navLink.icon] : HelpCircle;
+              // 安全获取图标组件，防止 undefined 导致 Error #130
+              const IconComponent = (navLink.icon && ICONS[navLink.icon]) || HelpCircle;
               const theme = navLink.color ? THEMES[navLink.color] : THEMES.default;
               
               const Component = isInternal ? 'button' : 'a';

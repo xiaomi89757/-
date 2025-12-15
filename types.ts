@@ -4,6 +4,7 @@ export enum ViewState {
   IMPORTANT_FILES = 'IMPORTANT_FILES', // 重要文件 (菜单组)
   COMPREHENSIVE_REMEDIATION_PLAN = 'COMPREHENSIVE_REMEDIATION_PLAN', // 公司治本攻坚三年专项整治方案
   HAZARD_CRITERIA_STANDARD = 'HAZARD_CRITERIA_STANDARD', // 2023版重大隐患判定标准（炼钢部分）
+  ACTION_PLAN_PROGRESS_TABLE = 'ACTION_PLAN_PROGRESS_TABLE', // 2025年治本攻坚三年行动重点任务月度推进表
   LEAN_LEARNING = 'LEAN_LEARNING', // 精益学习交流平台资料
   LEAN_PROPOSAL = 'LEAN_PROPOSAL', // 精益提案 (包括子菜单)
   MICRO_IMPROVEMENT = 'MICRO_IMPROVEMENT', // 微改善 (包括子菜单)
@@ -25,7 +26,7 @@ export interface NavLinkItem {
   openInNewTab?: boolean;
   description?: string;
   icon?: string; // New: Icon name for the card
-  color?: 'blue' | 'indigo' | 'emerald' | 'orange' | 'rose' | 'violet' | 'cyan' | 'amber'; // New: Theme color
+  color?: 'blue' | 'indigo' | 'emerald' | 'orange' | 'rose' | 'violet' | 'cyan' | 'amber' | 'slate'; // New: Theme color
 }
 
 export interface MenuItem {

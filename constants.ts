@@ -12,7 +12,6 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
     subLinks: [
       { 
         label: '治本攻坚三年专项整治方案', 
-        // Fixed typo: COMPRE_REMEDIATION_PLAN -> COMPREHENSIVE_REMEDIATION_PLAN
         viewId: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, 
         description: '查看公司发布的治本攻坚三年行动详细工作目标、组织机构及任务清单。',
         icon: 'FileText',
@@ -24,6 +23,13 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
         description: '学习工贸企业重大事故隐患判定标准（炼钢部分）及重点条款解读。',
         icon: 'AlertTriangle',
         color: 'orange'
+      },
+      { 
+        label: '2025年治本攻坚重点任务推进表', 
+        viewId: ViewState.ACTION_PLAN_PROGRESS_TABLE, 
+        description: '实时跟踪2025年度治本攻坚三年行动重点任务的月度完成进度与落实情况。',
+        icon: 'ClipboardList',
+        color: 'blue'
       }
     ]
   },
@@ -41,6 +47,14 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
     icon: 'AlertTriangle', 
     type: 'iframe', 
     path: 'https://kdocs.cn/l/csvBw09bymX6', 
+    hidden: true
+  },
+  { 
+    id: ViewState.ACTION_PLAN_PROGRESS_TABLE, 
+    label: '治本攻坚推进表', 
+    icon: 'ClipboardList', 
+    type: 'iframe', 
+    path: 'https://www.kdocs.cn/l/cmagm8QKt8Sz', 
     hidden: true
   },
   { id: ViewState.LEAN_LEARNING, label: '精益学习资料', icon: 'BookOpen', type: 'iframe', path: 'https://www.123865.com/s/pR9rVv-lb' },
