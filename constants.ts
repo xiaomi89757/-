@@ -123,7 +123,7 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
     type: 'link_group', 
     subLinks: [
       {
-        label: '01 综合应急预案',
+        label: '应急预案下载',
         url: 'https://www.123pan.com/s/pR9rVv-oNgO3.html',
         openInNewTab: true,
         description: '确立应急管理体系。',
