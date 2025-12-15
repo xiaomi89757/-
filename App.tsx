@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { HomePage } from './components/HomePage';
 import { DocumentPage } from './components/DocumentPage';
@@ -15,97 +14,83 @@ import { AppDownloadsLandingPage } from './components/AppDownloadsLandingPage';
 import { LeanLearningComingSoon } from './components/LeanLearningComingSoon';
 import { FeedbackPage } from './components/FeedbackPage';
 import { ViewState } from './types';
-import { Menu } from 'lucide-react';
+import { Menu, Download, BellRing, X } from 'lucide-react';
 import { SIDEBAR_MENU_ITEMS, DOCUMENT_CONTENTS } from './constants';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  // PWA 安装引导状态
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [showNotifyBanner, setShowNotifyBanner] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      if (currentView === ViewState.HOME) {
+        setShowInstallBanner(true);
+      }
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    if ('Notification' in window && Notification.permission === 'default') {
+      const timer = setTimeout(() => setShowNotifyBanner(true), 5000);
+      return () => clearTimeout(timer);
+    }
+
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  }, [currentView]);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') console.log('PWA installed');
+    setDeferredPrompt(null);
+    setShowInstallBanner(false);
+  };
+
+  const handleNotifyRequest = async () => {
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') console.log('Notify enabled');
+    setShowNotifyBanner(false);
+  };
 
   const activeMenuItem = SIDEBAR_MENU_ITEMS.find(item => item.id === currentView);
 
   const renderContent = () => {
-    if (!activeMenuItem) {
-      return <div className="text-center text-red-500 p-8">未找到对应页面内容。</div>;
-    }
+    if (!activeMenuItem) return <div className="p-8 text-center text-red-500">未找到页面内容。</div>;
 
     switch (activeMenuItem.type) {
       case 'component':
-        if (activeMenuItem.id === ViewState.HOME) {
-          return <HomePage onNavigate={setCurrentView} />;
-        }
-        if (activeMenuItem.id === ViewState.APP_SHOUAN) {
-          return <DownloadGuidePage />;
-        }
-        if (activeMenuItem.id === ViewState.APP_EXAM_STAR) {
-          return <ExamDownloadPage />;
-        }
-        if (activeMenuItem.id === ViewState.APP_DOWNLOADS) {
-          return <AppDownloadsLandingPage setView={setCurrentView} />;
-        }
-        if (activeMenuItem.id === ViewState.JOB_OPERATING_PROCEDURES) {
-          return <ProceduresPage />;
-        }
-        if (activeMenuItem.id === ViewState.JOB_SAFETY_RESPONSIBILITIES) {
-          return <SafetyResponsibilitiesPage />;
-        }
-        if (activeMenuItem.id === ViewState.LEAN_LEARNING) {
-          return <LeanLearningComingSoon />;
-        }
-        if (activeMenuItem.id === ViewState.FEEDBACK) {
-          return <FeedbackPage />;
-        }
-        return <div className="p-8">未知组件页面。</div>;
-      
-      case 'document':
-        if (activeMenuItem.documentKey) {
-          const content = DOCUMENT_CONTENTS[activeMenuItem.documentKey];
-          if (content) {
-            return <DocumentPage content={content} />;
-          }
-        }
-        return <div className="p-8">文档内容缺失。</div>;
-
+        if (activeMenuItem.id === ViewState.HOME) return <HomePage onNavigate={setCurrentView} onInstall={handleInstallClick} canInstall={!!deferredPrompt} />;
+        if (activeMenuItem.id === ViewState.APP_SHOUAN) return <DownloadGuidePage />;
+        if (activeMenuItem.id === ViewState.APP_EXAM_STAR) return <ExamDownloadPage />;
+        if (activeMenuItem.id === ViewState.APP_DOWNLOADS) return <AppDownloadsLandingPage setView={setCurrentView} />;
+        if (activeMenuItem.id === ViewState.JOB_OPERATING_PROCEDURES) return <ProceduresPage />;
+        if (activeMenuItem.id === ViewState.JOB_SAFETY_RESPONSIBILITIES) return <SafetyResponsibilitiesPage />;
+        if (activeMenuItem.id === ViewState.LEAN_LEARNING) return <LeanLearningComingSoon />;
+        if (activeMenuItem.id === ViewState.FEEDBACK) return <FeedbackPage />;
+        return <div className="p-8">未知页面。</div>;
       case 'iframe':
-        if (activeMenuItem.path) {
-          return <IframeViewer src={activeMenuItem.path} title={activeMenuItem.label} />;
-        }
-        return <div className="p-8">Iframe链接缺失。</div>;
-
+        return <IframeViewer src={activeMenuItem.path || ''} title={activeMenuItem.label} />;
       case 'link_group':
-        if (activeMenuItem.id === ViewState.LEAN_PROPOSAL) {
-          return <LeanProposalPage title={activeMenuItem.label} links={activeMenuItem.subLinks || []} onNavigate={setCurrentView} />;
-        }
-        if (activeMenuItem.id === ViewState.MICRO_IMPROVEMENT) {
-          return <MicroImprovementPage title={activeMenuItem.label} links={activeMenuItem.subLinks || []} onNavigate={setCurrentView} />;
-        }
-        if (activeMenuItem.subLinks) {
-          return <LinkGroupPage title={activeMenuItem.label} links={activeMenuItem.subLinks} onNavigate={setCurrentView} />;
-        }
-        return <div className="p-8">链接组内容缺失。</div>;
-
-      case 'external_single_tab':
-        return (
-          <div className="p-8 text-center text-slate-600">
-            请通过左侧菜单点击“{activeMenuItem.label}”直接跳转到新页面。
-          </div>
-        );
-
+        if (activeMenuItem.id === ViewState.LEAN_PROPOSAL) return <LeanProposalPage title={activeMenuItem.label} links={activeMenuItem.subLinks || []} onNavigate={setCurrentView} />;
+        if (activeMenuItem.id === ViewState.MICRO_IMPROVEMENT) return <MicroImprovementPage title={activeMenuItem.label} links={activeMenuItem.subLinks || []} onNavigate={setCurrentView} />;
+        return <LinkGroupPage title={activeMenuItem.label} links={activeMenuItem.subLinks || []} onNavigate={setCurrentView} />;
       default:
-        return <div className="p-8">未知页面类型。</div>;
+        return <div className="p-8">内容解析异常。</div>;
     }
   };
 
-  const isIframe = activeMenuItem?.type === 'iframe';
-  const isProcedures = activeMenuItem?.id === ViewState.JOB_OPERATING_PROCEDURES;
-  const isResponsibilities = activeMenuItem?.id === ViewState.JOB_SAFETY_RESPONSIBILITIES;
-  const isLeanProposal = activeMenuItem?.id === ViewState.LEAN_PROPOSAL;
-  const isMicroImprovement = activeMenuItem?.id === ViewState.MICRO_IMPROVEMENT;
-  const isComingSoon = activeMenuItem?.id === ViewState.LEAN_LEARNING;
-  const isFullWidthPage = currentView === ViewState.HOME || isIframe || isProcedures || isResponsibilities || isLeanProposal || isMicroImprovement || isComingSoon;
+  const isFullWidthPage = currentView === ViewState.HOME || activeMenuItem?.type === 'iframe' || activeMenuItem?.id === ViewState.JOB_OPERATING_PROCEDURES;
 
   return (
-    <div className="flex h-screen bg-white md:bg-slate-50 overflow-hidden">
+    <div className="flex h-screen bg-white md:bg-slate-50 overflow-hidden font-sans">
       <Sidebar 
         currentView={currentView} 
         setView={setCurrentView} 
@@ -113,32 +98,61 @@ const App: React.FC = () => {
         setIsOpen={setIsSidebarOpen} 
       />
 
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <header className="lg:hidden sticky top-0 z-10 flex items-center justify-between bg-white/95 backdrop-blur-sm border-b border-slate-200 px-4 py-2.5 shadow-sm">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-              二
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+        
+        {showInstallBanner && currentView === ViewState.HOME && (
+          <div className="bg-blue-600 text-white px-4 py-2 flex items-center justify-between shadow-lg animate-slide-down z-50">
+            <div className="flex items-center gap-2">
+              <Download size={18} className="animate-bounce" />
+              <span className="text-sm font-bold">安装“二炼钢平台”到桌面，体验更流畅</span>
             </div>
-            <div>
-              <span className="font-bold text-base text-slate-800 block leading-none">第二炼钢厂</span>
-              <span className="text-[10px] text-slate-500 font-medium uppercase tracking-tighter">Management Platform</span>
+            <div className="flex gap-4">
+              <button onClick={() => setShowInstallBanner(false)} className="text-xs opacity-70">以后再说</button>
+              <button onClick={handleInstallClick} className="bg-white text-blue-600 px-3 py-1 rounded-full text-xs font-black">立即安装</button>
             </div>
           </div>
-          <button 
-            onClick={() => setIsSidebarOpen(true)}
-            className="flex items-center gap-1 p-2 -mr-2 text-blue-600 hover:bg-blue-50 rounded-lg active:scale-95 transition-all border border-transparent active:border-blue-100"
-          >
+        )}
+
+        {showNotifyBanner && !showInstallBanner && (
+          <div className="bg-slate-800 text-white px-4 py-2 flex items-center justify-between shadow-lg animate-slide-down z-50">
+            <div className="flex items-center gap-2">
+              <BellRing size={18} className="text-blue-400" />
+              <span className="text-sm font-bold">开启消息通知，实时接收安全及生产通告</span>
+            </div>
+            <div className="flex gap-4">
+              <button onClick={() => setShowNotifyBanner(false)} className="text-xs opacity-70">暂时不需要</button>
+              <button onClick={handleNotifyRequest} className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-black">开启通知</button>
+            </div>
+          </div>
+        )}
+
+        <header className="lg:hidden sticky top-0 z-10 flex items-center justify-between bg-white/95 backdrop-blur-sm border-b border-slate-200 px-4 py-2.5 shadow-sm">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">二</div>
+            <span className="font-extrabold text-slate-800 tracking-tight">第二炼钢厂</span>
+          </div>
+          <button onClick={() => setIsSidebarOpen(true)} className="flex items-center gap-1 p-2 text-blue-600 rounded-lg active:scale-95 transition-all">
             <span className="text-sm font-black tracking-widest">菜单</span>
             <Menu size={20} strokeWidth={2.5} />
           </button>
         </header>
 
-        <main className={`flex-1 ${isFullWidthPage ? 'overflow-hidden flex flex-col' : 'overflow-y-auto'} bg-white md:bg-slate-50 scroll-smooth`}>
-          <div className={`${isFullWidthPage ? 'w-full h-full' : 'max-w-7xl mx-auto w-full min-h-full'}`}>
+        <main className={`flex-1 ${isFullWidthPage ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+          <div className={`${isFullWidthPage ? 'w-full h-full' : 'max-w-7xl mx-auto'}`}>
             {renderContent()}
           </div>
         </main>
       </div>
+
+      <style>{`
+        @keyframes slide-down {
+          from { transform: translateY(-100%); }
+          to { transform: translateY(0); }
+        }
+        .animate-slide-down {
+          animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      `}</style>
     </div>
   );
 };

@@ -9,14 +9,10 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
     
-    <!-- Performance Optimization: Preconnect to CDNs -->
+    <!-- Performance Optimization: Preconnect & Preload -->
     <link rel="preconnect" href="https://aistudiocdn.com" crossorigin>
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-    <link rel="preconnect" href="https://cdn-icons-png.flaticon.com" crossorigin>
-    <link rel="preconnect" href="https://www.kdocs.cn" crossorigin>
-    <link rel="dns-prefetch" href="https://www.kdocs.cn">
-
-    <!-- Performance Optimization: Preload Critical Image -->
+    <link rel="preconnect" href="https://busuanzi.ibruce.info" crossorigin>
     <link rel="preload" href="/images/home_bg.jpg" as="image">
     
     <!-- iOS Support -->
@@ -28,10 +24,17 @@
     <title>第二炼钢厂综合管理平台</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 提前加载统计脚本，移除异步注入逻辑 -->
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
       body {
         font-family: 'Inter', 'Noto Sans SC', sans-serif;
+      }
+      /* 隐藏不蒜子初始化前的空容器，防止布局抖动 */
+      #busuanzi_value_site_uv:empty::before {
+        content: "...";
       }
     </style>
   <script type="importmap">
@@ -51,17 +54,12 @@
   <body class="bg-slate-50 text-slate-900 antialiased selection:bg-blue-200 selection:text-blue-900">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
-    
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('PWA ServiceWorker registration successful');
-            })
-            .catch((err) => {
-              console.log('PWA ServiceWorker registration failed: ', err);
-            });
+            .then((reg) => console.log('PWA ServiceWorker Active'))
+            .catch((err) => console.log('PWA SW Failed', err));
         });
       }
     </script>

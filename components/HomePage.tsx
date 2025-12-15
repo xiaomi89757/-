@@ -1,17 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
-import { Bell, Users } from 'lucide-react';
+import { Bell, Users, Download } from 'lucide-react';
 import { ViewState } from '../types';
 
 interface HomePageProps {
   onNavigate: (view: ViewState) => void;
+  onInstall?: () => void;
+  canInstall?: boolean;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canInstall }) => {
   const [notices, setNotices] = useState<string[]>([]);
+  const [cachedUV, setCachedUV] = useState<string>(localStorage.getItem('steel_plant_uv_cache') || '...');
 
   useEffect(() => {
-    // 模拟通知数据
     const mockNotices = [
       '重要通知：【2025年冬季安全生产专项检查】工作已全面启动，请各部门积极配合。',
       '事项提醒：【精益提案申报】截止日期为每月25日，请按时提交。',
@@ -20,38 +22,38 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     ];
     setNotices(mockNotices);
 
-    // 加载不蒜子统计脚本
-    const loadBusuanzi = () => {
-      const existingScript = document.getElementById('busuanzi-core');
-      if (existingScript) existingScript.remove();
+    // 监听不蒜子统计的变化并缓存
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          const uvElement = document.getElementById('busuanzi_value_site_uv');
+          if (uvElement && uvElement.innerText && uvElement.innerText !== '...') {
+            const count = uvElement.innerText;
+            setCachedUV(count);
+            localStorage.setItem('steel_plant_uv_cache', count);
+          }
+        }
+      });
+    });
 
-      const script = document.createElement('script');
-      script.id = 'busuanzi-core';
-      script.src = `https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js`;
-      script.async = true;
-      document.body.appendChild(script);
-    };
+    const uvNode = document.getElementById('busuanzi_value_site_uv');
+    if (uvNode) {
+      observer.observe(uvNode, { childList: true, characterData: true, subtree: true });
+    }
 
-    const timer = setTimeout(loadBusuanzi, 1000);
-    return () => {
-      clearTimeout(timer);
-      const script = document.getElementById('busuanzi-core');
-      if (script) script.remove();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div className="min-h-full w-full bg-gradient-to-b from-slate-800 via-indigo-850 to-blue-900 flex flex-col items-center justify-center text-center px-4 md:px-10 relative animate-fade-in overflow-hidden">
       
-      {/* 背景装饰光晕 */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/15 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      {/* 标题区域 */}
       <div className="relative z-10 mb-10 md:mb-16 space-y-6 md:space-y-8 max-w-full -top-12 md:top-0">
         <h1 className="text-[2.4rem] sm:text-5xl md:text-7xl font-black text-white tracking-tight sm:tracking-wider drop-shadow-[0_8px_24px_rgba(0,0,0,0.8)] leading-tight px-2 whitespace-nowrap overflow-hidden text-ellipsis">
-          <span className="md:hidden">第二炼钢厂管理平台</span>
-          <span className="hidden md:inline">第二炼钢厂综合管理平台</span>
+          <span className="sm:hidden">第二炼钢厂管理平台</span>
+          <span className="hidden sm:inline">第二炼钢厂综合管理平台</span>
         </h1>
         
         <p className="text-slate-200 text-lg md:text-3xl font-bold tracking-[0.2em] drop-shadow-md">
@@ -68,19 +70,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* 毛玻璃通知卡片 */}
       <div className="relative z-10 w-full max-w-[94%] lg:max-w-7xl bg-white/10 backdrop-blur-md border border-white/20 rounded-[2.5rem] py-2 px-6 md:py-3 md:px-10 shadow-[0_25px_60_rgba(0,0,0,0.4)] transition-all duration-300">
-        <div className="flex items-center gap-3 mb-2 md:mb-3">
-          <div className="relative flex items-center justify-center shrink-0 p-1">
-            <Bell size={24} className="text-amber-500 animate-bounce" style={{ color: '#DAA520' }} />
-            <div 
-              className="absolute -top-0.5 -right-1 w-2.5 h-2.5 bg-[#ff0000] rounded-full shadow-[0_0_15px_#ff0000] z-20 border border-white/50"
-              style={{ backgroundColor: '#ff0000' }}
-            ></div>
+        <div className="flex items-center justify-between mb-2 md:mb-3">
+          <div className="flex items-center gap-3">
+            <div className="relative flex items-center justify-center shrink-0 p-1">
+              <Bell size={24} className="text-amber-500 animate-bounce" style={{ color: '#DAA520' }} />
+              <div className="absolute -top-0.5 -right-1 w-2.5 h-2.5 bg-[#ff0000] rounded-full shadow-[0_0_15px_#ff0000] z-20 border border-white/50"></div>
+            </div>
+            <h3 className="text-sm md:text-lg font-bold text-white tracking-wide">通知通告</h3>
           </div>
-          <h3 className="text-sm md:text-lg font-bold text-white tracking-wide">
-            通知通告
-          </h3>
+          
+          {canInstall && (
+            <button onClick={onInstall} className="flex items-center gap-1.5 px-3 py-1 bg-blue-500 text-white rounded-full text-[10px] font-black hover:bg-blue-400 transition-all shadow-lg animate-pulse">
+              <Download size={12} />
+              安装到桌面
+            </button>
+          )}
         </div>
 
         <div className="relative w-full overflow-hidden h-10 flex items-center border-t border-white/10 pt-2 md:pt-3">
@@ -89,16 +94,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="marquee-wrapper flex items-center h-full whitespace-nowrap">
               <div className="marquee-content flex items-center gap-16 pr-16">
                 {notices.map((n, i) => (
-                  <span key={i} className="text-white text-base md:text-xl font-bold opacity-100 tracking-wide">
-                    {n}
-                  </span>
+                  <span key={i} className="text-white text-base md:text-xl font-bold opacity-100 tracking-wide">{n}</span>
                 ))}
               </div>
               <div className="marquee-content flex items-center gap-16 pr-16">
                 {notices.map((n, i) => (
-                  <span key={i} className="text-white text-base md:text-xl font-bold opacity-100 tracking-wide">
-                    {n}
-                  </span>
+                  <span key={i} className="text-white text-base md:text-xl font-bold opacity-100 tracking-wide">{n}</span>
                 ))}
               </div>
             </div>
@@ -106,20 +107,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* 版权页脚与访问计数 */}
       <div className="absolute bottom-6 md:bottom-8 left-0 right-0 z-10 flex flex-col items-center gap-2 md:gap-3">
-        <div 
-          id="busuanzi_container_site_uv" 
-          className="!flex inline-flex items-center gap-2 text-white/80 text-[10px] md:text-xs font-bold tracking-widest bg-white/5 px-5 py-2 rounded-full border border-white/10 backdrop-blur-lg shadow-xl"
-        >
+        <div id="busuanzi_container_site_uv" className="!flex inline-flex items-center gap-2 text-white/80 text-[10px] md:text-xs font-bold tracking-widest bg-white/5 px-5 py-2 rounded-full border border-white/10 backdrop-blur-lg shadow-xl">
           <Users size={14} className="text-blue-400 shrink-0" />
           <span className="flex items-center whitespace-nowrap">
             平台已累计服务：
-            <span 
-              id="busuanzi_value_site_uv" 
-              className="text-blue-400 mx-1.5 font-black text-xs md:text-sm transition-all duration-1000 [text-shadow:0_0_10px_rgba(96,165,250,0.9)]"
-            >
-              ...
+            <span id="busuanzi_value_site_uv" className="text-blue-400 mx-1.5 font-black text-xs md:text-sm transition-all duration-1000 [text-shadow:0_0_10px_rgba(96,165,250,0.9)]">
+              {cachedUV}
             </span> 
             位用户
           </span>
@@ -138,11 +132,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         .marquee-wrapper {
           animation: marquee-scroll 30s linear infinite;
           width: fit-content;
-        }
-        @media (max-width: 768px) {
-          .marquee-wrapper {
-            animation-duration: 25s;
-          }
         }
         .marquee-wrapper:hover {
           animation-play-state: paused;
