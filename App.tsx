@@ -13,7 +13,8 @@ import { ProceduresPage } from './components/ProceduresPage';
 import { SafetyResponsibilitiesPage } from './components/SafetyResponsibilitiesPage';
 import { AppDownloadsLandingPage } from './components/AppDownloadsLandingPage';
 import { LeanLearningComingSoon } from './components/LeanLearningComingSoon';
-import { NavLinkItem, ViewState } from './types';
+import { FeedbackPage } from './components/FeedbackPage';
+import { ViewState } from './types';
 import { Menu } from 'lucide-react';
 import { SIDEBAR_MENU_ITEMS, DOCUMENT_CONTENTS } from './constants';
 
@@ -31,7 +32,7 @@ const App: React.FC = () => {
     switch (activeMenuItem.type) {
       case 'component':
         if (activeMenuItem.id === ViewState.HOME) {
-          return <HomePage />;
+          return <HomePage onNavigate={setCurrentView} />;
         }
         if (activeMenuItem.id === ViewState.APP_SHOUAN) {
           return <DownloadGuidePage />;
@@ -50,6 +51,9 @@ const App: React.FC = () => {
         }
         if (activeMenuItem.id === ViewState.LEAN_LEARNING) {
           return <LeanLearningComingSoon />;
+        }
+        if (activeMenuItem.id === ViewState.FEEDBACK) {
+          return <FeedbackPage />;
         }
         return <div className="p-8">未知组件页面。</div>;
       
@@ -102,7 +106,6 @@ const App: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-white md:bg-slate-50 overflow-hidden">
-      {/* Sidebar */}
       <Sidebar 
         currentView={currentView} 
         setView={setCurrentView} 
@@ -110,9 +113,7 @@ const App: React.FC = () => {
         setIsOpen={setIsSidebarOpen} 
       />
 
-      {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Mobile Header - Sticky & Compact */}
         <header className="lg:hidden sticky top-0 z-10 flex items-center justify-between bg-white/95 backdrop-blur-sm border-b border-slate-200 px-4 py-2.5 shadow-sm">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
@@ -120,18 +121,18 @@ const App: React.FC = () => {
             </div>
             <div>
               <span className="font-bold text-base text-slate-800 block leading-none">第二炼钢厂</span>
-              <span className="text-[10px] text-slate-500 font-medium">综合管理平台</span>
+              <span className="text-[10px] text-slate-500 font-medium uppercase tracking-tighter">Management Platform</span>
             </div>
           </div>
           <button 
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 -mr-2 text-slate-600 hover:bg-slate-100 rounded-lg active:scale-95 transition-transform"
+            className="flex items-center gap-1 p-2 -mr-2 text-blue-600 hover:bg-blue-50 rounded-lg active:scale-95 transition-all border border-transparent active:border-blue-100"
           >
-            <Menu size={24} />
+            <span className="text-sm font-black tracking-widest">菜单</span>
+            <Menu size={20} strokeWidth={2.5} />
           </button>
         </header>
 
-        {/* Scrollable Content */}
         <main className={`flex-1 ${isFullWidthPage ? 'overflow-hidden flex flex-col' : 'overflow-y-auto'} bg-white md:bg-slate-50 scroll-smooth`}>
           <div className={`${isFullWidthPage ? 'w-full h-full' : 'max-w-7xl mx-auto w-full min-h-full'}`}>
             {renderContent()}

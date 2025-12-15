@@ -136,6 +136,7 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
   { id: ViewState.RESTRICTED_SPACE_QUERY, label: '有限空间查询', icon: 'Box', type: 'iframe', path: 'https://web.wps.cn/etapps/query/q/MJcTiw1a' },
   { id: ViewState.OUTSOURCED_REGISTRATION, label: '外委施工登记', icon: 'ClipboardList', type: 'external_single_tab', path: 'https://f.wps.cn/w/PBXs3qUz/' },
   { id: ViewState.APP_DOWNLOADS, label: '常用下载和安装', icon: 'Download', type: 'component' },
+  { id: ViewState.FEEDBACK, label: '意见反馈', icon: 'MessageSquare', type: 'component' },
   { id: ViewState.APP_SHOUAN, label: '首安云下载指引', icon: 'Download', type: 'component', hidden: true },
   { id: ViewState.APP_EXAM_STAR, label: '考试星下载指引', icon: 'Download', type: 'component', hidden: true }
 ];

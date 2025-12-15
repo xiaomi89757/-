@@ -1,8 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { Bell, Users } from 'lucide-react';
+import { ViewState } from '../types';
 
-export const HomePage: React.FC = () => {
+interface HomePageProps {
+  onNavigate: (view: ViewState) => void;
+}
+
+export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const [notices, setNotices] = useState<string[]>([]);
 
   useEffect(() => {
@@ -16,7 +21,6 @@ export const HomePage: React.FC = () => {
     setNotices(mockNotices);
 
     // 加载不蒜子统计脚本
-    // 使用 UV 统计逻辑：即使用户反复切换页面，只要是同一台设备，当天内计数不会增加
     const loadBusuanzi = () => {
       const existingScript = document.getElementById('busuanzi-core');
       if (existingScript) existingScript.remove();
@@ -104,7 +108,6 @@ export const HomePage: React.FC = () => {
 
       {/* 版权页脚与访问计数 */}
       <div className="absolute bottom-6 md:bottom-8 left-0 right-0 z-10 flex flex-col items-center gap-2 md:gap-3">
-        {/* 核心优化点：切换为 site_uv (独立访客) 统计逻辑 */}
         <div 
           id="busuanzi_container_site_uv" 
           className="!flex inline-flex items-center gap-2 text-white/80 text-[10px] md:text-xs font-bold tracking-widest bg-white/5 px-5 py-2 rounded-full border border-white/10 backdrop-blur-lg shadow-xl"

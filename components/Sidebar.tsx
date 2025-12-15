@@ -4,7 +4,7 @@ import {
   Factory, X, HelpCircle, 
   Home, FolderOpen, FileText, AlertTriangle, BookOpen, Send, 
   BarChart3, Wrench, ShieldCheck, Siren, Search, Box, 
-  ClipboardList, Download, User, ChevronRight
+  ClipboardList, Download, User, ChevronRight, MessageSquare
 } from 'lucide-react';
 import { ViewState, MenuItem } from '../types';
 import { SIDEBAR_MENU_ITEMS } from '../constants';
@@ -34,14 +34,15 @@ const ICON_MAP: Record<string, React.FC<any>> = {
   'Download': Download,
   'Factory': Factory,
   'X': X,
-  'HelpCircle': HelpCircle
+  'HelpCircle': HelpCircle,
+  'MessageSquare': MessageSquare
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, setIsOpen }) => {
 
   const getIcon = (iconName: string) => {
     const IconComponent = ICON_MAP[iconName] || ICON_MAP['HelpCircle'];
-    return <IconComponent size={22} />; // Increased icon size slightly
+    return <IconComponent size={22} />; 
   };
 
   const handleMenuItemClick = (item: MenuItem) => {
@@ -55,13 +56,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
 
   return (
     <>
-      {/* Mobile Overlay with High Z-Index to cover page sticky headers */}
+      {/* Mobile Overlay */}
       <div 
         className={`fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsOpen(false)}
       />
 
-      {/* Sidebar Container with Highest Z-Index */}
+      {/* Sidebar Container */}
       <div className={`
         fixed inset-y-0 left-0 z-50 w-72 
         bg-slate-900/95 backdrop-blur-xl border-r border-white/5
@@ -70,12 +71,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
         lg:translate-x-0 lg:static lg:inset-0 lg:shadow-none lg:z-30
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        {/* Subtle Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-800/20 to-blue-900/10 pointer-events-none"></div>
 
         <div className="flex flex-col h-full relative z-10">
           
-          {/* Close button for mobile */}
           <button 
             onClick={() => setIsOpen(false)}
             className="absolute top-5 right-4 p-2 text-slate-400 hover:text-white lg:hidden transition-colors"
@@ -83,7 +82,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
             <X size={24} />
           </button>
 
-          {/* Header - Brand Area */}
           <div className="flex items-center px-6 h-24 border-b border-white/5 bg-gradient-to-r from-slate-900/50 to-transparent">
             <div className="w-11 h-11 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20 mr-4 shrink-0 border border-white/5">
               <Factory className="text-white" size={24} />
@@ -94,12 +92,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
             </div>
           </div>
 
-          {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
             {SIDEBAR_MENU_ITEMS.map((item, idx) => {
               if (item.hidden) return null;
 
-              // Render Group Headers
               if (item.type === 'header') {
                 return (
                   <div key={item.id} className="pt-6 pb-2 px-3">
@@ -122,7 +118,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
                     }
                   `}
                 >
-                  {/* Active Indicator Line (Left) */}
                   {isActive && (
                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-400 rounded-r-full shadow-[0_0_12px_rgba(96,165,250,0.8)]"></div>
                   )}
@@ -141,7 +136,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
                     {item.label}
                   </span>
 
-                  {/* Active Arrow */}
                   {isActive && (
                     <ChevronRight size={16} className="absolute right-3 text-blue-300/50" />
                   )}
@@ -150,11 +144,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
             })}
           </nav>
 
-          {/* Footer / User Info */}
           <div className="p-4 border-t border-white/5 bg-slate-900/50">
             <div className="flex items-center p-3.5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
               <div className="relative">
-                {/* Updated Avatar: Generic User Icon instead of surname with green background */}
                 <div className="w-10 h-10 rounded-full bg-slate-700/80 flex items-center justify-center border border-white/10 shadow-inner">
                   <User size={20} className="text-blue-200" />
                 </div>
