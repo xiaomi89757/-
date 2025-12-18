@@ -1,5 +1,6 @@
-// PWA Service Worker v14 - Ultra Fast Offline & Global Cache
-const CACHE_NAME = 'steel-plant-platform-v14';
+
+// PWA Service Worker v15 - Ultra Fast Offline & Global Cache (New Domain Support)
+const CACHE_NAME = 'steel-plant-platform-v15';
 
 // 涵盖所有可能用到的静态资源和外部库
 const PRE_CACHE_URLS = [
@@ -25,7 +26,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[PWA] Precaching full assets...');
+      console.log('[PWA] Precaching full assets for stelg.xyz...');
       return cache.addAll(PRE_CACHE_URLS);
     })
   );

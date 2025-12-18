@@ -9,6 +9,13 @@ interface HomePageProps {
   canInstall?: boolean;
 }
 
+// ==========================================
+// 迁移底数设置：
+// 如果您想承接旧域名的访问人数，请在此填入旧域名的数值。
+// 例如：填入 50，新域名上线后就会显示“51”
+const UV_BASE_OFFSET = 55; 
+// ==========================================
+
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canInstall }) => {
   const [notices, setNotices] = useState<string[]>([]);
   const [cachedUV, setCachedUV] = useState<string>(localStorage.getItem('steel_plant_uv_cache') || '...');
@@ -22,15 +29,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
     ];
     setNotices(mockNotices);
 
-    // 监听不蒜子统计的变化并缓存
+    const processCount = (rawText: string) => {
+      const num = parseInt(rawText.replace(/,/g, ''));
+      if (isNaN(num)) return rawText;
+      // 加上偏移底数，实现人数迁移
+      const finalNum = num + UV_BASE_OFFSET;
+      return finalNum.toLocaleString();
+    };
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList') {
           const uvElement = document.getElementById('busuanzi_value_site_uv');
           if (uvElement && uvElement.innerText && uvElement.innerText !== '...') {
-            const count = uvElement.innerText;
-            setCachedUV(count);
-            localStorage.setItem('steel_plant_uv_cache', count);
+            const displayCount = processCount(uvElement.innerText);
+            setCachedUV(displayCount);
+            localStorage.setItem('steel_plant_uv_cache', displayCount);
           }
         }
       });
