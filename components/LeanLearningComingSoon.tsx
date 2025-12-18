@@ -4,7 +4,7 @@ import { Cpu, HardHat, Rocket, Zap, Settings, Globe } from 'lucide-react';
 
 export const LeanLearningComingSoon: React.FC = () => {
   return (
-    <div className="relative h-full w-full bg-slate-950 flex flex-col items-center justify-center overflow-hidden font-sans">
+    <div className="relative min-h-full w-full bg-slate-950 flex flex-col items-center justify-center overflow-hidden font-sans">
       
       {/* 科技背景 - 网格 */}
       <div className="absolute inset-0 z-0 opacity-20" 

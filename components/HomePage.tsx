@@ -13,7 +13,7 @@ interface HomePageProps {
 // 迁移底数设置：
 // 如果您想承接旧域名的访问人数，请在此填入旧域名的数值。
 // 例如：填入 50，新域名上线后就会显示“51”
-const UV_BASE_OFFSET = 55; 
+const UV_BASE_OFFSET = 65; 
 // ==========================================
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canInstall }) => {

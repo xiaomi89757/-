@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { HomePage } from './components/HomePage';
@@ -87,7 +88,12 @@ const App: React.FC = () => {
     }
   };
 
-  const isFullWidthPage = currentView === ViewState.HOME || activeMenuItem?.type === 'iframe' || activeMenuItem?.id === ViewState.JOB_OPERATING_PROCEDURES;
+  // 这里的逻辑决定了页面是否“撑满”全屏
+  const isFullWidthPage = 
+    currentView === ViewState.HOME || 
+    currentView === ViewState.LEAN_LEARNING || // 新增：精益学习板块需要全屏背景
+    activeMenuItem?.type === 'iframe' || 
+    activeMenuItem?.id === ViewState.JOB_OPERATING_PROCEDURES;
 
   return (
     <div className="flex h-screen bg-white md:bg-slate-50 overflow-hidden font-sans">
