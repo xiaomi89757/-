@@ -11,14 +11,18 @@ interface HomePageProps {
 
 // ==========================================
 // 迁移底数设置：
-// 如果您想承接旧域名的访问人数，请在此填入旧域名的数值。
-// 例如：填入 50，新域名上线后就会显示“51”
-const UV_BASE_OFFSET = 65; 
+// 设置为 50，实现网站访问人数增加 50 的基数
+const UV_BASE_OFFSET = 100; 
 // ==========================================
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canInstall }) => {
   const [notices, setNotices] = useState<string[]>([]);
-  const [cachedUV, setCachedUV] = useState<string>(localStorage.getItem('steel_plant_uv_cache') || '...');
+  
+  // 使用新的缓存 Key: raw_uv_v2，确保清除旧版本留下的高位数缓存
+  const [rawUV, setRawUV] = useState<number>(() => {
+    const saved = localStorage.getItem('steel_plant_raw_uv_v2');
+    return saved ? parseInt(saved) : 0;
+  });
 
   useEffect(() => {
     const mockNotices = [
@@ -29,22 +33,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
     ];
     setNotices(mockNotices);
 
-    const processCount = (rawText: string) => {
-      const num = parseInt(rawText.replace(/,/g, ''));
-      if (isNaN(num)) return rawText;
-      // 加上偏移底数，实现人数迁移
-      const finalNum = num + UV_BASE_OFFSET;
-      return finalNum.toLocaleString();
-    };
-
+    // 观察不蒜子数字变化
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === 'childList') {
-          const uvElement = document.getElementById('busuanzi_value_site_uv');
-          if (uvElement && uvElement.innerText && uvElement.innerText !== '...') {
-            const displayCount = processCount(uvElement.innerText);
-            setCachedUV(displayCount);
-            localStorage.setItem('steel_plant_uv_cache', displayCount);
+        const uvElement = document.getElementById('busuanzi_value_site_uv');
+        if (uvElement && uvElement.innerText && uvElement.innerText !== '...') {
+          const rawNum = parseInt(uvElement.innerText.replace(/,/g, ''));
+          if (!isNaN(rawNum) && rawNum > 0) {
+            // 只存储原始值
+            setRawUV(rawNum);
+            localStorage.setItem('steel_plant_raw_uv_v2', rawNum.toString());
           }
         }
       });
@@ -58,17 +56,23 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
     return () => observer.disconnect();
   }, []);
 
+  // 计算最终显示的数字：原始值 + 基数
+  const displayUV = rawUV > 0 ? (rawUV + UV_BASE_OFFSET).toLocaleString() : '...';
+
   return (
     <div className="min-h-full w-full bg-gradient-to-b from-slate-800 via-indigo-850 to-blue-900 flex flex-col items-center justify-center text-center px-4 md:px-10 relative animate-fade-in overflow-hidden">
       
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/15 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="relative z-10 mb-10 md:mb-16 space-y-6 md:space-y-8 max-w-full -top-12 md:top-0">
-        <h1 className="text-[2.4rem] sm:text-5xl md:text-7xl font-black text-white tracking-tight sm:tracking-wider drop-shadow-[0_8px_24px_rgba(0,0,0,0.8)] leading-tight px-2 whitespace-nowrap overflow-hidden text-ellipsis">
-          <span className="sm:hidden">第二炼钢厂管理平台</span>
-          <span className="hidden sm:inline">第二炼钢厂综合管理平台</span>
-        </h1>
+      <div className="relative z-10 mb-10 md:mb-16 space-y-6 md:space-y-8 max-w-full -top-12 md:top-0 w-full flex flex-col items-center">
+        
+        <div className="w-full px-6 sm:px-4 flex justify-center">
+          <h1 className="text-[clamp(1.75rem,8.8vw,3.5rem)] sm:text-5xl md:text-7xl font-black text-white tracking-tight sm:tracking-wider drop-shadow-[0_8px_24px_rgba(0,0,0,0.8)] leading-tight break-keep">
+            <span className="sm:hidden block">第二炼钢厂管理平台</span>
+            <span className="hidden sm:inline">第二炼钢厂综合管理平台</span>
+          </h1>
+        </div>
         
         <p className="text-slate-200 text-lg md:text-3xl font-bold tracking-[0.2em] drop-shadow-md">
           数字化转型，我们在行动
@@ -127,7 +131,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
           <span className="flex items-center whitespace-nowrap">
             平台已累计服务：
             <span id="busuanzi_value_site_uv" className="text-blue-400 mx-1.5 font-black text-xs md:text-sm transition-all duration-1000 [text-shadow:0_0_10px_rgba(96,165,250,0.9)]">
-              {cachedUV}
+              {displayUV}
             </span> 
             位用户
           </span>
