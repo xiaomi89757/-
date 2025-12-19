@@ -11,16 +11,16 @@ interface HomePageProps {
 
 // ==========================================
 // 迁移底数设置：
-// 设置为 50，实现网站访问人数增加 50 的基数
-const UV_BASE_OFFSET = 100; 
+// 设置为 50，则显示的最终数字 = 实际访客数 + 50
+const UV_BASE_OFFSET = 50; 
 // ==========================================
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canInstall }) => {
   const [notices, setNotices] = useState<string[]>([]);
   
-  // 使用新的缓存 Key: raw_uv_v2，确保清除旧版本留下的高位数缓存
+  // 仅存储纯数字原始值
   const [rawUV, setRawUV] = useState<number>(() => {
-    const saved = localStorage.getItem('steel_plant_raw_uv_v2');
+    const saved = localStorage.getItem('steel_plant_raw_uv_v3');
     return saved ? parseInt(saved) : 0;
   });
 
@@ -33,31 +33,31 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
     ];
     setNotices(mockNotices);
 
-    // 观察不蒜子数字变化
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        const uvElement = document.getElementById('busuanzi_value_site_uv');
-        if (uvElement && uvElement.innerText && uvElement.innerText !== '...') {
-          const rawNum = parseInt(uvElement.innerText.replace(/,/g, ''));
-          if (!isNaN(rawNum) && rawNum > 0) {
-            // 只存储原始值
-            setRawUV(rawNum);
-            localStorage.setItem('steel_plant_raw_uv_v2', rawNum.toString());
-          }
+    // 监听 index.html 中隐藏的原始 span
+    const targetNode = document.getElementById('busuanzi_value_site_uv');
+    if (!targetNode) return;
+
+    const observer = new MutationObserver((mutations, obs) => {
+      const text = targetNode.innerText.trim();
+      if (text && text !== '...' && text !== '') {
+        const num = parseInt(text.replace(/,/g, ''));
+        if (!isNaN(num) && num > 0) {
+          setRawUV(num);
+          localStorage.setItem('steel_plant_raw_uv_v3', num.toString());
+          // 关键：获取到数值后立即停止观察，防止数字无限增长或重复触发
+          obs.disconnect();
         }
-      });
+      }
     });
 
-    const uvNode = document.getElementById('busuanzi_value_site_uv');
-    if (uvNode) {
-      observer.observe(uvNode, { childList: true, characterData: true, subtree: true });
-    }
+    observer.observe(targetNode, { childList: true, characterData: true, subtree: true });
 
     return () => observer.disconnect();
   }, []);
 
   // 计算最终显示的数字：原始值 + 基数
-  const displayUV = rawUV > 0 ? (rawUV + UV_BASE_OFFSET).toLocaleString() : '...';
+  // 如果 rawUV 还是 0 且没有缓存，则显示 ...
+  const displayValue = rawUV > 0 ? (rawUV + UV_BASE_OFFSET).toLocaleString() : '...';
 
   return (
     <div className="min-h-full w-full bg-gradient-to-b from-slate-800 via-indigo-850 to-blue-900 flex flex-col items-center justify-center text-center px-4 md:px-10 relative animate-fade-in overflow-hidden">
@@ -126,12 +126,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
       </div>
 
       <div className="absolute bottom-6 md:bottom-8 left-0 right-0 z-10 flex flex-col items-center gap-2 md:gap-3">
-        <div id="busuanzi_container_site_uv" className="!flex inline-flex items-center gap-2 text-white/80 text-[10px] md:text-xs font-bold tracking-widest bg-white/5 px-5 py-2 rounded-full border border-white/10 backdrop-blur-lg shadow-xl">
+        <div className="inline-flex items-center gap-2 text-white/80 text-[10px] md:text-xs font-bold tracking-widest bg-white/5 px-5 py-2 rounded-full border border-white/10 backdrop-blur-lg shadow-xl">
           <Users size={14} className="text-blue-400 shrink-0" />
           <span className="flex items-center whitespace-nowrap">
             平台已累计服务：
-            <span id="busuanzi_value_site_uv" className="text-blue-400 mx-1.5 font-black text-xs md:text-sm transition-all duration-1000 [text-shadow:0_0_10px_rgba(96,165,250,0.9)]">
-              {displayUV}
+            <span className="text-blue-400 mx-1.5 font-black text-xs md:text-sm transition-all duration-1000 [text-shadow:0_0_10px_rgba(96,165,250,0.9)]">
+              {displayValue}
             </span> 
             位用户
           </span>

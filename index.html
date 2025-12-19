@@ -33,9 +33,6 @@
       body {
         font-family: 'Inter', 'Noto Sans SC', sans-serif;
       }
-      #busuanzi_value_site_uv:empty::before {
-        content: "...";
-      }
     </style>
   <script type="importmap">
 {
@@ -53,6 +50,14 @@
 </head>
   <body class="bg-slate-50 text-slate-900 antialiased selection:bg-blue-200 selection:text-blue-900">
     <div id="root"></div>
+    
+    <!-- 隐藏的不蒜子原始计数器：解决脚本与 React 冲突的核心 -->
+    <div style="display: none; visibility: hidden; width: 0; height: 0; overflow: hidden;">
+      <span id="busuanzi_container_site_uv">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </div>
+
     <script type="module" src="/index.tsx"></script>
     <script>
       if ('serviceWorker' in navigator) {
