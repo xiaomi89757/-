@@ -5,8 +5,7 @@ import { Resource } from '../types';
 import { LEAN_RESOURCES, LEAN_CATEGORIES } from '../constants';
 
 // ==========================================
-// 配置区域：获取到 Cloudflare Worker 地址后，请替换下方的 URL
-// 如果保持为空或默认值，系统将自动使用“本地仿真模式”
+// 配置区域：已填入您截图中的真实 API 地址
 const WORKER_API_URL = "https://lean-counter.hanfuli486.workers.dev/"; 
 // ==========================================
 
@@ -27,7 +26,7 @@ export const LeanLearningPage: React.FC = () => {
   
   // 存储来自服务器的全厂点击量
   const [serverCounts, setServerCounts] = useState<Record<string, number>>({});
-  // 本地点击量（作为备份）
+  // 本地点击量（作为备份/降级方案）
   const [localCounts, setLocalCounts] = useState<Record<string, number>>(() => {
     const saved = localStorage.getItem('lean_learning_clicks_v2');
     return saved ? JSON.parse(saved) : {};
@@ -52,7 +51,7 @@ export const LeanLearningPage: React.FC = () => {
         setServerCounts(data);
       }
     } catch (error) {
-      console.warn("云端连接失败，已切换至本地记录模式");
+      console.warn("云端连接失败，将显示本地缓存数据");
     } finally {
       setIsSyncing(false);
     }
@@ -73,7 +72,7 @@ export const LeanLearningPage: React.FC = () => {
     // 1. 弹出资料窗口
     setSelectedResource(res);
 
-    // 2. 本地自增（保证反馈速度）
+    // 2. 本地自增（确保瞬间反馈）
     const newLocalValue = (localCounts[res.id] || 0) + 1;
     const updatedLocal = { ...localCounts, [res.id]: newLocalValue };
     setLocalCounts(updatedLocal);
@@ -85,10 +84,11 @@ export const LeanLearningPage: React.FC = () => {
         const response = await fetch(`${WORKER_API_URL}?id=${res.id}`, { method: 'POST' });
         if (response.ok) {
           const data = await response.json();
+          // 用云端返回的最新真实全厂总数更新界面
           setServerCounts(prev => ({ ...prev, [res.id]: data.count }));
         }
       } catch (e) {
-        // 同步失败不报错，继续使用本地数据
+        console.error("同步失败:", e);
       }
     }
   };
@@ -126,7 +126,7 @@ export const LeanLearningPage: React.FC = () => {
              <button 
                onClick={fetchGlobalStats}
                className={`p-2 rounded-full hover:bg-white/10 transition-all ${isSyncing ? 'animate-spin text-blue-400' : 'text-slate-400'}`}
-               title="同步云端研学数"
+               title="刷新同步云端数据"
              >
                <RefreshCw size={14} />
              </button>
@@ -223,15 +223,15 @@ export const LeanLearningPage: React.FC = () => {
                     </span>
                     <div className="flex items-center gap-1 bg-[#f1f5f9] group-hover:bg-blue-50 px-1.5 py-0.5 rounded-full mt-1 transition-all duration-500 border border-transparent group-hover:border-blue-100">
                       <span className="text-[7px] md:text-[9px] font-black text-slate-400 group-hover:text-blue-500 uppercase tracking-tighter">
-                        {WORKER_API_URL ? '全厂研学' : '累计研学'}
+                        累计研学
                       </span>
-                      <div className={`w-1.5 h-1.5 rounded-full animate-pulse group-hover:scale-125 ${WORKER_API_URL ? 'bg-[#2ecc71] shadow-[0_0_8px_rgba(46,204,113,0.8)]' : 'bg-blue-400'}`}></div>
+                      {/* 状态点：绿色表示连接云端成功，蓝色表示本地模式 */}
+                      <div className={`w-1.5 h-1.5 rounded-full animate-pulse group-hover:scale-125 ${serverCounts[res.id] !== undefined ? 'bg-[#2ecc71] shadow-[0_0_8px_rgba(46,204,113,0.8)]' : 'bg-blue-400'}`}></div>
                     </div>
                   </div>
 
                   {/* 进入按钮 */}
                   <div className="w-7 h-7 md:w-11 md:h-11 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-100 group-hover:bg-blue-700 group-hover:rotate-[360deg] group-hover:scale-115 transition-all duration-700 border border-white/20 shrink-0">
-                    {/* Fix: Removed non-existent 'md:size' prop from ChevronRight component and set a standard size. */}
                     <ChevronRight size={18} strokeWidth={3} />
                   </div>
                 </div>
