@@ -1,8 +1,14 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, BookOpen, Video, FileText, X, ExternalLink, Maximize2, Zap, Loader2, Star, Clock, ChevronRight, Sparkles } from 'lucide-react';
+import { Search, BookOpen, Video, FileText, X, ExternalLink, Maximize2, Zap, Loader2, Star, Clock, ChevronRight, Sparkles, RefreshCw } from 'lucide-react';
 import { Resource } from '../types';
-import { LEAN_RESOURCES, LEAN_CATEGORIES, CATEGORY_TAG_THEMES } from '../constants';
+import { LEAN_RESOURCES, LEAN_CATEGORIES } from '../constants';
+
+// ==========================================
+// 配置区域：获取到 Cloudflare Worker 地址后，请替换下方的 URL
+// 如果保持为空或默认值，系统将自动使用“本地仿真模式”
+const WORKER_API_URL = "https://lean-counter.hanfuli486.workers.dev/"; 
+// ==========================================
 
 const FRUIT_COLORS = [
   { bg: 'bg-[#10b981]', text: 'text-white' },
@@ -17,13 +23,40 @@ export const LeanLearningPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('全部');
   const [headerShrunk, setHeaderShrunk] = useState(false);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
-  const [iframeScale, setIframeScale] = useState(1);
-  const [clickCounts, setClickCounts] = useState<Record<string, number>>(() => {
-    const saved = localStorage.getItem('lean_learning_clicks');
+  const [isSyncing, setIsSyncing] = useState(false);
+  
+  // 存储来自服务器的全厂点击量
+  const [serverCounts, setServerCounts] = useState<Record<string, number>>({});
+  // 本地点击量（作为备份）
+  const [localCounts, setLocalCounts] = useState<Record<string, number>>(() => {
+    const saved = localStorage.getItem('lean_learning_clicks_v2');
     return saved ? JSON.parse(saved) : {};
   });
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // 初始化：尝试获取云端数据
+  useEffect(() => {
+    if (WORKER_API_URL) {
+      fetchGlobalStats();
+    }
+  }, []);
+
+  const fetchGlobalStats = async () => {
+    if (!WORKER_API_URL) return;
+    setIsSyncing(true);
+    try {
+      const response = await fetch(WORKER_API_URL);
+      if (response.ok) {
+        const data = await response.json();
+        setServerCounts(data);
+      }
+    } catch (error) {
+      console.warn("云端连接失败，已切换至本地记录模式");
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,11 +69,28 @@ export const LeanLearningPage: React.FC = () => {
     return () => ref?.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleResourceClick = (res: Resource) => {
-    const newCounts = { ...clickCounts, [res.id]: (clickCounts[res.id] || 0) + 1 };
-    setClickCounts(newCounts);
-    localStorage.setItem('lean_learning_clicks', JSON.stringify(newCounts));
+  const handleResourceClick = async (res: Resource) => {
+    // 1. 弹出资料窗口
     setSelectedResource(res);
+
+    // 2. 本地自增（保证反馈速度）
+    const newLocalValue = (localCounts[res.id] || 0) + 1;
+    const updatedLocal = { ...localCounts, [res.id]: newLocalValue };
+    setLocalCounts(updatedLocal);
+    localStorage.setItem('lean_learning_clicks_v2', JSON.stringify(updatedLocal));
+
+    // 3. 尝试同步到云端
+    if (WORKER_API_URL) {
+      try {
+        const response = await fetch(`${WORKER_API_URL}?id=${res.id}`, { method: 'POST' });
+        if (response.ok) {
+          const data = await response.json();
+          setServerCounts(prev => ({ ...prev, [res.id]: data.count }));
+        }
+      } catch (e) {
+        // 同步失败不报错，继续使用本地数据
+      }
+    }
   };
 
   const filteredResources = LEAN_RESOURCES.filter(res => {
@@ -71,15 +121,27 @@ export const LeanLearningPage: React.FC = () => {
           </h1>
         </div>
 
-        <div className={`relative transition-all duration-500 ${headerShrunk ? 'w-32 md:w-64' : 'w-40 md:w-72'}`}>
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={12} />
-          <input 
-            type="text" 
-            placeholder="搜资料..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-full py-1 pl-8 pr-3 text-[10px] md:text-xs focus:bg-white focus:text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all"
-          />
+        <div className="flex items-center gap-4">
+           {WORKER_API_URL && (
+             <button 
+               onClick={fetchGlobalStats}
+               className={`p-2 rounded-full hover:bg-white/10 transition-all ${isSyncing ? 'animate-spin text-blue-400' : 'text-slate-400'}`}
+               title="同步云端研学数"
+             >
+               <RefreshCw size={14} />
+             </button>
+           )}
+
+          <div className={`relative transition-all duration-500 ${headerShrunk ? 'w-32 md:w-64' : 'w-40 md:w-72'}`}>
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={12} />
+            <input 
+              type="text" 
+              placeholder="搜资料..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-full py-1 pl-8 pr-3 text-[10px] md:text-xs focus:bg-white focus:text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/20 transition-all"
+            />
+          </div>
         </div>
       </header>
 
@@ -103,9 +165,14 @@ export const LeanLearningPage: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col gap-3 md:gap-4 pb-20">
           {filteredResources.map((res, index) => {
             const fruit = FRUIT_COLORS[index % FRUIT_COLORS.length];
-            // 修改：将累计研学数改为不规则的20以内数字
+            
+            // 最终显示的数字逻辑：
+            // 1. 如果云端有值，以云端为主。
+            // 2. 如果云端没连上，以本地记录为主。
+            // 3. 加上预设的不规则底数。
             const baseOffsets = [12, 5, 17, 8, 14, 3, 19, 11];
-            const count = (clickCounts[res.id] || 0) + (baseOffsets[index % baseOffsets.length]);
+            const liveValue = serverCounts[res.id] || localCounts[res.id] || 0;
+            const displayCount = liveValue + (baseOffsets[index % baseOffsets.length]);
             
             return (
               <button
@@ -113,7 +180,7 @@ export const LeanLearningPage: React.FC = () => {
                 onClick={() => handleResourceClick(res)}
                 className="group relative min-h-[94px] md:min-h-[103px] bg-white rounded-[1.25rem] border-[1.5px] border-blue-100/60 shadow-[0_6px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:border-blue-500 hover:-translate-y-2 hover:scale-[1.01] active:scale-[0.95] transition-all duration-500 flex items-center text-left overflow-hidden cursor-pointer py-2"
               >
-                {/* 1. 分享标签 */}
+                {/* 分享标签 */}
                 <div className={`absolute top-0 left-0 h-[18px] md:h-[28px] px-2.5 md:px-5 flex items-center gap-1.5 rounded-br-[1rem] z-20 shadow-sm ${fruit.bg} ${fruit.text} group-hover:pl-7 transition-all duration-500`}>
                    <span className="text-[6px] md:text-[8px] font-black uppercase tracking-tighter opacity-80 group-hover:scale-105 transition-transform">分享</span>
                    <span className="text-xs md:text-lg font-black italic font-['JetBrains_Mono'] leading-none">
@@ -121,14 +188,14 @@ export const LeanLearningPage: React.FC = () => {
                    </span>
                 </div>
 
-                {/* 2. 左侧图标 */}
+                {/* 图标 */}
                 <div className="shrink-0 w-16 md:w-24 flex items-center justify-center pt-2 md:pt-3">
                    <div className="w-9 h-9 md:w-11 md:h-11 bg-slate-50/50 rounded-xl flex items-center justify-center text-blue-500/20 group-hover:text-blue-600 group-hover:bg-blue-50 group-hover:-rotate-12 group-hover:scale-115 transition-all duration-500">
                      {getIcon(res.type)}
                    </div>
                 </div>
 
-                {/* 3. 中间主要内容 */}
+                {/* 内容 */}
                 <div className="flex-1 min-w-0 px-2 flex flex-col justify-center">
                   <div className="flex items-center gap-2.5 mb-0.5">
                     <span className={`text-[7px] md:text-[9px] font-black px-1.5 py-0.5 rounded-full border border-blue-100 bg-blue-50/50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500`}>
@@ -148,21 +215,24 @@ export const LeanLearningPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* 4. 右侧：累计研学统计组 */}
+                {/* 右侧：统计数值 */}
                 <div className="shrink-0 flex items-center gap-2 md:gap-8 pr-4 md:pr-10">
-                  <div className="flex flex-col items-center leading-none">
+                  <div className="flex flex-col items-center leading-none text-center">
                     <span className="text-sm md:text-xl font-black font-['JetBrains_Mono'] text-blue-500 tabular-nums group-hover:scale-115 group-hover:text-blue-700 transition-all duration-500">
-                      {count}
+                      {displayCount}
                     </span>
                     <div className="flex items-center gap-1 bg-[#f1f5f9] group-hover:bg-blue-50 px-1.5 py-0.5 rounded-full mt-1 transition-all duration-500 border border-transparent group-hover:border-blue-100">
-                      <span className="text-[7px] md:text-[9px] font-black text-slate-400 group-hover:text-blue-500 uppercase tracking-tighter">*累计研学</span>
-                      <div className="w-1.5 h-1.5 bg-[#2ecc71] rounded-full animate-pulse shadow-[0_0_8px_rgba(46,204,113,0.8)] group-hover:scale-125"></div>
+                      <span className="text-[7px] md:text-[9px] font-black text-slate-400 group-hover:text-blue-500 uppercase tracking-tighter">
+                        {WORKER_API_URL ? '全厂研学' : '累计研学'}
+                      </span>
+                      <div className={`w-1.5 h-1.5 rounded-full animate-pulse group-hover:scale-125 ${WORKER_API_URL ? 'bg-[#2ecc71] shadow-[0_0_8px_rgba(46,204,113,0.8)]' : 'bg-blue-400'}`}></div>
                     </div>
                   </div>
 
                   {/* 进入按钮 */}
                   <div className="w-7 h-7 md:w-11 md:h-11 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-100 group-hover:bg-blue-700 group-hover:rotate-[360deg] group-hover:scale-115 transition-all duration-700 border border-white/20 shrink-0">
-                    <ChevronRight size={16} md:size={20} strokeWidth={3} />
+                    {/* Fix: Removed non-existent 'md:size' prop from ChevronRight component and set a standard size. */}
+                    <ChevronRight size={18} strokeWidth={3} />
                   </div>
                 </div>
 
@@ -171,29 +241,10 @@ export const LeanLearningPage: React.FC = () => {
               </button>
             );
           })}
-
-          {/* 列表底部：持续分享提示区域 */}
-          <div className="mt-8 flex flex-col items-center justify-center py-10 space-y-4 opacity-70 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-             <div className="flex items-center gap-3 md:gap-6">
-                <div className="h-[1px] w-12 md:w-24 bg-gradient-to-r from-transparent to-slate-300"></div>
-                <div className="flex items-center gap-2">
-                   <Sparkles size={16} className="text-blue-500 animate-pulse" />
-                   <span className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-[0.4em] whitespace-nowrap">More Knowledge Is Coming</span>
-                </div>
-                <div className="h-[1px] w-12 md:w-24 bg-gradient-to-l from-transparent to-slate-300"></div>
-             </div>
-             <p className="text-xs md:text-base font-bold text-slate-500 tracking-wider">
-               更多精益知识库内容正在持续整理分享中...
-             </p>
-             <div className="flex items-center gap-1.5 bg-blue-50 px-3 py-1 rounded-full">
-                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-ping"></div>
-                <span className="text-[10px] font-black text-blue-600 uppercase">Updating Daily</span>
-             </div>
-          </div>
         </div>
       </main>
 
-      {/* 4. 资源预览模态框 */}
+      {/* 资源预览模态框 */}
       {selectedResource && (
         <div className="fixed inset-0 z-[100] bg-slate-950/98 backdrop-blur-3xl flex flex-col animate-in fade-in duration-500">
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#0a1631] shrink-0">
