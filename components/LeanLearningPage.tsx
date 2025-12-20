@@ -103,7 +103,9 @@ export const LeanLearningPage: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col gap-3 md:gap-4 pb-20">
           {filteredResources.map((res, index) => {
             const fruit = FRUIT_COLORS[index % FRUIT_COLORS.length];
-            const count = (clickCounts[res.id] || 0) + (index * 68 + 428);
+            // 修改：将累计研学数改为不规则的20以内数字
+            const baseOffsets = [12, 5, 17, 8, 14, 3, 19, 11];
+            const count = (clickCounts[res.id] || 0) + (baseOffsets[index % baseOffsets.length]);
             
             return (
               <button
@@ -111,7 +113,7 @@ export const LeanLearningPage: React.FC = () => {
                 onClick={() => handleResourceClick(res)}
                 className="group relative min-h-[94px] md:min-h-[103px] bg-white rounded-[1.25rem] border-[1.5px] border-blue-100/60 shadow-[0_6px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:border-blue-500 hover:-translate-y-2 hover:scale-[1.01] active:scale-[0.95] transition-all duration-500 flex items-center text-left overflow-hidden cursor-pointer py-2"
               >
-                {/* 1. 分享标签：再次缩小约2/5 (30px -> 18px / 44px -> 26px) */}
+                {/* 1. 分享标签 */}
                 <div className={`absolute top-0 left-0 h-[18px] md:h-[28px] px-2.5 md:px-5 flex items-center gap-1.5 rounded-br-[1rem] z-20 shadow-sm ${fruit.bg} ${fruit.text} group-hover:pl-7 transition-all duration-500`}>
                    <span className="text-[6px] md:text-[8px] font-black uppercase tracking-tighter opacity-80 group-hover:scale-105 transition-transform">分享</span>
                    <span className="text-xs md:text-lg font-black italic font-['JetBrains_Mono'] leading-none">
@@ -119,7 +121,7 @@ export const LeanLearningPage: React.FC = () => {
                    </span>
                 </div>
 
-                {/* 2. 左侧图标：适度调低上距 */}
+                {/* 2. 左侧图标 */}
                 <div className="shrink-0 w-16 md:w-24 flex items-center justify-center pt-2 md:pt-3">
                    <div className="w-9 h-9 md:w-11 md:h-11 bg-slate-50/50 rounded-xl flex items-center justify-center text-blue-500/20 group-hover:text-blue-600 group-hover:bg-blue-50 group-hover:-rotate-12 group-hover:scale-115 transition-all duration-500">
                      {getIcon(res.type)}
