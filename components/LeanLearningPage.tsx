@@ -225,8 +225,8 @@ export const LeanLearningPage: React.FC = () => {
                       <span className="text-[7px] md:text-[9px] font-black text-slate-400 group-hover:text-blue-500 uppercase tracking-tighter">
                         累计研学
                       </span>
-                      {/* 状态点：绿色表示连接云端成功，蓝色表示本地模式 */}
-                      <div className={`w-1.5 h-1.5 rounded-full animate-pulse group-hover:scale-125 ${serverCounts[res.id] !== undefined ? 'bg-[#2ecc71] shadow-[0_0_8px_rgba(46,204,113,0.8)]' : 'bg-blue-400'}`}></div>
+                      {/* 状态点颜色修正：在线为高亮呼吸果绿，离线为普通果绿 */}
+                      <div className={`w-1.5 h-1.5 rounded-full animate-pulse group-hover:scale-125 transition-all duration-500 ${serverCounts[res.id] !== undefined ? 'bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.9)]' : 'bg-emerald-300'}`}></div>
                     </div>
                   </div>
 
