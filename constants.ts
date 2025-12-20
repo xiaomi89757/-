@@ -14,11 +14,8 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
       { label: '2025年重点任务推进表', viewId: ViewState.ACTION_PLAN_PROGRESS_TABLE, description: '月度任务跟踪', icon: 'ClipboardList', color: 'blue' }
     ]
   },
-  // Fix: Updated shorthand COMPRE_PLAN to COMPREHENSIVE_REMEDIATION_PLAN
   { id: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, label: '方案', icon: 'FileText', type: 'iframe', path: 'https://kdocs.cn/l/cefIGFFgviDR', hidden: true },
-  // Fix: Updated shorthand HAZARD_STD to HAZARD_CRITERIA_STANDARD
   { id: ViewState.HAZARD_CRITERIA_STANDARD, label: '标准', icon: 'AlertTriangle', type: 'iframe', path: 'https://kdocs.cn/l/csvBw09bymX6', hidden: true },
-  // Fix: Updated shorthand PROGRESS_TABLE to ACTION_PLAN_PROGRESS_TABLE
   { id: ViewState.ACTION_PLAN_PROGRESS_TABLE, label: '推进表', icon: 'ClipboardList', type: 'iframe', path: 'https://www.kdocs.cn/l/cmagm8QKt8Sz', hidden: true },
   { id: ViewState.LEAN_LEARNING, label: '精益学习资料', icon: 'BookOpen', type: 'component' },
   { 
@@ -42,17 +39,11 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
       { label: '已提报微改善查看', url: 'https://www.kdocs.cn/l/ccWZAfWXWgR6', openInNewTab: true, icon: 'ListChecks', color: 'blue' }
     ]
   },
-  // Fix: Updated shorthand JOB_PROCEDURES to JOB_OPERATING_PROCEDURES
   { id: ViewState.JOB_OPERATING_PROCEDURES, label: '安全操作规程', icon: 'Wrench', type: 'component' },
-  // Fix: Updated shorthand JOB_RESP to JOB_SAFETY_RESPONSIBILITIES
   { id: ViewState.JOB_SAFETY_RESPONSIBILITIES, label: '安全生产责任制', icon: 'ShieldCheck', type: 'component' },
-  // Fix: Updated shorthand EMERGENCY_PLAN to PLANT_EMERGENCY_PLAN
   { id: ViewState.PLANT_EMERGENCY_PLAN, label: '应急预案汇总', icon: 'Siren', type: 'link_group', subLinks: [{label: '下载', url: 'https://www.123pan.com/s/pR9rVv-oNgO3.html', openInNewTab: true, icon: 'Shield', color: 'blue'}] },
-  // Fix: Updated shorthand CERT_QUERY to SAFETY_CERT_QUERY
   { id: ViewState.SAFETY_CERT_QUERY, label: '合格证查询', icon: 'Search', type: 'iframe', path: 'https://web.wps.cn/etapps/query/q/s8BV0CAT' },
-  // Fix: Updated shorthand SPACE_QUERY to RESTRICTED_SPACE_QUERY
   { id: ViewState.RESTRICTED_SPACE_QUERY, label: '有限空间查询', icon: 'Box', type: 'iframe', path: 'https://web.wps.cn/etapps/query/q/MJcTiw1a' },
-  // Fix: Updated shorthand OUTSOURCED_REG to OUTSOURCED_REGISTRATION
   { id: ViewState.OUTSOURCED_REGISTRATION, label: '外委登记', icon: 'ClipboardList', type: 'external_single_tab', path: 'https://f.wps.cn/w/PBXs3qUz/' },
   { id: ViewState.APP_DOWNLOADS, label: '应用下载', icon: 'Download', type: 'component' },
   { id: ViewState.FEEDBACK, label: '意见反馈', icon: 'MessageSquare', type: 'component' }
@@ -66,7 +57,7 @@ export const LEAN_RESOURCES: Resource[] = [
     category: '基础理论',
     type: 'pdf',
     url: 'https://www.kdocs.cn/l/ccpZwIIYcAWx',
-    updateDate: '2025-01-10',
+    updateDate: '2025-02-15',
     rating: 5,
     isHot: true,
     shareIndex: '01'
@@ -78,7 +69,7 @@ export const LEAN_RESOURCES: Resource[] = [
     category: '现场管理',
     type: 'pdf',
     url: 'https://www.kdocs.cn/l/cihRdDjURGOJ',
-    updateDate: '2025-02-01',
+    updateDate: '2025-02-18',
     rating: 5,
     isNew: true,
     shareIndex: '02'
@@ -90,7 +81,7 @@ export const LEAN_RESOURCES: Resource[] = [
     category: '改善实战',
     type: 'pdf',
     url: 'https://www.kdocs.cn/l/chXi7OklkBXq',
-    updateDate: '2025-02-10',
+    updateDate: '2025-02-20',
     rating: 4,
     shareIndex: '03'
   },
@@ -101,10 +92,22 @@ export const LEAN_RESOURCES: Resource[] = [
     category: '现场管理',
     type: 'pdf',
     url: 'https://www.kdocs.cn/l/cs6lyp05gCGL',
-    updateDate: '2025-02-20',
+    updateDate: '2025-02-22',
     rating: 5,
     isHot: true,
     shareIndex: '04'
+  },
+  {
+    id: 'l-05',
+    title: '（德鲁克管理思维）如何让员工主动承担责任，打造高效绩团队',
+    description: '德鲁克经典管理智慧，解决员工积极性难题，构建高绩效班组核心竞争力。',
+    category: '基础理论',
+    type: 'video',
+    url: 'https://player.bilibili.com/player.html?isOutside=true&aid=115749620286133&bvid=BV1eyqBB4EQp&cid=34854537379&p=1',
+    updateDate: '2025-02-25',
+    rating: 5,
+    isNew: true,
+    shareIndex: '05'
   }
 ];
 

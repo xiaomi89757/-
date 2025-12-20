@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, BookOpen, Video, FileText, X, ExternalLink, Maximize2, Zap, Loader2, Star, Clock, ChevronRight, Sparkles, RefreshCw } from 'lucide-react';
-import { Resource } from '../types';
+import { Search, BookOpen, Video, FileText, X, ExternalLink, Maximize2, Zap, Loader2, Star, Clock, ChevronRight, Sparkles, RefreshCw, Plus, MessageSquarePlus } from 'lucide-react';
+import { Resource, ViewState } from '../types';
 import { LEAN_RESOURCES, LEAN_CATEGORIES } from '../constants';
 
 // ==========================================
@@ -17,24 +17,21 @@ const FRUIT_COLORS = [
   { bg: 'bg-[#8b5cf6]', text: 'text-white' },
 ];
 
-export const LeanLearningPage: React.FC = () => {
+export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('全部');
   const [headerShrunk, setHeaderShrunk] = useState(false);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
   
-  // 存储来自服务器的全厂点击量
   const [serverCounts, setServerCounts] = useState<Record<string, number>>({});
-  // 本地点击量（作为备份/降级方案）
   const [localCounts, setLocalCounts] = useState<Record<string, number>>(() => {
-    const saved = localStorage.getItem('lean_learning_clicks_v2');
+    const saved = localStorage.getItem('lean_learning_clicks_v3');
     return saved ? JSON.parse(saved) : {};
   });
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // 初始化：尝试获取云端数据
   useEffect(() => {
     if (WORKER_API_URL) {
       fetchGlobalStats();
@@ -69,22 +66,17 @@ export const LeanLearningPage: React.FC = () => {
   }, []);
 
   const handleResourceClick = async (res: Resource) => {
-    // 1. 弹出资料窗口
     setSelectedResource(res);
-
-    // 2. 本地自增（确保瞬间反馈）
     const newLocalValue = (localCounts[res.id] || 0) + 1;
     const updatedLocal = { ...localCounts, [res.id]: newLocalValue };
     setLocalCounts(updatedLocal);
-    localStorage.setItem('lean_learning_clicks_v2', JSON.stringify(updatedLocal));
+    localStorage.setItem('lean_learning_clicks_v3', JSON.stringify(updatedLocal));
 
-    // 3. 尝试同步到云端
     if (WORKER_API_URL) {
       try {
         const response = await fetch(`${WORKER_API_URL}?id=${res.id}`, { method: 'POST' });
         if (response.ok) {
           const data = await response.json();
-          // 用云端返回的最新真实全厂总数更新界面
           setServerCounts(prev => ({ ...prev, [res.id]: data.count }));
         }
       } catch (e) {
@@ -165,12 +157,7 @@ export const LeanLearningPage: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col gap-3 md:gap-4 pb-20">
           {filteredResources.map((res, index) => {
             const fruit = FRUIT_COLORS[index % FRUIT_COLORS.length];
-            
-            // 最终显示的数字逻辑：
-            // 1. 如果云端有值，以云端为主。
-            // 2. 如果云端没连上，以本地记录为主。
-            // 3. 加上预设的不规则底数。
-            const baseOffsets = [12, 5, 17, 8, 14, 3, 19, 11];
+            const baseOffsets = [12, 5, 17, 8, 14, 3, 19, 11, 24, 6];
             const liveValue = serverCounts[res.id] || localCounts[res.id] || 0;
             const displayCount = liveValue + (baseOffsets[index % baseOffsets.length]);
             
@@ -178,24 +165,21 @@ export const LeanLearningPage: React.FC = () => {
               <button
                 key={res.id}
                 onClick={() => handleResourceClick(res)}
-                className="group relative min-h-[94px] md:min-h-[103px] bg-white rounded-[1.25rem] border-[1.5px] border-blue-100/60 shadow-[0_6px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:border-blue-500 hover:-translate-y-2 hover:scale-[1.01] active:scale-[0.95] transition-all duration-500 flex items-center text-left overflow-hidden cursor-pointer py-2"
+                className="group relative min-h-[94px] md:min-h-[103px] bg-white rounded-[1.25rem] border-[1.5px] border-blue-100/60 shadow-[0_6px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:border-blue-500 hover:-translate-y-1 transition-all duration-500 flex items-center text-left overflow-hidden cursor-pointer py-2"
               >
-                {/* 分享标签 */}
                 <div className={`absolute top-0 left-0 h-[18px] md:h-[28px] px-2.5 md:px-5 flex items-center gap-1.5 rounded-br-[1rem] z-20 shadow-sm ${fruit.bg} ${fruit.text} group-hover:pl-7 transition-all duration-500`}>
-                   <span className="text-[6px] md:text-[8px] font-black uppercase tracking-tighter opacity-80 group-hover:scale-105 transition-transform">分享</span>
+                   <span className="text-[6px] md:text-[8px] font-black uppercase tracking-tighter opacity-80 group-hover:scale-105 transition-transform">资料</span>
                    <span className="text-xs md:text-lg font-black italic font-['JetBrains_Mono'] leading-none">
                      {res.shareIndex}
                    </span>
                 </div>
 
-                {/* 图标 */}
                 <div className="shrink-0 w-16 md:w-24 flex items-center justify-center pt-2 md:pt-3">
                    <div className="w-9 h-9 md:w-11 md:h-11 bg-slate-50/50 rounded-xl flex items-center justify-center text-blue-500/20 group-hover:text-blue-600 group-hover:bg-blue-50 group-hover:-rotate-12 group-hover:scale-115 transition-all duration-500">
                      {getIcon(res.type)}
                    </div>
                 </div>
 
-                {/* 内容 */}
                 <div className="flex-1 min-w-0 px-2 flex flex-col justify-center">
                   <div className="flex items-center gap-2.5 mb-0.5">
                     <span className={`text-[7px] md:text-[9px] font-black px-1.5 py-0.5 rounded-full border border-blue-100 bg-blue-50/50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500`}>
@@ -204,6 +188,7 @@ export const LeanLearningPage: React.FC = () => {
                     <div className="flex items-center gap-0.5 text-amber-400/20 group-hover:text-amber-400 transition-colors duration-500">
                       {[...Array(5)].map((_, i) => <Star key={i} size={8} fill={i < res.rating ? "currentColor" : "none"} className="group-hover:animate-pulse" />)}
                     </div>
+                    {res.isNew && <span className="animate-pulse bg-red-500 text-white text-[6px] md:text-[8px] font-black px-1 rounded-sm uppercase tracking-tighter ml-1">NEW</span>}
                   </div>
                   
                   <h3 className="text-sm md:text-lg font-black text-slate-800 line-clamp-1 group-hover:text-blue-600 transition-all duration-500 tracking-tight">
@@ -215,7 +200,6 @@ export const LeanLearningPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* 右侧：统计数值 */}
                 <div className="shrink-0 flex items-center gap-2 md:gap-8 pr-4 md:pr-10">
                   <div className="flex flex-col items-center leading-none text-center">
                     <span className="text-sm md:text-xl font-black font-['JetBrains_Mono'] text-blue-500 tabular-nums group-hover:scale-115 group-hover:text-blue-700 transition-all duration-500">
@@ -225,22 +209,45 @@ export const LeanLearningPage: React.FC = () => {
                       <span className="text-[7px] md:text-[9px] font-black text-slate-400 group-hover:text-blue-500 uppercase tracking-tighter">
                         累计研学
                       </span>
-                      {/* 状态点颜色修正：在线为高亮呼吸果绿，离线为普通果绿 */}
-                      <div className={`w-1.5 h-1.5 rounded-full animate-pulse group-hover:scale-125 transition-all duration-500 ${serverCounts[res.id] !== undefined ? 'bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.9)]' : 'bg-emerald-300'}`}></div>
                     </div>
                   </div>
 
-                  {/* 进入按钮 */}
-                  <div className="w-7 h-7 md:w-11 md:h-11 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-100 group-hover:bg-blue-700 group-hover:rotate-[360deg] group-hover:scale-115 transition-all duration-700 border border-white/20 shrink-0">
+                  <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-100 group-hover:bg-blue-700 group-hover:rotate-90 transition-all duration-500 shrink-0">
                     <ChevronRight size={18} strokeWidth={3} />
                   </div>
                 </div>
 
-                {/* 底部装饰亮线 */}
-                <div className="absolute bottom-0 left-0 h-[2.5px] bg-blue-600 w-0 group-hover:w-full transition-all duration-700"></div>
+                <div className="absolute bottom-0 left-0 h-[2.5px] bg-blue-600 w-0 group-hover:w-full transition-all duration-500"></div>
               </button>
             );
           })}
+
+          {/* 4. 精简美观的底部状态提示 */}
+          <div className="mt-8 pt-4 pb-12 text-center relative">
+             <div className="inline-flex flex-col items-center group">
+                <div className="flex items-center gap-3 mb-3">
+                   <div className="h-px w-8 md:w-16 bg-slate-300"></div>
+                   <div className="p-1.5 bg-blue-50 rounded-full text-blue-500 animate-pulse border border-blue-100">
+                      <Sparkles size={14} />
+                   </div>
+                   <div className="h-px w-8 md:w-16 bg-slate-300"></div>
+                </div>
+                
+                <p className="text-xs md:text-sm font-bold text-slate-500 tracking-wide mb-4 px-6 leading-relaxed">
+                   已上传的资料仅是开始，更多精益管理干货、实战视频和岗位宝典<br className="hidden md:block"/>
+                   正在<span className="text-blue-600 italic">火速制作</span>并陆续上线中
+                </p>
+
+                <button 
+                  onClick={() => onNavigate && onNavigate(ViewState.FEEDBACK)}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#0a1631] hover:bg-blue-900 text-white rounded-full text-[10px] md:text-xs font-black shadow-lg shadow-blue-900/10 hover:shadow-blue-900/30 transition-all transform active:scale-95"
+                >
+                  <MessageSquarePlus size={14} />
+                  我想看点别的
+                  <ChevronRight size={14} strokeWidth={3} className="ml-0.5 group-hover:translate-x-1 transition-transform" />
+                </button>
+             </div>
+          </div>
         </div>
       </main>
 
@@ -249,26 +256,32 @@ export const LeanLearningPage: React.FC = () => {
         <div className="fixed inset-0 z-[100] bg-slate-950/98 backdrop-blur-3xl flex flex-col animate-in fade-in duration-500">
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#0a1631] shrink-0">
             <div className="flex items-center gap-2">
-               <div className="p-2 bg-blue-600 text-white rounded-lg shadow-lg animate-pulse"><Zap size={16} fill="currentColor" /></div>
+               <div className="p-2 bg-blue-600 text-white rounded-lg shadow-lg"><Zap size={16} fill="currentColor" /></div>
                <h2 className="text-white font-black text-sm md:text-xl truncate max-w-[200px] md:max-w-4xl tracking-tight">{selectedResource.title}</h2>
             </div>
             <button onClick={() => setSelectedResource(null)} className="p-2 text-white/40 hover:text-white hover:bg-red-500 hover:rotate-90 rounded-full transition-all duration-300">
               <X size={24} />
             </button>
           </div>
-          <div className="flex-1 relative flex items-center justify-center p-1 md:p-6 bg-black/20">
-            <div className="w-full h-full bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-500">
+          <div className="flex-1 relative flex items-center justify-center p-1 md:p-6 bg-black/10">
+            <div className={`w-full h-full bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-500 ${selectedResource.type === 'video' ? 'max-w-5xl aspect-video' : ''}`}>
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 text-white z-0">
                 <Loader2 className="animate-spin text-blue-500 mb-2" size={32} />
               </div>
-              <iframe src={selectedResource.url} className="w-full h-full border-none relative z-10" title="Viewer" />
+              <iframe 
+                src={selectedResource.url} 
+                className="w-full h-full border-none relative z-10" 
+                title="Viewer" 
+                allowFullScreen={true}
+                allow="autoplay; fullscreen"
+              />
             </div>
           </div>
           <div className="px-4 py-2 bg-[#0a1631] border-t border-white/10 flex items-center justify-between shrink-0">
              <span className="text-[9px] text-white/40 font-black tracking-widest uppercase flex items-center gap-1">
                <Clock size={12} className="text-blue-500" /> 更新于 {selectedResource.updateDate}
              </span>
-             <a href={selectedResource.url} target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-[9px] font-black rounded-full flex items-center gap-1 shadow-lg transition-all hover:scale-105">外部浏览器打开 <ExternalLink size={12} /></a>
+             <a href={selectedResource.url} target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-[9px] font-black rounded-full flex items-center gap-1 shadow-lg transition-all hover:scale-105">新窗口打开 <ExternalLink size={12} /></a>
           </div>
         </div>
       )}
