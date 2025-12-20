@@ -1,23 +1,38 @@
 
 export enum ViewState {
-  HOME = 'HOME', // 主页
-  IMPORTANT_FILES = 'IMPORTANT_FILES', // 重要文件 (菜单组)
-  COMPREHENSIVE_REMEDIATION_PLAN = 'COMPREHENSIVE_REMEDIATION_PLAN', // 公司治本攻坚三年专项整治方案
-  HAZARD_CRITERIA_STANDARD = 'HAZARD_CRITERIA_STANDARD', // 2023版重大隐患判定标准（炼钢部分）
-  ACTION_PLAN_PROGRESS_TABLE = 'ACTION_PLAN_PROGRESS_TABLE', // 2025年治本攻坚三年行动重点任务月度推进表
-  LEAN_LEARNING = 'LEAN_LEARNING', // 精益学习交流平台资料
-  LEAN_PROPOSAL = 'LEAN_PROPOSAL', // 精益提案 (包括子菜单)
-  MICRO_IMPROVEMENT = 'MICRO_IMPROVEMENT', // 微改善 (包括子菜单)
-  JOB_OPERATING_PROCEDURES = 'JOB_OPERATING_PROCEDURES', // 各岗位操作规程
-  JOB_SAFETY_RESPONSIBILITIES = 'JOB_SAFETY_RESPONSIBILITIES', // 各岗位安全职责（责任制）
-  PLANT_EMERGENCY_PLAN = 'PLANT_EMERGENCY_PLAN', // 第二炼钢厂专项应急预案
-  SAFETY_CERT_QUERY = 'SAFETY_CERT_QUERY', // 安全培训合格证查询
-  RESTRICTED_SPACE_QUERY = 'RESTRICTED_SPACE_QUERY', // 二炼钢有限空间查询
-  OUTSOURCED_REGISTRATION = 'OUTSOURCED_REGISTRATION', // 外委施工入厂登记
-  APP_DOWNLOADS = 'APP_DOWNLOADS', // App下载安装 (包括子菜单)
-  APP_SHOUAN = 'APP_SHOUAN', // 首安云下载 (内嵌)
-  APP_EXAM_STAR = 'APP_EXAM_STAR', // 考试星下载 (内嵌)
-  FEEDBACK = 'FEEDBACK', // 意见反馈
+  HOME = 'HOME',
+  IMPORTANT_FILES = 'IMPORTANT_FILES',
+  COMPREHENSIVE_REMEDIATION_PLAN = 'COMPRE_PLAN',
+  HAZARD_CRITERIA_STANDARD = 'HAZARD_STD',
+  ACTION_PLAN_PROGRESS_TABLE = 'PROGRESS_TABLE',
+  LEAN_LEARNING = 'LEAN_LEARNING',
+  LEAN_PROPOSAL = 'LEAN_PROPOSAL',
+  MICRO_IMPROVEMENT = 'MICRO_IMPROVEMENT',
+  JOB_OPERATING_PROCEDURES = 'JOB_PROCEDURES',
+  JOB_SAFETY_RESPONSIBILITIES = 'JOB_RESP',
+  PLANT_EMERGENCY_PLAN = 'EMERGENCY_PLAN',
+  SAFETY_CERT_QUERY = 'CERT_QUERY',
+  RESTRICTED_SPACE_QUERY = 'SPACE_QUERY',
+  OUTSOURCED_REGISTRATION = 'OUTSOURCED_REG',
+  APP_DOWNLOADS = 'APP_DOWNLOADS',
+  APP_SHOUAN = 'APP_SHOUAN',
+  APP_EXAM_STAR = 'APP_EXAM_STAR',
+  FEEDBACK = 'FEEDBACK',
+}
+
+export interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  type: 'word' | 'pdf' | 'video' | 'ppt' | 'excel';
+  url: string;
+  updateDate: string;
+  rating: number;
+  isNew?: boolean;
+  isHot?: boolean;
+  shareIndex?: string; // 对应“分享 01”
+  clickCount?: number; // 模拟累计学习点击
 }
 
 export interface NavLinkItem {
@@ -37,51 +52,47 @@ export interface MenuItem {
   type: 'component' | 'iframe' | 'link_group' | 'external_single_tab' | 'document' | 'header';
   path?: string;
   subLinks?: NavLinkItem[];
-  documentKey?: '治本攻坚方案' | '重大隐患标准' | '二炼钢专项应急预案' | '操作规程' | '安全职责';
   hidden?: boolean;
 }
 
+// Fix: Added DocumentSection interface to resolve missing export error in DocumentPage.tsx
 export interface DocumentSection {
-  heading: string;
+  heading?: string;
   paragraphs?: string[];
   listItems?: string[];
-  subSections?: DocumentSection[];
-  table?: { headers: string[]; rows: string[][] };
-  image?: { src: string; alt: string; caption?: string; width?: string };
-}
-
-export interface DocumentContent {
-  title: string;
-  subtitle?: string;
-  sections: DocumentSection[];
   image?: {
     src: string;
     alt: string;
     caption?: string;
-  }
+    width?: string;
+  };
+  table?: {
+    headers: string[];
+    rows: string[][];
+  };
+  subSections?: DocumentSection[];
 }
 
-export interface SubLinkItem {
+// Fix: Updated DocumentContent to include optional image and use DocumentSection for sections
+export interface DocumentContent {
   title: string;
-  url: string;
+  subtitle?: string;
+  image?: {
+    src: string;
+    alt: string;
+  };
+  sections: DocumentSection[];
 }
 
-export interface LinkItem {
-  id: string;
-  title: string;
-  url: string;
-  icon: string;
-  category: string;
-  color: string;
-  subLinks?: SubLinkItem[];
-}
+// Fix: Added Procedure types to resolve missing export errors in ProceduresPage.tsx and SafetyResponsibilitiesPage.tsx
+export type ProcedureItem = string;
 
-export interface ProcedureItem {
+export interface ProcedureRole {
   role: string;
-  items: string[];
+  items: ProcedureItem[];
 }
 
 export interface ProcedureCategory {
   name: string;
-  roles: ProcedureItem[];
+  roles: ProcedureRole[];
 }

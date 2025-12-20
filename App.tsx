@@ -12,17 +12,15 @@ import { ExamDownloadPage } from './components/ExamDownloadPage';
 import { ProceduresPage } from './components/ProceduresPage';
 import { SafetyResponsibilitiesPage } from './components/SafetyResponsibilitiesPage';
 import { AppDownloadsLandingPage } from './components/AppDownloadsLandingPage';
-import { LeanLearningComingSoon } from './components/LeanLearningComingSoon';
+import { LeanLearningPage } from './components/LeanLearningPage'; // 修改这里
 import { FeedbackPage } from './components/FeedbackPage';
 import { ViewState } from './types';
-import { Menu, Download, BellRing, X } from 'lucide-react';
-import { SIDEBAR_MENU_ITEMS, DOCUMENT_CONTENTS } from './constants';
+import { Menu, Download, BellRing } from 'lucide-react';
+import { SIDEBAR_MENU_ITEMS } from './constants';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.HOME);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
-  // PWA 安装引导状态
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallBanner, setShowInstallBanner] = useState(false);
   const [showNotifyBanner, setShowNotifyBanner] = useState(false);
@@ -35,14 +33,11 @@ const App: React.FC = () => {
         setShowInstallBanner(true);
       }
     };
-
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
     if ('Notification' in window && Notification.permission === 'default') {
       const timer = setTimeout(() => setShowNotifyBanner(true), 5000);
       return () => clearTimeout(timer);
     }
-
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   }, [currentView]);
 
@@ -74,7 +69,7 @@ const App: React.FC = () => {
         if (activeMenuItem.id === ViewState.APP_DOWNLOADS) return <AppDownloadsLandingPage setView={setCurrentView} />;
         if (activeMenuItem.id === ViewState.JOB_OPERATING_PROCEDURES) return <ProceduresPage />;
         if (activeMenuItem.id === ViewState.JOB_SAFETY_RESPONSIBILITIES) return <SafetyResponsibilitiesPage />;
-        if (activeMenuItem.id === ViewState.LEAN_LEARNING) return <LeanLearningComingSoon />;
+        if (activeMenuItem.id === ViewState.LEAN_LEARNING) return <LeanLearningPage />; // 修改这里
         if (activeMenuItem.id === ViewState.FEEDBACK) return <FeedbackPage />;
         return <div className="p-8">未知页面。</div>;
       case 'iframe':
@@ -88,29 +83,21 @@ const App: React.FC = () => {
     }
   };
 
-  // 这里的逻辑决定了页面是否“撑满”全屏
   const isFullWidthPage = 
     currentView === ViewState.HOME || 
-    currentView === ViewState.LEAN_LEARNING || // 新增：精益学习板块需要全屏背景
+    currentView === ViewState.LEAN_LEARNING || 
     activeMenuItem?.type === 'iframe' || 
     activeMenuItem?.id === ViewState.JOB_OPERATING_PROCEDURES;
 
   return (
     <div className="flex h-screen bg-white md:bg-slate-50 overflow-hidden font-sans">
-      <Sidebar 
-        currentView={currentView} 
-        setView={setCurrentView} 
-        isOpen={isSidebarOpen} 
-        setIsOpen={setIsSidebarOpen} 
-      />
-
+      <Sidebar currentView={currentView} setView={setCurrentView} isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-        
         {showInstallBanner && currentView === ViewState.HOME && (
           <div className="bg-blue-600 text-white px-4 py-2 flex items-center justify-between shadow-lg animate-slide-down z-50">
             <div className="flex items-center gap-2">
               <Download size={18} className="animate-bounce" />
-              <span className="text-sm font-bold">安装“二炼钢平台”到桌面，体验更流畅</span>
+              <span className="text-sm font-bold">安装“二炼钢平台”到桌面</span>
             </div>
             <div className="flex gap-4">
               <button onClick={() => setShowInstallBanner(false)} className="text-xs opacity-70">以后再说</button>
@@ -118,20 +105,6 @@ const App: React.FC = () => {
             </div>
           </div>
         )}
-
-        {showNotifyBanner && !showInstallBanner && (
-          <div className="bg-slate-800 text-white px-4 py-2 flex items-center justify-between shadow-lg animate-slide-down z-50">
-            <div className="flex items-center gap-2">
-              <BellRing size={18} className="text-blue-400" />
-              <span className="text-sm font-bold">开启消息通知，实时接收安全及生产通告</span>
-            </div>
-            <div className="flex gap-4">
-              <button onClick={() => setShowNotifyBanner(false)} className="text-xs opacity-70">暂时不需要</button>
-              <button onClick={handleNotifyRequest} className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-black">开启通知</button>
-            </div>
-          </div>
-        )}
-
         <header className="lg:hidden sticky top-0 z-10 flex items-center justify-between bg-white/95 backdrop-blur-sm border-b border-slate-200 px-4 py-2.5 shadow-sm">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">二</div>
@@ -142,22 +115,15 @@ const App: React.FC = () => {
             <Menu size={20} strokeWidth={2.5} />
           </button>
         </header>
-
         <main className={`flex-1 ${isFullWidthPage ? 'overflow-hidden' : 'overflow-y-auto'}`}>
           <div className={`${isFullWidthPage ? 'w-full h-full' : 'max-w-7xl mx-auto'}`}>
             {renderContent()}
           </div>
         </main>
       </div>
-
       <style>{`
-        @keyframes slide-down {
-          from { transform: translateY(-100%); }
-          to { transform: translateY(0); }
-        }
-        .animate-slide-down {
-          animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        @keyframes slide-down { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+        .animate-slide-down { animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       `}</style>
     </div>
   );
