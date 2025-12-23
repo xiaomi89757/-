@@ -167,9 +167,9 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
                 onClick={() => handleResourceClick(res)}
                 className="group relative min-h-[94px] md:min-h-[103px] bg-white rounded-[1.25rem] border-[1.5px] border-blue-100/60 shadow-[0_6px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:border-blue-500 hover:-translate-y-1 transition-all duration-500 flex items-center text-left overflow-hidden cursor-pointer py-2"
               >
-                <div className={`absolute top-0 left-0 h-[18px] md:h-[28px] px-2.5 md:px-5 flex items-center gap-1.5 rounded-br-[1rem] z-20 shadow-sm ${fruit.bg} ${fruit.text} group-hover:pl-7 transition-all duration-500`}>
+                <div className={`absolute top-0 left-0 h-[22px] md:h-[34px] px-2.5 md:px-5 flex items-center gap-1.5 rounded-br-[1rem] z-20 shadow-sm ${fruit.bg} ${fruit.text} group-hover:pl-7 transition-all duration-500`}>
                    <span className="text-[6px] md:text-[8px] font-black uppercase tracking-tighter opacity-80 group-hover:scale-105 transition-transform">分享</span>
-                   <span className="text-xs md:text-lg font-black italic font-['JetBrains_Mono'] leading-none">
+                   <span className="text-lg md:text-3xl font-black italic font-['JetBrains_Mono'] leading-none">
                      {res.shareIndex}
                    </span>
                 </div>
