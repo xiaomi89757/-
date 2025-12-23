@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Bell, Users, Download } from 'lucide-react';
+import { Bell, Users, Download, Apple, Info, X, Settings, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
 import { ViewState } from '../types';
 
 interface HomePageProps {
@@ -9,16 +9,11 @@ interface HomePageProps {
   canInstall?: boolean;
 }
 
-// ==========================================
-// 迁移底数设置：
-// 设置为 50，则显示的最终数字 = 实际访客数 + 50
 const UV_BASE_OFFSET = 50; 
-// ==========================================
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canInstall }) => {
   const [notices, setNotices] = useState<string[]>([]);
-  
-  // 仅存储纯数字原始值
+  const [showAppleModal, setShowAppleModal] = useState(false);
   const [rawUV, setRawUV] = useState<number>(() => {
     const saved = localStorage.getItem('steel_plant_raw_uv_v3');
     return saved ? parseInt(saved) : 0;
@@ -33,7 +28,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
     ];
     setNotices(mockNotices);
 
-    // 监听 index.html 中隐藏的原始 span
     const targetNode = document.getElementById('busuanzi_value_site_uv');
     if (!targetNode) return;
 
@@ -44,19 +38,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
         if (!isNaN(num) && num > 0) {
           setRawUV(num);
           localStorage.setItem('steel_plant_raw_uv_v3', num.toString());
-          // 关键：获取到数值后立即停止观察，防止数字无限增长或重复触发
           obs.disconnect();
         }
       }
     });
 
     observer.observe(targetNode, { childList: true, characterData: true, subtree: true });
-
     return () => observer.disconnect();
   }, []);
 
-  // 计算最终显示的数字：原始值 + 基数
-  // 如果 rawUV 还是 0 且没有缓存，则显示 ...
   const displayValue = rawUV > 0 ? (rawUV + UV_BASE_OFFSET).toLocaleString() : '...';
 
   return (
@@ -65,8 +55,38 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/15 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="relative z-10 mb-10 md:mb-16 space-y-6 md:space-y-8 max-w-full -top-12 md:top-0 w-full flex flex-col items-center">
+      {/* 精心设计的苹果用户tips文字气泡 */}
+      <button 
+        onClick={() => setShowAppleModal(true)}
+        className="fixed bottom-24 right-6 md:right-10 z-50 group flex flex-col items-end animate-apple-float"
+      >
+        <div className="relative flex items-center gap-2.5 bg-white/90 backdrop-blur-2xl border border-white px-5 py-2.5 rounded-[1.5rem] shadow-[0_12px_40px_rgba(0,0,0,0.15)] group-hover:bg-white group-hover:scale-105 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 cursor-pointer ring-4 ring-blue-500/5">
+          {/* 装饰性星星动画 */}
+          <div className="absolute -top-2 -left-2 text-amber-400 animate-spin-slow">
+            <Sparkles size={16} />
+          </div>
+          
+          <div className="bg-slate-900 rounded-full p-1.5 shadow-sm">
+            <Apple className="text-white" size={16} strokeWidth={2.5} />
+          </div>
+          
+          <div className="flex flex-col items-start leading-tight">
+            <span className="text-slate-800 text-[11px] font-black tracking-tight">苹果用户tips</span>
+            <span className="text-slate-400 text-[8px] font-bold uppercase tracking-widest opacity-80">iOS Guide</span>
+          </div>
+          
+          {/* 通知性小红点 */}
+          <div className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white"></span>
+          </div>
+        </div>
         
+        {/* 气泡小尖角 - 模仿 iOS 风格 */}
+        <div className="mr-8 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white/90 drop-shadow-[0_4px_4px_rgba(0,0,0,0.05)]"></div>
+      </button>
+
+      <div className="relative z-10 mb-10 md:mb-16 space-y-6 md:space-y-8 max-w-full -top-12 md:top-0 w-full flex flex-col items-center">
         <div className="w-full px-6 sm:px-4 flex justify-center">
           <h1 className="text-[clamp(1.75rem,8.8vw,3.5rem)] sm:text-5xl md:text-7xl font-black text-white tracking-tight sm:tracking-wider drop-shadow-[0_8px_24px_rgba(0,0,0,0.8)] leading-tight break-keep">
             <span className="sm:hidden block">第二炼钢厂管理平台</span>
@@ -142,6 +162,55 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
         </p>
       </div>
 
+      {/* Apple 用户设置指南模态框 */}
+      {showAppleModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="max-w-sm w-full bg-white rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div className="bg-[#f2f2f7] px-6 py-4 flex items-center justify-between border-b border-slate-200">
+               <div className="flex items-center gap-2">
+                 <Apple size={20} className="text-slate-800" />
+                 <h4 className="font-bold text-slate-800">iOS 体验优化指导</h4>
+               </div>
+               <button onClick={() => setShowAppleModal(false)} className="p-2 bg-white rounded-full shadow-sm text-slate-400 hover:text-slate-800 transition-colors">
+                 <X size={18} />
+               </button>
+            </div>
+            
+            <div className="p-6 md:p-8 space-y-6">
+               <p className="text-sm text-slate-500 leading-relaxed text-left">
+                 针对苹果 iOS 系统用户，为了确保平台内嵌文档正常显示且保持登录状态，请进行以下简单设置：
+               </p>
+
+               <div className="space-y-4">
+                  {[
+                    { step: 1, text: "打开手机“设置”", icon: <Settings size={14} /> },
+                    { step: 2, text: "下滑找到“Safari 浏览器”", icon: <ChevronRight size={14} /> },
+                    { step: 3, text: "找到“隐私与安全”栏目", icon: <ShieldCheck size={14} /> },
+                    { step: 4, text: "关闭“阻止跨网站跟踪”", icon: <Info size={14} className="text-blue-500" /> }
+                  ].map((item) => (
+                    <div key={item.step} className="flex items-center gap-4 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                       <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-black shrink-0">
+                         {item.step}
+                       </div>
+                       <div className="flex-1 flex items-center justify-between">
+                         <span className="text-sm font-bold text-slate-700">{item.text}</span>
+                         <span className="text-slate-300">{item.icon}</span>
+                       </div>
+                    </div>
+                  ))}
+               </div>
+
+               <button 
+                 onClick={() => setShowAppleModal(false)}
+                 className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black text-sm shadow-xl shadow-blue-500/20 active:scale-95 transition-all"
+               >
+                 我已了解
+               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <style>{`
         @keyframes marquee-scroll {
           0% { transform: translateX(0); }
@@ -156,6 +225,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
         }
         .marquee-content {
           display: inline-flex;
+        }
+        
+        @keyframes apple-float {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-12px) scale(1.02); }
+        }
+        .animate-apple-float {
+          animation: apple-float 4s ease-in-out infinite;
+        }
+        
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 8s linear infinite;
         }
       `}</style>
     </div>

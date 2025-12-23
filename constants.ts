@@ -106,8 +106,176 @@ export const LEAN_RESOURCES: Resource[] = [
     url: 'https://player.bilibili.com/player.html?isOutside=true&aid=115749620286133&bvid=BV1eyqBB4EQp&cid=34854537379&p=1',
     updateDate: '2025-02-25',
     rating: 5,
-    isNew: true,
     shareIndex: '05'
+  },
+  {
+    id: 'l-06',
+    title: '5分钟看透目视化管理本质',
+    description: '通过视觉化手段实现异常管理与标准透明化的核心逻辑。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cimVL2GtWjFL',
+    updateDate: '2025-02-26',
+    rating: 5,
+    shareIndex: '06'
+  },
+  {
+    id: 'l-07',
+    title: '做精益要做的四个减法',
+    description: '精益不仅仅是增加工具，更是通过减法去除无效动作与浪费。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cp4xqLoBCWCH',
+    updateDate: '2025-02-27',
+    rating: 4,
+    shareIndex: '07'
+  },
+  {
+    id: 'l-08',
+    title: '运用SWOT、PDCA、SMART工具搭建高效管理模式',
+    description: '综合运用管理工具链，实现从战略分析到执行闭环的全流程。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/ciz8CNsP5UNu',
+    updateDate: '2025-02-28',
+    rating: 5,
+    shareIndex: '08'
+  },
+  {
+    id: 'l-09',
+    title: '人机料法环测，工厂管理全面分析',
+    description: '深挖生产要素中的不稳定点，全面系统地进行工厂效能诊断。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cmVGkUm9u0RC',
+    updateDate: '2025-03-01',
+    rating: 5,
+    shareIndex: '09'
+  },
+  {
+    id: 'l-10',
+    title: '精益领导力十二范式',
+    description: '从管理者到领导者的转变，塑造精益文化的核心软实力。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cp73eq55tGuM',
+    updateDate: '2025-03-02',
+    rating: 5,
+    shareIndex: '10'
+  },
+  {
+    id: 'l-11',
+    title: '格鲁克工作逻辑思维',
+    description: '高效工作的逻辑架构，从结果导向思维重塑日常作业效率。',
+    category: '基础理论',
+    type: 'video',
+    url: 'https://player.bilibili.com/player.html?bvid=BV1n1B8BmEK4&page=1',
+    updateDate: '2025-03-03',
+    rating: 5,
+    isNew: true,
+    shareIndex: '11'
+  },
+  {
+    id: 'l-12',
+    title: '从六个维度，构建精益管理体系化',
+    description: '系统化推进精益的路线图，避免碎片化改进的系统性方案。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cqmNxqYpWjCf',
+    updateDate: '2025-03-04',
+    rating: 4,
+    shareIndex: '12'
+  },
+  {
+    id: 'l-13',
+    title: '错误反复发生？如何构建防错体系',
+    description: 'Poka-Yoke 技术的深度解析，从源头杜绝人为失误。',
+    category: '改善实战',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cre96AefJA0u',
+    updateDate: '2025-03-05',
+    rating: 5,
+    isHot: true,
+    shareIndex: '13'
+  },
+  {
+    id: 'l-14',
+    title: '八大浪费背后的根源',
+    description: '不仅是识别浪费，更是要看透浪费产生的组织与流程病灶。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cpy3dsdFgG5H',
+    updateDate: '2025-03-06',
+    rating: 5,
+    shareIndex: '14'
+  },
+  {
+    id: 'l-15',
+    title: '传统设备管理与TPM的差异及推行5步骤',
+    description: '全员生产保全的核心思想与落地步骤。',
+    category: '设备保全',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/ch7z7bcYuKaz',
+    updateDate: '2025-03-07',
+    rating: 5,
+    shareIndex: '15'
+  },
+  {
+    id: 'l-16',
+    title: '德鲁克管理思维 - 深度解析',
+    description: '探究卓越管理的真谛，如何通过卓有成效的管理提升组织价值。',
+    category: '基础理论',
+    type: 'video',
+    url: 'https://player.bilibili.com/player.html?bvid=BV1n1B8BmE33&page=1',
+    updateDate: '2025-03-08',
+    rating: 5,
+    isNew: true,
+    shareIndex: '16'
+  },
+  {
+    id: 'l-17',
+    title: '金牌一线班组长的全能通关手册',
+    description: '班组管理的一站式实战指南，涵盖沟通、任务分配与现场管控。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cix1IJIaaZ7o',
+    updateDate: '2025-03-09',
+    rating: 5,
+    shareIndex: '17'
+  },
+  {
+    id: 'l-18',
+    title: '衡量企业仓库精细化管理水平的KPI指标',
+    description: '通过量化数据衡量物流与库存管理的真实效率。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cfhbjjExOwO5',
+    updateDate: '2025-03-10',
+    rating: 4,
+    shareIndex: '18'
+  },
+  {
+    id: 'l-19',
+    title: '干好工作的10种方法',
+    description: '一线职工通用职场技能，提升工作质量与效率的实用技巧。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cl6qqKgbm8NE',
+    updateDate: '2025-03-11',
+    rating: 5,
+    shareIndex: '19'
+  },
+  {
+    id: 'l-20',
+    title: '藏在丰田A3报告里的问题解决逻辑',
+    description: '单页报告背后的深度思考力，结构化解决复杂问题的方法论。',
+    category: '改善实战',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cjkwAfSfYWGl',
+    updateDate: '2025-03-12',
+    rating: 5,
+    isNew: true,
+    shareIndex: '20'
   }
 ];
 

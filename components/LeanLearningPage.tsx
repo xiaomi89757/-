@@ -26,7 +26,7 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
   
   const [serverCounts, setServerCounts] = useState<Record<string, number>>({});
   const [localCounts, setLocalCounts] = useState<Record<string, number>>(() => {
-    const saved = localStorage.getItem('lean_learning_clicks_v3');
+    const saved = localStorage.getItem('lean_learning_clicks_v4');
     return saved ? JSON.parse(saved) : {};
   });
 
@@ -70,7 +70,7 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
     const newLocalValue = (localCounts[res.id] || 0) + 1;
     const updatedLocal = { ...localCounts, [res.id]: newLocalValue };
     setLocalCounts(updatedLocal);
-    localStorage.setItem('lean_learning_clicks_v3', JSON.stringify(updatedLocal));
+    localStorage.setItem('lean_learning_clicks_v4', JSON.stringify(updatedLocal));
 
     if (WORKER_API_URL) {
       try {
@@ -157,7 +157,7 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
         <div className="max-w-7xl mx-auto flex flex-col gap-3 md:gap-4 pb-20">
           {filteredResources.map((res, index) => {
             const fruit = FRUIT_COLORS[index % FRUIT_COLORS.length];
-            const baseOffsets = [12, 5, 17, 8, 14, 3, 19, 11, 24, 6];
+            const baseOffsets = [12, 5, 17, 8, 14, 3, 19, 11, 24, 6, 13, 21, 9, 30, 4, 16, 22, 10, 27, 8];
             const liveValue = serverCounts[res.id] || localCounts[res.id] || 0;
             const displayCount = liveValue + (baseOffsets[index % baseOffsets.length]);
             
@@ -168,7 +168,7 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
                 className="group relative min-h-[94px] md:min-h-[103px] bg-white rounded-[1.25rem] border-[1.5px] border-blue-100/60 shadow-[0_6px_25px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:border-blue-500 hover:-translate-y-1 transition-all duration-500 flex items-center text-left overflow-hidden cursor-pointer py-2"
               >
                 <div className={`absolute top-0 left-0 h-[18px] md:h-[28px] px-2.5 md:px-5 flex items-center gap-1.5 rounded-br-[1rem] z-20 shadow-sm ${fruit.bg} ${fruit.text} group-hover:pl-7 transition-all duration-500`}>
-                   <span className="text-[6px] md:text-[8px] font-black uppercase tracking-tighter opacity-80 group-hover:scale-105 transition-transform">资料</span>
+                   <span className="text-[6px] md:text-[8px] font-black uppercase tracking-tighter opacity-80 group-hover:scale-105 transition-transform">分享</span>
                    <span className="text-xs md:text-lg font-black italic font-['JetBrains_Mono'] leading-none">
                      {res.shareIndex}
                    </span>
@@ -222,30 +222,38 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
             );
           })}
 
-          {/* 4. 精简美观的底部状态提示 */}
-          <div className="mt-8 pt-4 pb-12 text-center relative">
-             <div className="inline-flex flex-col items-center group">
-                <div className="flex items-center gap-3 mb-3">
-                   <div className="h-px w-8 md:w-16 bg-slate-300"></div>
-                   <div className="p-1.5 bg-blue-50 rounded-full text-blue-500 animate-pulse border border-blue-100">
-                      <Sparkles size={14} />
-                   </div>
-                   <div className="h-px w-8 md:w-16 bg-slate-300"></div>
+          {/* 4. 精简美观的底部状态提示 - 极简流式方案 */}
+          <div className="mt-12 mb-20 text-center relative px-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+             <div className="max-w-xl mx-auto flex flex-col items-center">
+                <div className="flex items-center gap-4 mb-4 opacity-40">
+                   <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-slate-400"></div>
+                   <Sparkles size={16} className="text-blue-500 animate-pulse" />
+                   <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-slate-400"></div>
                 </div>
                 
-                <p className="text-xs md:text-sm font-bold text-slate-500 tracking-wide mb-4 px-6 leading-relaxed">
+                <h4 className="text-xs md:text-sm font-black text-slate-600 tracking-widest uppercase mb-3">
+                   Knowledge Continuous Evolution
+                </h4>
+                
+                <p className="text-xs md:text-sm font-bold text-slate-400 leading-relaxed mb-6">
                    已上传的资料仅是开始，更多精益管理干货、实战视频和岗位宝典<br className="hidden md:block"/>
-                   正在<span className="text-blue-600 italic">火速制作</span>并陆续上线中
+                   正在<span className="text-blue-600 mx-1">火速制作</span>并陆续上线中...
                 </p>
 
-                <button 
-                  onClick={() => onNavigate && onNavigate(ViewState.FEEDBACK)}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#0a1631] hover:bg-blue-900 text-white rounded-full text-[10px] md:text-xs font-black shadow-lg shadow-blue-900/10 hover:shadow-blue-900/30 transition-all transform active:scale-95"
-                >
-                  <MessageSquarePlus size={14} />
-                  我想看点别的
-                  <ChevronRight size={14} strokeWidth={3} className="ml-0.5 group-hover:translate-x-1 transition-transform" />
-                </button>
+                <div className="flex flex-col items-center gap-4">
+                  <button 
+                    onClick={() => onNavigate && onNavigate(ViewState.FEEDBACK)}
+                    className="group flex items-center gap-2 px-8 py-3 bg-white hover:bg-slate-900 hover:text-white border border-slate-200 rounded-full text-[10px] md:text-xs font-black shadow-sm transition-all duration-300"
+                  >
+                    <MessageSquarePlus size={16} className="group-hover:scale-110 transition-transform" />
+                    点菜提报：我想看点别的
+                    <ChevronRight size={14} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                  
+                  <div className="w-32 h-[2px] bg-slate-200 rounded-full overflow-hidden">
+                     <div className="h-full bg-blue-500 w-1/4 animate-progress-indeterminate"></div>
+                  </div>
+                </div>
              </div>
           </div>
         </div>
@@ -289,6 +297,15 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
       <style>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @keyframes progress-indeterminate {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(300%); }
+        }
+        .animate-progress-indeterminate {
+          animation: progress-indeterminate 3s infinite ease-in-out;
+        }
+
         @font-face {
           font-family: 'JetBrains Mono';
           src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/t64vV45VOnY4Bf44Y4S-MIdN.woff2') format('woff2');
