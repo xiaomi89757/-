@@ -9,7 +9,7 @@ interface HomePageProps {
   canInstall?: boolean;
 }
 
-const UV_BASE_OFFSET = 50; 
+const UV_BASE_OFFSET = 100; 
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canInstall }) => {
   const [notices, setNotices] = useState<string[]>([]);
@@ -24,7 +24,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
       '重要通知：【2025年冬季安全生产专项检查】工作已全面启动，请各部门积极配合。',
       '事项提醒：【精益提案申报】截止日期为每月25日，请按时提交。',
       '最新动态：热烈祝贺公司成功荣获EPD平台及全国首家长流程【低碳排放钢双认证】。',
-      '政策宣贯：【公司治本攻坚三年专项整治方案】文件已发布，请认真学习。',
+      '站内更新：精益知识平台知识持续更新中。',
     ];
     setNotices(mockNotices);
 
