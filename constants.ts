@@ -46,6 +46,8 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
   { id: ViewState.RESTRICTED_SPACE_QUERY, label: '有限空间查询', icon: 'Box', type: 'iframe', path: 'https://web.wps.cn/etapps/query/q/MJcTiw1a' },
   { id: ViewState.OUTSOURCED_REGISTRATION, label: '外委登记', icon: 'ClipboardList', type: 'external_single_tab', path: 'https://f.wps.cn/w/PBXs3qUz/' },
   { id: ViewState.APP_DOWNLOADS, label: '应用下载', icon: 'Download', type: 'component' },
+  { id: ViewState.APP_SHOUAN, label: '首安云下载', icon: 'Shield', type: 'component', hidden: true },
+  { id: ViewState.APP_EXAM_STAR, label: '考试星下载', icon: 'Star', type: 'component', hidden: true },
   { id: ViewState.FEEDBACK, label: '意见反馈', icon: 'MessageSquare', type: 'component' }
 ];
 

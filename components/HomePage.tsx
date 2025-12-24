@@ -1,7 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { Bell, Users, Download, Apple, Info, X, Settings, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
+import { Bell, Users, Download, Info, X, Settings, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
 import { ViewState } from '../types';
+
+// 标准苹果实心图标组件
+const AppleIcon = ({ size = 24, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M17.057 1.25c-.864.054-1.89.57-2.484 1.282-.533.642-.96 1.583-.82 2.505.945.073 1.905-.472 2.476-1.157.533-.642.923-1.547.828-2.63m.22 3.82c-1.344 0-2.493.822-3.155.822-.673 0-1.63-.787-2.73-.767-1.442.022-2.772.84-3.512 2.128-1.493 2.597-.382 6.452 1.063 8.543.707 1.023 1.548 2.167 2.658 2.126 1.068-.04 1.474-.693 2.766-.693 1.284 0 1.66.693 2.788.673 1.147-.02 1.874-1.04 2.576-2.072.812-1.192 1.148-2.345 1.168-2.405-.025-.01-2.247-.864-2.272-3.414-.02-2.14 1.745-3.166 1.83-3.216-1.002-1.468-2.553-1.632-3.112-1.675" />
+  </svg>
+);
 
 interface HomePageProps {
   onNavigate: (view: ViewState) => void;
@@ -61,13 +68,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
         className="fixed bottom-24 right-6 md:right-10 z-50 group flex flex-col items-end animate-apple-float"
       >
         <div className="relative flex items-center gap-2.5 bg-white/90 backdrop-blur-2xl border border-white px-5 py-2.5 rounded-[1.5rem] shadow-[0_12px_40px_rgba(0,0,0,0.15)] group-hover:bg-white group-hover:scale-105 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 cursor-pointer ring-4 ring-blue-500/5">
-          {/* 装饰性星星动画 */}
           <div className="absolute -top-2 -left-2 text-amber-400 animate-spin-slow">
             <Sparkles size={16} />
           </div>
           
-          <div className="bg-slate-900 rounded-full p-1.5 shadow-sm">
-            <Apple className="text-white" size={16} strokeWidth={2.5} />
+          <div className="bg-slate-900 rounded-full p-1.5 shadow-sm text-white">
+            <AppleIcon size={16} />
           </div>
           
           <div className="flex flex-col items-start leading-tight">
@@ -75,14 +81,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
             <span className="text-slate-400 text-[8px] font-bold uppercase tracking-widest opacity-80">iOS Guide</span>
           </div>
           
-          {/* 通知性小红点 */}
           <div className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white"></span>
           </div>
         </div>
-        
-        {/* 气泡小尖角 - 模仿 iOS 风格 */}
         <div className="mr-8 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white/90 drop-shadow-[0_4px_4px_rgba(0,0,0,0.05)]"></div>
       </button>
 
@@ -167,9 +170,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="max-w-sm w-full bg-white rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
             <div className="bg-[#f2f2f7] px-6 py-4 flex items-center justify-between border-b border-slate-200">
-               <div className="flex items-center gap-2">
-                 <Apple size={20} className="text-slate-800" />
-                 <h4 className="font-bold text-slate-800">iOS 体验优化指导</h4>
+               <div className="flex items-center gap-2 text-slate-800">
+                 <AppleIcon size={20} />
+                 <h4 className="font-bold">iOS 体验优化指导</h4>
                </div>
                <button onClick={() => setShowAppleModal(false)} className="p-2 bg-white rounded-full shadow-sm text-slate-400 hover:text-slate-800 transition-colors">
                  <X size={18} />

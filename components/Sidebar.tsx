@@ -145,20 +145,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
           </nav>
 
           <div className="p-4 border-t border-white/5 bg-slate-900/50">
-            <div className="flex items-center p-3.5 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-slate-700/80 flex items-center justify-center border border-white/10 shadow-inner">
-                  <User size={20} className="text-blue-200" />
-                </div>
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-slate-900 rounded-full animate-pulse"></div>
-              </div>
-              <div className="ml-3 flex-1 overflow-hidden">
-                <p className="text-[10px] text-blue-300/60 font-bold uppercase tracking-wider mb-0.5">运维负责人</p>
-                <div className="flex items-center">
-                   <p className="text-sm font-bold text-slate-100 truncate group-hover:text-white transition-colors">韩福利</p>
-                </div>
-              </div>
-            </div>
             <div className="mt-3 text-center">
                <p className="text-[10px] text-slate-600/80 font-mono">v2.1.2 · Build 2025</p>
             </div>
