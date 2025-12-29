@@ -28,10 +28,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
 
   useEffect(() => {
     const mockNotices = [
+      '站内更新：精益知识平台已更新至《分享52》',
       '重要通知：【2025年冬季安全生产专项检查】工作已全面启动，请各部门积极配合。',
       '事项提醒：【精益提案申报】截止日期为每月25日，请按时提交。',
       '最新动态：热烈祝贺公司成功荣获EPD平台及全国首家长流程【低碳排放钢双认证】。',
-      '站内更新：精益知识平台知识持续更新中。',
+    
     ];
     setNotices(mockNotices);
 
