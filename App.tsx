@@ -110,10 +110,20 @@ const App: React.FC = () => {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">二</div>
             <span className="font-extrabold text-slate-800 tracking-tight">第二炼钢厂</span>
           </div>
-          <button onClick={() => setIsSidebarOpen(true)} className="flex items-center gap-1 p-2 text-blue-600 rounded-lg active:scale-95 transition-all">
-            <span className="text-sm font-black tracking-widest">菜单</span>
-            <Menu size={20} strokeWidth={2.5} />
-          </button>
+          
+          {/* 优化后的菜单按钮：增加视觉引导 */}
+          <div className="relative">
+            {/* 呼吸波纹背景层 */}
+            <div className="absolute inset-0 bg-blue-600 rounded-full animate-menu-ping opacity-0"></div>
+            
+            <button 
+              onClick={() => setIsSidebarOpen(true)} 
+              className="relative flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-full active:scale-95 transition-all shadow-[0_0_15px_rgba(37,99,235,0.1)] border border-blue-100"
+            >
+              <span className="text-xs font-black tracking-widest">进入菜单</span>
+              <Menu size={18} strokeWidth={3} />
+            </button>
+          </div>
         </header>
         <main className={`flex-1 ${isFullWidthPage ? 'overflow-hidden' : 'overflow-y-auto'}`}>
           <div className={`${isFullWidthPage ? 'w-full h-full' : 'max-w-7xl mx-auto'}`}>
@@ -124,6 +134,15 @@ const App: React.FC = () => {
       <style>{`
         @keyframes slide-down { from { transform: translateY(-100%); } to { transform: translateY(0); } }
         .animate-slide-down { animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        /* 菜单按钮波纹动画 */
+        @keyframes menu-ping {
+          0% { transform: scale(0.8); opacity: 0.5; }
+          100% { transform: scale(1.6); opacity: 0; }
+        }
+        .animate-menu-ping {
+          animation: menu-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
       `}</style>
     </div>
   );

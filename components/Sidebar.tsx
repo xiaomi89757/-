@@ -4,7 +4,8 @@ import {
   Factory, X, HelpCircle, 
   Home, FolderOpen, FileText, AlertTriangle, BookOpen, Send, 
   BarChart3, Wrench, ShieldCheck, Siren, Search, Box, 
-  ClipboardList, Download, User, ChevronRight, MessageSquare
+  ClipboardList, Download, User, ChevronRight, MessageSquare,
+  ClipboardCheck
 } from 'lucide-react';
 import { ViewState, MenuItem } from '../types';
 import { SIDEBAR_MENU_ITEMS } from '../constants';
@@ -35,7 +36,8 @@ const ICON_MAP: Record<string, React.FC<any>> = {
   'Factory': Factory,
   'X': X,
   'HelpCircle': HelpCircle,
-  'MessageSquare': MessageSquare
+  'MessageSquare': MessageSquare,
+  'ClipboardCheck': ClipboardCheck
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, setIsOpen }) => {

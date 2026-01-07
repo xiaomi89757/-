@@ -3,6 +3,7 @@ import { MenuItem, ViewState, Resource } from './types';
 
 export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
   { id: ViewState.HOME, label: '主页', icon: 'Home', type: 'component' },
+  { id: ViewState.RESP_DATA_SUBMIT, label: '责任制数据提交', icon: 'ClipboardCheck', type: 'external_single_tab', path: 'https://f.wps.cn/g/ogQmv746/' },
   { 
     id: ViewState.IMPORTANT_FILES, 
     label: '重要文件', 
