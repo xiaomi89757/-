@@ -34,39 +34,42 @@ export const DownloadGuidePage: React.FC = () => {
           </div>
         </div>
 
-        {/* 1. Account Info Card - Dark Premium */}
-        <div className="bg-slate-900 rounded-[1.5rem] md:rounded-[2rem] shadow-xl p-5 md:p-8 text-white relative overflow-hidden">
+        {/* 1. Account Info Card - Redesigned for High Visibility */}
+        <div className="bg-slate-900 rounded-[1.5rem] md:rounded-[2rem] shadow-xl p-6 md:p-8 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 -mt-6 -mr-6 w-32 h-32 bg-blue-600/15 rounded-full blur-2xl"></div>
           <div className="relative z-10">
-            <div className="flex items-center gap-2.5 mb-5">
-              <KeyRound className="text-blue-400" size={18} />
-              <h2 className="text-base md:text-lg font-black tracking-tight">登录账号与密码指引</h2>
+            <div className="flex items-center gap-2.5 mb-6 md:mb-8">
+              <KeyRound className="text-blue-400" size={20} />
+              <h2 className="text-lg md:text-xl font-black tracking-tight">登录账号与密码指引</h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-3.5 flex items-center group transition-all">
-                <div className="bg-blue-600/20 p-2 rounded-lg mr-3.5 text-blue-400">
-                  <User size={20} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Account Item - Enhanced Visibility */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-6 flex items-center group transition-all hover:bg-white/10">
+                <div className="bg-blue-600/30 p-3.5 rounded-xl mr-5 text-blue-400 group-hover:scale-110 transition-transform">
+                  <User size={28} />
                 </div>
-                <div>
-                  <p className="text-[9px] text-slate-400 font-black uppercase mb-0.5">账号</p>
-                  <p className="text-sm md:text-base font-black text-blue-100">个人身份证号</p>
+                <div className="text-left">
+                  <p className="text-2xl md:text-3xl font-black text-white tracking-tight mb-1">账号</p>
+                  <p className="text-sm md:text-base font-bold text-blue-300">个人身份证号</p>
                 </div>
               </div>
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-3.5 flex items-center group transition-all">
-                <div className="bg-blue-600/20 p-2 rounded-lg mr-3.5 text-blue-400">
-                  <ShieldCheck size={20} />
+
+              {/* Password Item - Enhanced Visibility */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-6 flex items-center group transition-all hover:bg-white/10">
+                <div className="bg-blue-600/30 p-3.5 rounded-xl mr-5 text-blue-400 group-hover:scale-110 transition-transform">
+                  <ShieldCheck size={28} />
                 </div>
-                <div>
-                  <p className="text-[9px] text-slate-400 font-black uppercase mb-0.5">初始密码</p>
-                  <p className="text-sm md:text-base font-black text-blue-100">身份证后 6 位</p>
+                <div className="text-left">
+                  <p className="text-2xl md:text-3xl font-black text-white tracking-tight mb-1">初始密码</p>
+                  <p className="text-sm md:text-base font-bold text-blue-300">身份证后 6 位</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 2. Download Buttons - Flattened for Mobile */}
+        {/* 2. Download Buttons */}
         <div className="space-y-3">
           <div className="flex items-center gap-2 px-1">
             <Download className="text-blue-600" size={16} />
@@ -74,7 +77,7 @@ export const DownloadGuidePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {/* Android Button - Flattened */}
+            {/* Android Button */}
             <a 
               href={androidUrl}
               target="_blank"
@@ -91,7 +94,7 @@ export const DownloadGuidePage: React.FC = () => {
               <ChevronRight className="text-slate-300 group-hover:text-emerald-500" size={18} />
             </a>
 
-            {/* iOS Button - Flattened */}
+            {/* iOS Button */}
             <a 
               href={iosUrl}
               target="_blank"
@@ -108,7 +111,7 @@ export const DownloadGuidePage: React.FC = () => {
               <ChevronRight className="text-slate-300 group-hover:text-slate-800" size={18} />
             </a>
 
-            {/* HarmonyOS Button - Flattened */}
+            {/* HarmonyOS Button */}
             <a 
               href={harmonyUrl}
               target="_blank"
@@ -132,15 +135,14 @@ export const DownloadGuidePage: React.FC = () => {
           </div>
         </div>
 
-        {/* 3. Detailed Guide - Horizontal List */}
-        <div className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 p-5 md:p-8">
+        {/* 3. Detailed Guide */}
+        <div className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 p-6 md:p-8">
           <div className="flex items-center gap-2 mb-6 border-b border-slate-50 pb-3">
             <Info className="text-blue-600" size={18} />
             <h2 className="text-base font-black text-slate-800 tracking-tight">安装步骤详情</h2>
           </div>
 
           <div className="space-y-6 text-left">
-            {/* Steps remain in list format as they are inherently thin */}
             <div className="flex gap-4 group">
               <div className="shrink-0 w-6 h-6 bg-green-500 text-white rounded-lg flex items-center justify-center text-[10px] font-black shadow-md shadow-green-100">1</div>
               <div className="space-y-1">
