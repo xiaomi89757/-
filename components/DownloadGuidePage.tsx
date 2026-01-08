@@ -14,6 +14,7 @@ const AppleIcon = ({ size = 24, className = "" }) => (
 );
 
 export const DownloadGuidePage: React.FC = () => {
+  // 按照用户要求，Android 和 iOS 统一使用此链接
   const androidUrl = "https://safety.sgai.com.cn/appDownload/songting/index.html";
   const iosUrl = "https://safety.sgai.com.cn/appDownload/songting/index.html";
   const harmonyUrl = "https://www.123865.com/s/pR9rVv-0JXO3";
