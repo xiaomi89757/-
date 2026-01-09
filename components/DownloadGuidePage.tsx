@@ -50,12 +50,12 @@ export const DownloadGuidePage: React.FC = () => {
           <div className="relative z-10">
             <div className="flex items-center gap-2.5 mb-6 md:mb-8">
               <KeyRound className="text-blue-400" size={20} />
-              <h2 className="text-lg md:text-xl font-black tracking-tight">登录账号与密码指引</h2>
+              <h2 className="text-lg md:text-xl font-black tracking-tight text-left">登录账号与密码指引</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-6 flex items-center group transition-all hover:bg-white/10">
-                <div className="bg-blue-600/30 p-3.5 rounded-xl mr-5 text-blue-400 group-hover:scale-110 transition-transform">
+                <div className="bg-blue-600/30 p-3.5 rounded-xl mr-5 text-blue-400 group-hover:scale-110 transition-transform text-left">
                   <User size={28} />
                 </div>
                 <div className="text-left">
@@ -65,7 +65,7 @@ export const DownloadGuidePage: React.FC = () => {
               </div>
 
               <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 md:p-6 flex items-center group transition-all hover:bg-white/10">
-                <div className="bg-blue-600/30 p-3.5 rounded-xl mr-5 text-blue-400 group-hover:scale-110 transition-transform">
+                <div className="bg-blue-600/30 p-3.5 rounded-xl mr-5 text-blue-400 group-hover:scale-110 transition-transform text-left">
                   <ShieldCheck size={28} />
                 </div>
                 <div className="text-left">
@@ -77,7 +77,7 @@ export const DownloadGuidePage: React.FC = () => {
           </div>
         </div>
 
-        {/* 2. Download Buttons */}
+        {/* 2. Download Buttons - Optimized for Uniformity */}
         <div className="space-y-3">
           <div className="flex items-center gap-2 px-1">
             <Download className="text-blue-600" size={16} />
@@ -85,6 +85,7 @@ export const DownloadGuidePage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {/* Android Button */}
             <a 
               href={androidUrl}
               target="_blank"
@@ -101,6 +102,7 @@ export const DownloadGuidePage: React.FC = () => {
               <ChevronRight className="text-slate-300 group-hover:text-emerald-500" size={18} />
             </a>
 
+            {/* iOS Button */}
             <a 
               href={iosUrl}
               target="_blank"
@@ -117,31 +119,33 @@ export const DownloadGuidePage: React.FC = () => {
               <ChevronRight className="text-slate-300 group-hover:text-slate-800" size={18} />
             </a>
 
-            {/* X64位版按钮 */}
+            {/* X64位版按钮 - 现在已改为统一的白底卡片风格 */}
             <a 
               href={harmonyUrl}
               download="songgang-shouanyun-x64.apk"
-              className="group flex items-center p-3.5 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 active:scale-[0.98] ring-4 ring-blue-600/10"
+              className="group flex items-center p-3.5 bg-white border border-slate-200 rounded-2xl hover:border-blue-500 hover:bg-blue-50 transition-all shadow-sm active:scale-[0.98]"
             >
-              <div className="w-10 h-10 bg-white/20 text-white rounded-xl flex items-center justify-center mr-4 shadow-inner">
+              <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mr-4 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-inner">
                 <Layers size={22} />
               </div>
               <div className="flex-1 text-left">
                 <div className="flex items-center gap-1.5">
-                  <h4 className="text-sm font-black">X64位版</h4>
-                  <Zap size={12} className="text-yellow-300 animate-pulse" />
+                  <h4 className="text-sm font-black text-slate-800">X64位版</h4>
+                  <Zap size={12} className="text-yellow-500 animate-pulse" />
                 </div>
-                <p className="text-[10px] text-blue-100 font-bold">新机型 / 鸿蒙版适用</p>
+                <p className="text-[10px] text-slate-400 font-bold group-hover:text-blue-600 transition-colors">新机型 / 鸿蒙版适用</p>
               </div>
-              <Download className="text-white/60 group-hover:text-white transition-colors" size={18} />
+              <ChevronRight className="text-slate-300 group-hover:text-blue-500" size={18} />
             </a>
           </div>
         </div>
 
-        {/* 3. Detailed Guide - Restructured */}
+        {/* 3. Detailed Guide */}
         <div className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 p-6 md:p-8">
           <div className="flex items-center gap-2 mb-6 border-b border-slate-50 pb-3">
-            <Info className="text-blue-600" size={18} />
+            <div className="p-1.5 bg-blue-50 text-blue-600 rounded-lg">
+              <Info size={18} />
+            </div>
             <h2 className="text-base font-black text-slate-800 tracking-tight">安装步骤详情</h2>
           </div>
 
