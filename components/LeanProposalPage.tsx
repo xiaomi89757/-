@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { 
   ExternalLink, ArrowRight, ChevronRight, 
   Send, Search, Presentation, LayoutGrid, 
-  Loader2, Maximize2, Zap
+  Loader2, Maximize2, Zap, Sparkles
 } from 'lucide-react';
 import { NavLinkItem, ViewState } from '../types';
 import { SafariBridge } from './SafariBridge';
@@ -77,6 +77,7 @@ export const LeanProposalPage: React.FC<LeanProposalPageProps> = ({ title, links
             {links.map((link, index) => {
               const Icon = link.icon ? ICONS[link.icon] : Zap;
               const theme = link.color ? THEMES[link.color] : THEMES.indigo;
+              const isSubmission = link.label === '精益提案提报';
               
               return (
                 <a
@@ -86,6 +87,14 @@ export const LeanProposalPage: React.FC<LeanProposalPageProps> = ({ title, links
                   rel="noopener noreferrer"
                   className={`group relative overflow-hidden transition-all duration-300 transform hover:-translate-y-1.5 hover:brightness-110 shadow-xl ${theme.shadow} ${theme.bg} flex flex-row items-center h-[72px] px-4 rounded-[2rem] lg:flex-col lg:items-start lg:justify-between lg:h-[150px] lg:p-6 lg:rounded-[2rem]`}
                 >
+                  {/* 2026 新版点缀标识 */}
+                  {isSubmission && (
+                    <div className="absolute top-2 right-4 lg:top-4 lg:right-6 z-20 flex items-center gap-1 px-2 py-0.5 bg-yellow-400 text-slate-900 text-[8px] lg:text-[10px] font-black rounded-full shadow-lg animate-bounce-slow ring-2 ring-yellow-300/30">
+                      <Sparkles size={10} className="animate-pulse" />
+                      2026 · NEW
+                    </div>
+                  )}
+
                   <div className="hidden lg:block absolute top-0 right-0 -mr-8 -mt-8 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
                   <div className={`shrink-0 flex items-center justify-center rounded-xl bg-white/20 backdrop-blur-md shadow-inner text-white w-10 h-10 mr-4 lg:w-11 lg:h-11 lg:mb-4 lg:group-hover:scale-110 transition-transform`}>
                     <Icon size={24} />
@@ -136,6 +145,15 @@ export const LeanProposalPage: React.FC<LeanProposalPageProps> = ({ title, links
           <div className="h-12"></div>
         </div>
       </div>
+      <style>{`
+        @keyframes bounce-slow {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+        .animate-bounce-slow {
+          animation: bounce-slow 2s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 };
