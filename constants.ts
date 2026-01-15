@@ -10,13 +10,11 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
     icon: 'FolderOpen', 
     type: 'link_group',
     subLinks: [
-      // Fix: Use correct enum keys COMPREHENSIVE_REMEDIATION_PLAN, HAZARD_CRITERIA_STANDARD, and ACTION_PLAN_PROGRESS_TABLE
       { label: '治本攻坚三年专项整治方案', viewId: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, description: '工作目标与任务清单', icon: 'FileText', color: 'rose' },
       { label: '2023版重大事故隐患判定标准', viewId: ViewState.HAZARD_CRITERIA_STANDARD, description: '工贸企业标准解读', icon: 'AlertTriangle', color: 'orange' },
       { label: '2025年重点任务推进表', viewId: ViewState.ACTION_PLAN_PROGRESS_TABLE, description: '月度任务跟踪', icon: 'ClipboardList', color: 'blue' }
     ]
   },
-  // Fix: Use correct enum keys for iframe mappings
   { id: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, label: '方案', icon: 'FileText', type: 'iframe', path: 'https://kdocs.cn/l/cefIGFFgviDR', hidden: true },
   { id: ViewState.HAZARD_CRITERIA_STANDARD, label: '标准', icon: 'AlertTriangle', type: 'iframe', path: 'https://kdocs.cn/l/csvBw09bymX6', hidden: true },
   { id: ViewState.ACTION_PLAN_PROGRESS_TABLE, label: '推进表', icon: 'ClipboardList', type: 'iframe', path: 'https://www.kdocs.cn/l/cmagm8QKt8Sz', hidden: true },
@@ -28,7 +26,7 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
     type: 'link_group',
     subLinks: [
       { label: '精益提案提报', url: 'https://f.wps.cn/g/SduuEqae/', openInNewTab: true, description: '助力降本增效', icon: 'Send', color: 'indigo' },
-      { label: '已提报提案查看', url: 'https://www.kdocs.cn/l/cshW3GzmadPZ', openInNewTab: true, icon: 'Search', color: 'cyan' },
+      { label: '已提报提案查看', url: 'https://www.kdocs.cn/l/caIeWgrNR5Uf', openInNewTab: true, icon: 'Search', color: 'cyan' },
       { label: '精益提案展示', url: 'https://www.kdocs.cn/folder/ctNEL', openInNewTab: true, icon: 'Presentation', color: 'violet' }
     ]
   },
