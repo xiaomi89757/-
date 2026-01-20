@@ -2,7 +2,7 @@
 {
   "name": "第二炼钢厂综合管理平台",
   "short_name": "二炼钢平台",
-  "start_url": "https://stelg.xyz/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#2563eb",

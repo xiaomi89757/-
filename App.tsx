@@ -26,34 +26,50 @@ const App: React.FC = () => {
   const [showNotifyBanner, setShowNotifyBanner] = useState(false);
 
   useEffect(() => {
+    // 监听安装弹窗事件
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
+      // 仅在主页显示安装横幅，避免干扰用户
       if (currentView === ViewState.HOME) {
         setShowInstallBanner(true);
       }
     };
+
+    // 监听安装成功事件
+    const handleAppInstalled = () => {
+      console.log('PWA was installed successfully');
+      setDeferredPrompt(null);
+      setShowInstallBanner(false);
+    };
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
     if ('Notification' in window && Notification.permission === 'default') {
       const timer = setTimeout(() => setShowNotifyBanner(true), 5000);
       return () => clearTimeout(timer);
     }
-    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
   }, [currentView]);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
+    
+    // 显示浏览器自带的安装确认框
     deferredPrompt.prompt();
+    
+    // 等待用户反馈
     const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') console.log('PWA installed');
+    console.log(`User response to the install prompt: ${outcome}`);
+    
+    // 无论结果如何，都要清理 prompt 对象，它只能被使用一次
     setDeferredPrompt(null);
     setShowInstallBanner(false);
-  };
-
-  const handleNotifyRequest = async () => {
-    const permission = await Notification.requestPermission();
-    if (permission === 'granted') console.log('Notify enabled');
-    setShowNotifyBanner(false);
   };
 
   const activeMenuItem = SIDEBAR_MENU_ITEMS.find(item => item.id === currentView);
@@ -111,11 +127,8 @@ const App: React.FC = () => {
             <span className="font-extrabold text-slate-800 tracking-tight">第二炼钢厂</span>
           </div>
           
-          {/* 优化后的菜单按钮：增加视觉引导 */}
           <div className="relative">
-            {/* 呼吸波纹背景层 */}
             <div className="absolute inset-0 bg-blue-600 rounded-full animate-menu-ping opacity-0"></div>
-            
             <button 
               onClick={() => setIsSidebarOpen(true)} 
               className="relative flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-600 rounded-full active:scale-95 transition-all shadow-[0_0_15px_rgba(37,99,235,0.1)] border border-blue-100"
@@ -135,7 +148,6 @@ const App: React.FC = () => {
         @keyframes slide-down { from { transform: translateY(-100%); } to { transform: translateY(0); } }
         .animate-slide-down { animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
-        /* 菜单按钮波纹动画 */
         @keyframes menu-ping {
           0% { transform: scale(0.8); opacity: 0.5; }
           100% { transform: scale(1.6); opacity: 0; }
