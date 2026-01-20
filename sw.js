@@ -1,6 +1,6 @@
 
-// PWA Service Worker v15 - Ultra Fast Offline & Global Cache (New Domain Support)
-const CACHE_NAME = 'steel-plant-platform-v15';
+// PWA Service Worker v18 - Updated with User-selected Icon
+const CACHE_NAME = 'steel-plant-platform-v18';
 
 // 涵盖所有可能用到的静态资源和外部库
 const PRE_CACHE_URLS = [
@@ -19,14 +19,14 @@ const PRE_CACHE_URLS = [
   'https://aistudiocdn.com/lucide-react@^0.555.0',
   'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js',
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+SC:wght@400;700;900&display=swap',
-  'https://cdn-icons-png.flaticon.com/512/2892/2892550.png'
+  'https://cdn-icons-png.flaticon.com/512/11689/11689178.png'
 ];
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[PWA] Precaching full assets for stelg.xyz...');
+      console.log('[PWA] Precaching with new Digital Factory icon...');
       return cache.addAll(PRE_CACHE_URLS);
     })
   );
@@ -41,7 +41,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// 策略：Stale-While-Revalidate (优先显示缓存，后台更新)
+// 策略：Stale-While-Revalidate
 self.addEventListener('fetch', (event) => {
   if (!event.request.url.startsWith('http')) return;
   
@@ -65,8 +65,8 @@ self.addEventListener('push', (event) => {
   const data = event.data ? event.data.json() : { title: '通知', body: '二炼钢平台有新更新' };
   const options = {
     body: data.body,
-    icon: 'https://cdn-icons-png.flaticon.com/512/2892/2892550.png',
-    badge: 'https://cdn-icons-png.flaticon.com/512/2892/2892550.png',
+    icon: 'https://cdn-icons-png.flaticon.com/512/11689/11689178.png',
+    badge: 'https://cdn-icons-png.flaticon.com/512/11689/11689178.png',
     vibrate: [200, 100, 200],
     data: { url: data.url || '/' }
   };
