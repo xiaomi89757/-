@@ -1,7 +1,7 @@
 
 export enum ViewState {
   HOME = 'HOME',
-  RESP_DATA_SUBMIT = 'RESP_DATA_SUBMIT',
+  TEMP_ASSIGNMENT = 'TEMP_ASSIGNMENT',
   IMPORTANT_FILES = 'IMPORTANT_FILES',
   COMPREHENSIVE_REMEDIATION_PLAN = 'COMPRE_PLAN',
   HAZARD_CRITERIA_STANDARD = 'HAZARD_STD',
@@ -32,8 +32,8 @@ export interface Resource {
   rating: number;
   isNew?: boolean;
   isHot?: boolean;
-  shareIndex?: string; // 对应“分享 01”
-  clickCount?: number; // 模拟累计学习点击
+  shareIndex?: string;
+  clickCount?: number;
 }
 
 export interface NavLinkItem {
@@ -56,7 +56,6 @@ export interface MenuItem {
   hidden?: boolean;
 }
 
-// Fix: Added DocumentSection interface to resolve missing export error in DocumentPage.tsx
 export interface DocumentSection {
   heading?: string;
   paragraphs?: string[];
@@ -74,7 +73,6 @@ export interface DocumentSection {
   subSections?: DocumentSection[];
 }
 
-// Fix: Updated DocumentContent to include optional image and use DocumentSection for sections
 export interface DocumentContent {
   title: string;
   subtitle?: string;
@@ -85,7 +83,6 @@ export interface DocumentContent {
   sections: DocumentSection[];
 }
 
-// Fix: Added Procedure types to resolve missing export errors in ProceduresPage.tsx and SafetyResponsibilitiesPage.tsx
 export type ProcedureItem = string;
 
 export interface ProcedureRole {

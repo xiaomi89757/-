@@ -14,6 +14,7 @@ import { SafetyResponsibilitiesPage } from './components/SafetyResponsibilitiesP
 import { AppDownloadsLandingPage } from './components/AppDownloadsLandingPage';
 import { LeanLearningPage } from './components/LeanLearningPage'; 
 import { FeedbackPage } from './components/FeedbackPage';
+import { TempAssignmentPage } from './components/TempAssignmentPage';
 import { ViewState } from './types';
 import { Menu, Download, BellRing } from 'lucide-react';
 import { SIDEBAR_MENU_ITEMS } from './constants';
@@ -26,17 +27,14 @@ const App: React.FC = () => {
   const [showNotifyBanner, setShowNotifyBanner] = useState(false);
 
   useEffect(() => {
-    // 监听安装弹窗事件
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      // 仅在主页显示安装横幅，避免干扰用户
       if (currentView === ViewState.HOME) {
         setShowInstallBanner(true);
       }
     };
 
-    // 监听安装成功事件
     const handleAppInstalled = () => {
       console.log('PWA was installed successfully');
       setDeferredPrompt(null);
@@ -59,15 +57,8 @@ const App: React.FC = () => {
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
-    
-    // 显示浏览器自带的安装确认框
     deferredPrompt.prompt();
-    
-    // 等待用户反馈
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to the install prompt: ${outcome}`);
-    
-    // 无论结果如何，都要清理 prompt 对象，它只能被使用一次
     setDeferredPrompt(null);
     setShowInstallBanner(false);
   };
@@ -80,6 +71,7 @@ const App: React.FC = () => {
     switch (activeMenuItem.type) {
       case 'component':
         if (activeMenuItem.id === ViewState.HOME) return <HomePage onNavigate={setCurrentView} onInstall={handleInstallClick} canInstall={!!deferredPrompt} />;
+        if (activeMenuItem.id === ViewState.TEMP_ASSIGNMENT) return <TempAssignmentPage />;
         if (activeMenuItem.id === ViewState.APP_SHOUAN) return <DownloadGuidePage />;
         if (activeMenuItem.id === ViewState.APP_EXAM_STAR) return <ExamDownloadPage />;
         if (activeMenuItem.id === ViewState.APP_DOWNLOADS) return <AppDownloadsLandingPage setView={setCurrentView} />;
