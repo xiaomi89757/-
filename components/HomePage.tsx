@@ -92,7 +92,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
 
   useEffect(() => {
     const mockNotices = [
-      '🎉 2026元旦快乐：数智元旦，万象更新！祝全厂职工新年大吉！',
+      '🎉 2026新春快乐：数智新春，万象更新！祝全厂职工新年大吉！',
       '站内更新：精益知识平台已更新至《分享52》',
       '重要通知：【2025年冬季安全生产专项检查】工作已全面启动，请各部门积极配合。',
       '事项提醒：【精益提案申报】截止日期为每月25日，请按时提交。',
@@ -189,7 +189,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
            
            {/* 核心标语 (Main Slogan) */}
            <h2 className="text-[clamp(1.5rem,7vw,4rem)] md:text-6xl font-black tracking-[0.15em] mb-2 text-transparent bg-clip-text bg-gradient-to-b from-yellow-100 via-yellow-500 to-amber-800 drop-shadow-[0_0_20px_rgba(245,158,11,0.4)] px-4">
-             数智元旦 · 万象更新
+             数智新春 · 万象更新
            </h2>
         </div>
 
