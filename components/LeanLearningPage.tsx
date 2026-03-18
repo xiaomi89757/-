@@ -17,6 +17,15 @@ const FRUIT_COLORS = [
   { bg: 'bg-[#8b5cf6]', text: 'text-white' },
 ];
 
+const NAV_COLORS = [
+  'bg-emerald-50 text-emerald-700 border-emerald-100 hover:bg-emerald-100',
+  'bg-amber-50 text-amber-700 border-amber-100 hover:bg-amber-100',
+  'bg-rose-50 text-rose-700 border-rose-100 hover:bg-rose-100',
+  'bg-indigo-50 text-indigo-700 border-indigo-100 hover:bg-indigo-100',
+  'bg-purple-50 text-purple-700 border-purple-100 hover:bg-purple-100',
+  'bg-cyan-50 text-cyan-700 border-cyan-100 hover:bg-cyan-100',
+];
+
 export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void }> = ({ onNavigate }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeRange, setActiveRange] = useState<string>('全部');
@@ -175,18 +184,20 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
             <p className="text-[10px] md:text-xs text-slate-400 font-bold">快速定位精益知识点</p>
           </div>
 
-          <div className="flex md:flex-col overflow-x-auto md:overflow-y-auto no-scrollbar p-2 md:p-5 gap-3 md:gap-4 relative z-10">
-            {ranges.map(range => {
+          <div className="flex md:flex-col overflow-x-auto md:overflow-y-auto no-scrollbar p-3 md:p-5 gap-2 md:gap-4 relative z-10">
+            {ranges.map((range, idx) => {
               const isActive = activeRange === range;
               const isAll = range === '全部';
+              const colorIdx = idx % NAV_COLORS.length;
+              const colorClass = isActive ? '' : NAV_COLORS[colorIdx];
 
               return (
                 <button
                   key={range}
                   onClick={() => setActiveRange(range)}
-                  className={`relative w-full whitespace-nowrap px-4 py-3 md:px-6 md:py-4.5 rounded-xl md:rounded-2xl text-xs md:text-lg font-black transition-all duration-500 flex items-center justify-center group flex-none md:flex-auto overflow-hidden border ${isActive
-                      ? 'text-white border-blue-600 shadow-[0_12px_40px_rgba(37,99,235,0.35)] scale-[1.02] md:translate-x-1 z-20'
-                      : 'text-slate-500 bg-white/80 border-slate-200 hover:bg-white hover:text-blue-600 hover:border-blue-300 hover:shadow-sm z-10'
+                  className={`relative w-28 md:w-full whitespace-nowrap px-2 py-2.5 md:px-6 md:py-4.5 rounded-xl md:rounded-2xl text-[10px] md:text-lg font-black transition-all duration-300 flex items-center justify-center group flex-none md:flex-auto overflow-hidden border ${isActive
+                      ? 'text-white border-blue-600 shadow-[0_12px_30px_rgba(37,99,235,0.3)] scale-[1.02] md:translate-x-1 z-20'
+                      : `${colorClass} z-10`
                     }`}
                 >
                   {/* 活动态背景渐变 - 更加明显的高亮色块 */}
@@ -194,31 +205,27 @@ export const LeanLearningPage: React.FC<{ onNavigate?: (view: ViewState) => void
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600 animate-gradient-x z-0"></div>
                   )}
 
-                  <div className="relative z-10 flex items-center justify-center gap-4">
+                  <div className="relative z-10 flex items-center justify-center gap-1.5 md:gap-4">
                     {/* 全部图标 */}
                     {isAll && (
-                      <div className={`flex items-center justify-center transition-all duration-500 ${isActive ? 'scale-110' : 'opacity-60 text-slate-400'}`}>
-                        <Zap size={22} fill={isActive ? "currentColor" : "none"} />
+                      <div className={`flex items-center justify-center transition-all duration-500 ${isActive ? 'scale-110' : 'opacity-60'}`}>
+                        <Zap size={isActive ? 22 : 16} fill={isActive ? "currentColor" : "none"} className="md:w-6 md:h-6" />
                       </div>
                     )}
                     
                     {/* 数字区间 - 居中展示 */}
                     {!isAll && (
-                      <div className={`flex items-center gap-2 font-['JetBrains_Mono'] tracking-tight transition-all duration-500 ${isActive ? 'scale-110 font-black' : 'opacity-70 text-slate-500 font-bold'}`}>
-                        <span className="text-xs md:text-xl">{range.split(' - ')[0]}</span>
-                        <span className={`w-5 h-[2.5px] rounded-full transition-colors ${isActive ? 'bg-white/50' : 'bg-slate-300'}`}></span>
-                        <span className="text-xs md:text-xl">{range.split(' - ')[1]}</span>
+                      <div className={`flex items-center gap-1 md:gap-2 font-['JetBrains_Mono'] tracking-tight transition-all duration-500 ${isActive ? 'scale-110 font-black' : 'opacity-70 font-bold'}`}>
+                        <span className="text-[10px] md:text-xl">{range.split(' - ')[0]}</span>
+                        <span className={`w-3 md:w-5 h-[1.5px] md:h-[2.5px] rounded-full transition-colors ${isActive ? 'bg-white/50' : 'bg-slate-300'}`}></span>
+                        <span className="text-[10px] md:text-xl">{range.split(' - ')[1]}</span>
                       </div>
                     )}
                     
                     {/* 文字标签 */}
-                    {isAll && <span className="text-sm md:text-xl tracking-tight">全域览阅</span>}
+                    {isAll && <span className="text-[11px] md:text-xl tracking-tight">全域览阅</span>}
                   </div>
 
-                  {/* 选中态的侧边指示条 */}
-                  {isActive && (
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 h-10 w-1.5 bg-white rounded-r-full shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
-                  )}
                 </button>
               );
             })}

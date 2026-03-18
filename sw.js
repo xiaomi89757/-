@@ -7,7 +7,6 @@ const PRE_CACHE_URLS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/images/home_bg.jpg',
   'https://cdn.tailwindcss.com',
   'https://aistudiocdn.com/react@^19.2.0',
   'https://aistudiocdn.com/react-dom@^19.2.0/',

@@ -152,25 +152,25 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
       {/* 苹果用户提示气泡 (保持原有逻辑，优化视觉以配合节日) */}
       <button
         onClick={() => setShowAppleModal(true)}
-        className="fixed bottom-24 right-6 md:right-10 z-50 group flex flex-col items-end animate-apple-float"
+        className="fixed bottom-64 right-6 md:right-10 z-50 group flex flex-col items-end animate-apple-float"
       >
-        <div className="relative flex items-center gap-2.5 bg-white/90 backdrop-blur-2xl border border-white px-5 py-2.5 rounded-[1.5rem] shadow-[0_12px_40px_rgba(0,0,0,0.15)] group-hover:bg-white group-hover:scale-105 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 cursor-pointer ring-4 ring-red-500/5">
-          <div className="absolute -top-2 -left-2 text-amber-400 animate-spin-slow">
-            <Sparkles size={16} />
+        <div className="relative flex items-center gap-2 bg-white/90 backdrop-blur-2xl border border-white px-3.5 py-2 rounded-[1.25rem] shadow-[0_12px_40px_rgba(0,0,0,0.15)] group-hover:bg-white group-hover:scale-105 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 cursor-pointer ring-4 ring-red-500/5">
+          <div className="absolute -top-1.5 -left-1.5 text-amber-400 animate-spin-slow">
+            <Sparkles size={12} />
           </div>
 
-          <div className="bg-red-700 rounded-full p-1.5 shadow-sm text-white">
-            <AppleIcon size={16} />
+          <div className="bg-red-700 rounded-full p-1 shadow-sm text-white">
+            <AppleIcon size={14} />
           </div>
 
           <div className="flex flex-col items-start leading-tight">
-            <span className="text-slate-800 text-[11px] font-black tracking-tight">苹果用户tips</span>
-            <span className="text-red-500 text-[8px] font-bold uppercase tracking-widest opacity-80">iOS Guide</span>
+            <span className="text-slate-800 text-[10px] font-black tracking-tight">苹果用户tips</span>
+            <span className="text-red-500 text-[7px] font-bold uppercase tracking-widest opacity-80">iOS Guide</span>
           </div>
 
-          <div className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+          <div className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500 border-2 border-white"></span>
           </div>
         </div>
         <div className="mr-8 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white/90 drop-shadow-[0_4px_4px_rgba(0,0,0,0.05)]"></div>
