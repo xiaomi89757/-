@@ -44,7 +44,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
 
   const getIcon = (iconName: string) => {
     const IconComponent = ICON_MAP[iconName] || ICON_MAP['HelpCircle'];
-    return <IconComponent size={22} />; 
+    return <IconComponent size={24} />; 
   };
 
   const handleMenuItemClick = (item: MenuItem) => {
@@ -132,7 +132,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
                   </span>
                   
                   <span className={`
-                    text-base tracking-wide transition-colors duration-200
+                    text-lg tracking-wide transition-colors duration-200
                     ${isActive ? 'font-bold text-white' : 'font-medium text-slate-400 group-hover:text-slate-100'}
                   `}>
                     {item.label}
