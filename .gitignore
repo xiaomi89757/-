@@ -1,0 +1,9 @@
+node_modules
+dist
+.env
+.DS_Store
+*.local
+temp_compare
+*.txt
+local_files.txt
+remote_files.txt

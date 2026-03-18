@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="description" content="第二炼钢厂综合管理平台：集主页通知、重要文件、精益管理、岗位规范、安全应急、查询服务及应用下载于一体的现代化信息化服务平台。" />
+    
+    <!-- Canonical Link for New Domain -->
+    <link rel="canonical" href="https://stelg.xyz/" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Performance Optimization -->
+    <link rel="preconnect" href="https://aistudiocdn.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://busuanzi.ibruce.info" crossorigin>
+    
+    <!-- iOS Support -->
+    <link rel="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-mobile-web-app-title" content="二炼钢平台">
+
+    <title>第二炼钢厂综合管理平台 | stelg.xyz</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+      body {
+        font-family: 'Inter', 'Noto Sans SC', sans-serif;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "vite": "https://aistudiocdn.com/vite@^7.2.6"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-blue-200 selection:text-blue-900">
+    <div id="root"></div>
+    
+    <!-- 隐藏的不蒜子原始计数器：解决脚本与 React 冲突的核心 -->
+    <div style="display: none; visibility: hidden; width: 0; height: 0; overflow: hidden;">
+      <span id="busuanzi_container_site_uv">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </div>
+
+    <script type="module" src="/index.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((reg) => console.log('PWA ServiceWorker Active'))
+            .catch((err) => console.log('PWA SW Failed', err));
+        });
+      }
+    </script>
+  </body>
+</html>

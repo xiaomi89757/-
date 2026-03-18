@@ -1,0 +1,1 @@
+// This file has been removed as Gemini API integration is not required for the current features of the application.
