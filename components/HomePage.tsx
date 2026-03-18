@@ -68,7 +68,7 @@ interface HomePageProps {
   canInstall?: boolean;
 }
 
-const UV_BASE_OFFSET = 150;
+const UV_BASE_OFFSET = 1500;
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canInstall }) => {
   const [notices, setNotices] = useState<string[]>([]);
