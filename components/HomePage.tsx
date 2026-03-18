@@ -100,23 +100,35 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
     ];
     setNotices(mockNotices);
 
-    const targetNode = document.getElementById('busuanzi_value_site_uv');
-    if (!targetNode) return;
+    const statsUrl = "https://lean-counter.hanfuli486.workers.dev/";
+    const uvKey = "platform_global_uv";
 
-    const observer = new MutationObserver((mutations, obs) => {
-      const text = targetNode.innerText.trim();
-      if (text && text !== '...' && text !== '') {
-        const num = parseInt(text.replace(/,/g, ''));
-        if (!isNaN(num) && num > 0) {
-          setRawUV(num);
-          localStorage.setItem('steel_plant_raw_uv_v3', num.toString());
-          obs.disconnect();
+    const fetchUv = async () => {
+      try {
+        // 1. 获取当前所有统计数据
+        const res = await fetch(statsUrl);
+        if (res.ok) {
+          const data = await res.json();
+          const currentCount = data[uvKey] || 0;
+          setRawUV(currentCount);
+
+          // 2. 检查本会话是否已计入（避免重复刷新导致虚高）
+          const hasCounted = sessionStorage.getItem('has_counted_site_uv');
+          if (!hasCounted) {
+            const postRes = await fetch(`${statsUrl}?id=${uvKey}`, { method: 'POST' });
+            if (postRes.ok) {
+              const updated = await postRes.json();
+              setRawUV(updated.count);
+              sessionStorage.setItem('has_counted_site_uv', 'true');
+            }
+          }
         }
+      } catch (err) {
+        console.warn("访客统计同步失败，显示本地最后一次数据");
       }
-    });
+    };
 
-    observer.observe(targetNode, { childList: true, characterData: true, subtree: true });
-    return () => observer.disconnect();
+    fetchUv();
   }, []);
 
   const displayValue = rawUV > 0 ? (rawUV + UV_BASE_OFFSET).toLocaleString() : '...';
