@@ -208,9 +208,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
           <h2 className="text-3xl md:text-6xl font-extrabold text-yellow-400 tracking-widest mb-2 md:mb-4 drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
             精益松钢 绿色发展
           </h2>
-          <p className="text-white text-sm md:text-4xl font-black tracking-[0.05em] md:tracking-[0.2em] font-sans uppercase opacity-100 drop-shadow-2xl px-4 whitespace-nowrap">
-            LEAN STEEL, GREEN DEVELOPMENT
-          </p>
         </div>
       </div>
 
