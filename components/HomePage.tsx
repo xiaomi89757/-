@@ -152,7 +152,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
       {/* 苹果用户提示气泡 (保持原有逻辑，优化视觉以配合节日) */}
       <button
         onClick={() => setShowAppleModal(true)}
-        className="fixed bottom-64 right-6 md:right-10 z-50 group flex flex-col items-end animate-apple-float"
+        className="fixed bottom-40 right-6 md:right-10 z-50 group flex flex-col items-end animate-apple-float"
       >
         <div className="relative flex items-center gap-2 bg-white/90 backdrop-blur-2xl border border-white px-3.5 py-2 rounded-[1.25rem] shadow-[0_12px_40px_rgba(0,0,0,0.15)] group-hover:bg-white group-hover:scale-105 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 cursor-pointer ring-4 ring-red-500/5">
           <div className="absolute -top-1.5 -left-1.5 text-amber-400 animate-spin-slow">
