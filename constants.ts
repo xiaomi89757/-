@@ -10,16 +10,16 @@ export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
     icon: 'FolderOpen',
     type: 'link_group',
     subLinks: [
-      // Corrected ViewState enum references
-      { label: '治本攻坚三年专项整治方案', viewId: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, description: '工作目标与任务清单', icon: 'FileText', color: 'rose' },
-      { label: '2023版重大事故隐患判定标准', viewId: ViewState.HAZARD_CRITERIA_STANDARD, description: '工贸企业标准解读', icon: 'AlertTriangle', color: 'orange' },
-      { label: '2025年重点任务推进表', viewId: ViewState.ACTION_PLAN_PROGRESS_TABLE, description: '月度任务跟踪', icon: 'ClipboardList', color: 'blue' }
+      // Updated 2026-03-14: replaced broken links with new documents
+      { label: '2021年关于深入推进"精益松钢、绿色发展"实施指导意见', viewId: ViewState.ACTION_PLAN_PROGRESS_TABLE, description: '推进绿色低碳高质量发展', icon: 'ClipboardList', color: 'blue' },
+      { label: '公司治本攻坚三年专项整治方案', viewId: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, description: '公司级专项整治工作部署', icon: 'FileText', color: 'rose' },
+      { label: '炼钢厂（重大事故隐患判定标准解读）', viewId: ViewState.HAZARD_CRITERIA_STANDARD, description: '炼钢厂重大事故隐患判定标准解读', icon: 'AlertTriangle', color: 'orange' }
     ]
   },
-  // Corrected ViewState enum references
-  { id: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, label: '方案', icon: 'FileText', type: 'iframe', path: 'https://kdocs.cn/l/cefIGFFgviDR', hidden: true },
-  { id: ViewState.HAZARD_CRITERIA_STANDARD, label: '标准', icon: 'AlertTriangle', type: 'iframe', path: 'https://kdocs.cn/l/csvBw09bymX6', hidden: true },
-  { id: ViewState.ACTION_PLAN_PROGRESS_TABLE, label: '推进表', icon: 'ClipboardList', type: 'iframe', path: 'https://www.kdocs.cn/l/cmagm8QKt8Sz', hidden: true },
+  // Updated 2026-03-14: updated iframe paths for important files
+  { id: ViewState.COMPREHENSIVE_REMEDIATION_PLAN, label: '方案', icon: 'FileText', type: 'iframe', path: 'https://www.kdocs.cn/l/cutnq1EYEnE2', hidden: true },
+  { id: ViewState.HAZARD_CRITERIA_STANDARD, label: '标准', icon: 'AlertTriangle', type: 'iframe', path: 'https://www.kdocs.cn/l/cb7BRZuYehPf', hidden: true },
+  { id: ViewState.ACTION_PLAN_PROGRESS_TABLE, label: '推进表', icon: 'ClipboardList', type: 'iframe', path: 'https://www.kdocs.cn/l/cp6QHBVAnCka', hidden: true },
   { id: ViewState.LEAN_LEARNING, label: '精益学习资料', icon: 'BookOpen', type: 'component' },
   {
     id: ViewState.LEAN_PROPOSAL,
@@ -1004,6 +1004,138 @@ export const LEAN_RESOURCES: Resource[] = [
     rating: 5,
     isNew: true,
     shareIndex: '85'
+  },
+  {
+    id: 'l-86',
+    title: '烧结内返率居高不下老师傅这么排查',
+    description: '深入分析烧结内返率偏高的核心原因，借鉴老师傅的实战排查思路与系统性解决方案。',
+    category: '改善实战',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/co93es6FNPhc',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '86'
+  },
+  {
+    id: 'l-87',
+    title: '库存管理这一精益指标太关键',
+    description: '聚焦库存周转率等核心精益指标，解析库存管理对降本增效的关键影响与优化策略。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/caITuvopyVZp',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '87'
+  },
+  {
+    id: 'l-88',
+    title: '膨润土球团生产中的工业学问',
+    description: '深入浅出讲解膨润土在球团生产中的作用机理，提升原料端工艺认知与质量控制能力。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cuGtiWbT5S7F',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '88'
+  },
+  {
+    id: 'l-89',
+    title: '防呆法实现预防为主、持续改善，零缺陷',
+    description: '系统解析防呆法的核心原理与落地方法，从源头消除人为失误，构建零缺陷质量防线。',
+    category: '改善实战',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cqeWpvvwSLny',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '89'
+  },
+  {
+    id: 'l-90',
+    title: '揭秘FeO含量与高炉还原性关系及措施应对',
+    description: '深度分析FeO含量对高炉还原过程的影响规律，提出针对性的工艺调控与改善措施。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cryRa7syba6m',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '90'
+  },
+  {
+    id: 'l-91',
+    title: '现场检查不等于管理！避开无效巡查陷阱',
+    description: '厘清现场检查与有效管理的本质区别，建立科学的巡查机制，避免形式主义管理陷阱。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/ck6tGAgYfbbR',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '91'
+  },
+  {
+    id: 'l-92',
+    title: '同样做精益，为什么日本抓现场、德国搞自动化、美国做流程',
+    description: '横向对比日、德、美三国精益路径差异，理解不同文化背景下的精益管理哲学与实战侧重。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cflqdTw3rdnj',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '92'
+  },
+  {
+    id: 'l-93',
+    title: '设备点检的五感法你真的会用吗',
+    description: '系统讲解设备点检中视、听、触、嗅、味五感检查法的实战技巧与应用要点。',
+    category: '设备保全',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/ch2qLVCrKlaQ',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '93'
+  },
+  {
+    id: 'l-94',
+    title: '现场改善如何入手',
+    description: '为一线管理者提供现场改善的切入思路与实战方法论，让改善不再无从下手。',
+    category: '改善实战',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/conohbK7iZdZ',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '94'
+  },
+  {
+    id: 'l-95',
+    title: '精益管理九个工具',
+    description: '全面梳理精益管理中九大核心工具的应用场景与实践要点，助力系统性推进精益变革。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cjQ09YcanSPE',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '95'
+  },
+  {
+    id: 'l-96',
+    title: '班组长四步打造精益班组',
+    description: '四步法赋能班组长构建精益班组管理体系，提升基层执行力与现场改善能力。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/ct8iLaIdwwWx',
+    updateDate: '2026-05-22',
+    rating: 5,
+    isNew: true,
+    shareIndex: '96'
   }
 ];
 
