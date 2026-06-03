@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Search, ClipboardList, Clock, ChevronRight, HelpCircle } from 'lucide-react';
+import { ExternalLink, Search, ClipboardList, Clock, ChevronRight, HelpCircle, FileText } from 'lucide-react';
 
 const THEMES: Record<string, { bg: string, iconBg: string, text: string, shadow: string, border: string }> = {
   blue: {
@@ -90,6 +90,13 @@ export const TempAssignmentPage: React.FC = () => {
       url: 'https://web.wps.cn/etapps/query/q/aI3M0QdA',
       icon: Search,
       theme: 'blue',
+    },
+    {
+      title: '五年稿件数量查询',
+      description: '快速查询五年间稿件数量统计，掌握宣传成果数据',
+      url: 'https://web.wps.cn/etapps/query/q/2CCeadPl',
+      icon: FileText,
+      theme: 'emerald',
     },
   ];
 
