@@ -225,7 +225,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
         </div>
 
         <p className="text-white/40 text-[10px] md:text-sm font-bold tracking-[0.2em] uppercase">
-          © 2026 第二炼钢厂 · 新岁共启
+          © 2026 第二炼钢厂 · 精益五周年
         </p>
       </div>
 
