@@ -11,7 +11,7 @@ export const TempAssignmentPage: React.FC = () => {
   // ========================================
   // 数据大屏看板
   // ========================================
-  const examDashboardUrl = 'https://www.kdocs.cn/l/cvd8W8iLXb7e';
+  const examDashboardUrl = 'https://www.kdocs.cn/wo/sl/v13LI1Jx';
 
   // ========================================
   // 按钮跳转链接

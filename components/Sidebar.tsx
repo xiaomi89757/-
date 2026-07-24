@@ -128,7 +128,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
                   <span className={`
                     mr-4 transition-colors duration-200
                     ${item.icon === 'Flame'
-                      ? 'text-amber-400 group-hover:text-amber-300 drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]'
+                      ? 'text-red-500 group-hover:text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]'
                       : isActive ? 'text-white' : 'text-slate-400 group-hover:text-blue-300'
                     }
                   `}>
