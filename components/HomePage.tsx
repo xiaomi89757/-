@@ -10,57 +10,8 @@ const AppleIcon = ({ size = 24, className = "" }) => (
   </svg>
 );
 
-// 具象化数字宫灯组件
-const DigitalLantern = () => (
-  <div className="fixed top-0 right-6 md:right-20 z-50 pointer-events-none origin-top animate-lantern-sway-lux">
-    {/* 挂绳 */}
-    <div className="w-[2px] h-10 bg-gradient-to-b from-transparent to-amber-500 mx-auto"></div>
-
-    <div className="relative flex flex-col items-center">
-      {/* 檐顶 (Roof) - 六角造型 */}
-      <div className="w-20 h-4 bg-gradient-to-b from-red-800 to-red-950 rounded-t-lg border-b-2 border-yellow-500/50 shadow-lg relative">
-        <div className="absolute inset-0 border-x-[10px] border-x-transparent border-b-[16px] border-b-red-900 -top-3"></div>
-      </div>
-
-      {/* 灯身 (Body) */}
-      <div className="relative w-16 h-24 flex items-center justify-center">
-        {/* 金色骨架 (Side Pillars) */}
-        <div className="absolute left-0 inset-y-0 w-1 bg-gradient-to-b from-yellow-400 via-yellow-200 to-yellow-600 rounded-full shadow-[0_0_5px_rgba(250,204,21,0.5)]"></div>
-        <div className="absolute right-0 inset-y-0 w-1 bg-gradient-to-b from-yellow-400 via-yellow-200 to-yellow-600 rounded-full shadow-[0_0_5px_rgba(250,204,21,0.5)]"></div>
-
-        {/* 红色玻璃质感中间层 */}
-        <div className="w-14 h-22 bg-[#b91c1c]/80 backdrop-blur-sm rounded-lg border border-red-500/30 flex items-center justify-center overflow-hidden">
-          {/* 动画发光圈 */}
-          <div className="absolute inset-0 animate-pulse bg-red-600/20 rounded-full blur-xl"></div>
-
-          {/* 核心 (Core) - 3D 旋转 */}
-          <div className="relative w-10 h-16 bg-slate-950/80 rounded border border-yellow-500/20 flex flex-col items-center justify-center animate-lantern-core-spin">
-            <span className="text-yellow-400 font-black text-xs leading-none">20</span>
-            <div className="w-6 h-[1px] bg-yellow-500/30 my-1"></div>
-            <span className="text-yellow-400 font-black text-xs leading-none">26</span>
-          </div>
-        </div>
-      </div>
-
-      {/* 灯座 (Base) */}
-      <div className="w-18 h-4 bg-gradient-to-r from-red-900 via-yellow-500 to-red-900 rounded-[24px] shadow-inner border-t border-yellow-400/30"></div>
-
-      {/* 流苏 (Tassels) */}
-      <div className="flex gap-1.5 mt-1">
-        {/* 中心主束 */}
-        <div className="flex gap-[2px] animate-tassel-wave-deluxe">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div
-              key={i}
-              className="w-[1.5px] bg-gradient-to-b from-yellow-400 to-red-700 rounded-full"
-              style={{ height: `${24 + (i % 3) * 6}px`, animationDelay: `${i * 0.1}s` }}
-            ></div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-);
+// 具象化数字宫灯组件（暂时隐藏）
+const DigitalLantern = () => null;
 
 interface HomePageProps {
   onNavigate: (view: ViewState) => void;
@@ -199,9 +150,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
             </span>
           </div>
 
-          {/* 核心标语 (Main Slogan) */}
-          <h2 className="text-[clamp(1.5rem,7vw,4rem)] md:text-6xl font-black tracking-[0.15em] mb-2 text-transparent bg-clip-text bg-gradient-to-b from-yellow-100 via-yellow-500 to-amber-800 drop-shadow-[0_0_20px_rgba(245,158,11,0.4)] px-4">
-            数智松钢，行稳致远
+          {/* 核心标语 (Main Slogan) - 两行对联式 */}
+          <h2 className="flex flex-col items-center text-[clamp(1.5rem,7vw,4rem)] md:text-6xl font-black tracking-[0.15em] leading-tight text-transparent bg-clip-text bg-gradient-to-b from-yellow-100 via-yellow-500 to-amber-800 drop-shadow-[0_0_20px_rgba(245,158,11,0.4)] px-4">
+            <span>淬火重生五载路</span>
+            <span className="mt-3 md:mt-5">精益铸魂再出发</span>
           </h2>
         </div>
 

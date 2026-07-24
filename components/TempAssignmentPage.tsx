@@ -1,211 +1,204 @@
-import React from 'react';
-import { ExternalLink, Search, ClipboardList, Clock, ChevronRight, HelpCircle, FileText } from 'lucide-react';
-
-const THEMES: Record<string, { bg: string, iconBg: string, text: string, shadow: string, border: string }> = {
-  blue: {
-    bg: 'bg-gradient-to-r from-blue-500 to-blue-600',
-    iconBg: 'bg-white/20',
-    text: 'text-blue-50',
-    shadow: 'shadow-blue-200',
-    border: 'border-blue-400'
-  },
-  indigo: {
-    bg: 'bg-gradient-to-r from-indigo-500 to-indigo-600',
-    iconBg: 'bg-white/20',
-    text: 'text-indigo-50',
-    shadow: 'shadow-indigo-200',
-    border: 'border-indigo-400'
-  },
-  emerald: {
-    bg: 'bg-gradient-to-r from-emerald-500 to-emerald-600',
-    iconBg: 'bg-white/20',
-    text: 'text-emerald-50',
-    shadow: 'shadow-emerald-200',
-    border: 'border-emerald-400'
-  },
-  orange: {
-    bg: 'bg-gradient-to-r from-orange-500 to-orange-600',
-    iconBg: 'bg-white/20',
-    text: 'text-orange-50',
-    shadow: 'shadow-orange-200',
-    border: 'border-orange-400'
-  },
-  rose: {
-    bg: 'bg-gradient-to-r from-rose-500 to-rose-600',
-    iconBg: 'bg-white/20',
-    text: 'text-rose-50',
-    shadow: 'shadow-rose-200',
-    border: 'border-rose-400'
-  },
-  violet: {
-    bg: 'bg-gradient-to-r from-violet-500 to-violet-600',
-    iconBg: 'bg-white/20',
-    text: 'text-violet-50',
-    shadow: 'shadow-violet-200',
-    border: 'border-violet-400'
-  },
-  cyan: {
-    bg: 'bg-gradient-to-r from-cyan-500 to-cyan-600',
-    iconBg: 'bg-white/20',
-    text: 'text-cyan-50',
-    shadow: 'shadow-cyan-200',
-    border: 'border-cyan-400'
-  },
-  amber: {
-    bg: 'bg-gradient-to-r from-amber-500 to-amber-600',
-    iconBg: 'bg-white/20',
-    text: 'text-amber-50',
-    shadow: 'shadow-amber-200',
-    border: 'border-amber-400'
-  },
-  slate: {
-    bg: 'bg-gradient-to-r from-slate-500 to-slate-600',
-    iconBg: 'bg-white/20',
-    text: 'text-slate-50',
-    shadow: 'shadow-slate-200',
-    border: 'border-slate-400'
-  },
-  default: {
-    bg: 'bg-gradient-to-r from-slate-600 to-slate-700',
-    iconBg: 'bg-white/20',
-    text: 'text-slate-50',
-    shadow: 'shadow-slate-300',
-    border: 'border-slate-500'
-  }
-};
-
-interface ToolItem {
-  title: string;
-  description: string;
-  url: string;
-  icon: React.FC<any>;
-  theme: string;
-}
+import React, { useState } from 'react';
+import {
+  Loader2, Sparkles, Trophy, Lightbulb, Star,
+  ArrowRight, Medal, Award, Flame, Maximize2, BookOpen
+} from 'lucide-react';
+import { SafariBridge } from './SafariBridge';
 
 export const TempAssignmentPage: React.FC = () => {
-  const tools: ToolItem[] = [
-    {
-      title: '五年精益提案查询',
-      description: '便捷查询五年间精益提案数据，支持多维度筛选与统计分析',
-      url: 'https://web.wps.cn/etapps/query/q/aI3M0QdA',
-      icon: Search,
-      theme: 'blue',
-    },
-    {
-      title: '五年稿件数量查询',
-      description: '快速查询五年间稿件数量统计，掌握宣传成果数据',
-      url: 'https://web.wps.cn/etapps/query/q/2CCeadPl',
-      icon: FileText,
-      theme: 'emerald',
-    },
-  ];
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
+
+  // ========================================
+  // 数据大屏看板
+  // ========================================
+  const examDashboardUrl = 'https://www.kdocs.cn/l/cvd8W8iLXb7e';
+
+  // ========================================
+  // 按钮跳转链接
+  // ========================================
+  const examFormUrl = 'https://f.wps.cn/g/hOwJ5ZdV/';
+  const suggestionUrl = 'https://f.wps.cn/g/JePk6lX5/';
 
   return (
-    <div className="h-full flex flex-col bg-slate-50 relative animate-fade-in font-sans">
+    <div className="h-full flex flex-col bg-gradient-to-b from-slate-50 via-red-50/30 to-slate-50 relative animate-fade-in font-sans">
 
-      {/* 顶部标题栏 - 毛玻璃效果 */}
-      <div className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 py-4 md:px-8 shadow-sm">
-        <div className="max-w-5xl mx-auto flex items-center">
-          <div className="p-2.5 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-xl shadow-lg shadow-blue-200 mr-4">
-            <ClipboardList size={24} />
+      {/* ========== 顶部标题栏 · 红金庆典风格 ========== */}
+      <div className="relative sticky top-0 z-30 bg-gradient-to-r from-red-700 via-red-600 to-orange-700 border-b border-red-400/20 px-4 py-5 md:px-8 shadow-[0_4px_30px_rgba(185,28,28,0.3)]">
+        {/* 装饰光晕 */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-6 -left-6 w-32 h-32 bg-yellow-400/20 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-orange-400/15 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-64 h-64 bg-yellow-300/5 rounded-full blur-3xl"></div>
+        </div>
+
+        {/* 金色星尘装饰 */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-2 left-[15%] w-1 h-1 bg-yellow-300/60 rounded-full animate-pulse" style={{ animationDuration: '2.4s' }}></div>
+          <div className="absolute top-3 right-[20%] w-1.5 h-1.5 bg-yellow-200/40 rounded-full animate-pulse" style={{ animationDuration: '3.2s' }}></div>
+          <div className="absolute bottom-2 left-[40%] w-1 h-1 bg-orange-300/50 rounded-full animate-pulse" style={{ animationDuration: '1.8s' }}></div>
+          <div className="absolute top-1/2 right-[10%] w-1 h-1 bg-yellow-200/30 rounded-full animate-pulse" style={{ animationDuration: '2.8s' }}></div>
+        </div>
+
+        <div className="max-w-5xl mx-auto flex items-center relative z-10">
+          <div className="shrink-0 p-2.5 bg-gradient-to-br from-yellow-400/30 to-orange-400/20 backdrop-blur-sm text-yellow-200 rounded-xl ring-1 ring-yellow-400/30 mr-4 shadow-lg shadow-red-900/20">
+            <Star size={24} className="fill-yellow-200/80" />
           </div>
-          <div>
-            <h2 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight">临时交办</h2>
-            <p className="text-xs md:text-sm text-slate-500 font-medium mt-0.5 uppercase tracking-widest">Temp Assignment & Tools</p>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-lg sm:text-xl md:text-4xl font-black tracking-wide leading-snug text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]" style={{ fontFamily: "'Noto Serif SC', 'SimSun', 'Songti SC', serif" }}>
+              淬火重生五载路 精益铸魂再出发
+            </h1>
+            <p className="text-[10px] md:text-xs text-yellow-200/80 font-semibold mt-1.5 tracking-[0.15em] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 bg-yellow-300/60 rounded-full inline-block"></span>
+              五周年重要讲话专题 · 2026 DIGITAL YEAR
+            </p>
+          </div>
+          {/* 装饰性年份标识 */}
+          <div className="hidden md:flex shrink-0 items-center gap-1 ml-4 px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-full ring-1 ring-white/20">
+            <Medal size={14} className="text-yellow-300" />
+            <span className="text-[11px] font-black text-yellow-200 tracking-wider">2026</span>
           </div>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth w-full">
-        <div className="max-w-5xl mx-auto">
-          {/* 列表布局 - 一列一行 */}
-          <div className="flex flex-col gap-4 md:gap-6">
-            {tools.map((tool, index) => {
-              const Icon = tool.icon;
-              const theme = THEMES[tool.theme] || THEMES.default;
+        <div className="max-w-5xl mx-auto space-y-6 md:space-y-10">
 
-              return (
-                <a
-                  key={index}
-                  href={tool.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`
-                    group relative flex flex-row items-center
-                    text-left rounded-2xl shadow-lg hover:shadow-xl
-                    transition-all duration-300 transform hover:-translate-y-1 hover:brightness-105
-                    overflow-hidden p-4 md:p-6 min-h-[80px] md:min-h-[100px]
-                    ${theme.bg} ${theme.shadow}
-                  `}
-                >
-                  {/* 背景装饰光晕 */}
-                  <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-white/10 blur-3xl group-hover:bg-white/20 transition-all duration-500"></div>
+          {/* ========== 双 CTA 按钮 · 催人奋进 ========== */}
+          <section>
+            <div className="flex items-center gap-2 mb-3 md:mb-4 px-1">
+              <Flame size={16} className="text-red-500" />
+              <h2 className="text-sm md:text-base font-black text-slate-700 tracking-tight">行动起来</h2>
+              <div className="flex-1 h-px bg-gradient-to-r from-slate-200 to-transparent ml-2"></div>
+            </div>
 
-                  {/* 左侧图标 */}
-                  <div className={`
-                    shrink-0 p-3 md:p-4 rounded-xl ${theme.iconBg} backdrop-blur-md text-white shadow-inner
-                    group-hover:scale-110 transition-transform duration-300 mr-4 md:mr-6
-                  `}>
-                    <Icon size={28} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              {/* 重要讲话学习答题 */}
+              <a
+                href={examFormUrl || '#'}
+                target={examFormUrl ? '_blank' : undefined}
+                rel={examFormUrl ? 'noopener noreferrer' : undefined}
+                onClick={!examFormUrl ? (e) => e.preventDefault() : undefined}
+                className="group relative overflow-hidden bg-gradient-to-br from-red-600 via-red-500 to-orange-500 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-3.5 md:p-5 text-white cursor-pointer active:scale-[0.98]"
+              >
+                {/* 扁平装饰 */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none"></div>
+
+                <Sparkles size={14} className="absolute top-3 right-3 text-yellow-200/40 animate-pulse" style={{ animationDuration: '2s' }} />
+
+                <div className="relative z-10 flex flex-row items-center gap-3 md:gap-4">
+                  <div className="shrink-0 p-1.5 bg-white/15 rounded-lg ring-1 ring-white/20 group-hover:scale-110 transition-all duration-300">
+                    <BookOpen size={20} className="text-yellow-200" />
                   </div>
-
-                  {/* 中间文字 */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg md:text-2xl font-black text-white mb-0.5 md:mb-1 leading-tight tracking-wide drop-shadow-sm truncate">
-                      {tool.title}
+                    <h3 className="text-sm md:text-xl font-black drop-shadow-sm tracking-wide">
+                      重要讲话学习答题
                     </h3>
-                    <p className={`text-[10px] md:text-sm ${theme.text} leading-tight font-light opacity-90 line-clamp-1`}>
-                      {tool.description}
+                    <p className="text-[10px] md:text-xs text-red-100/90 font-semibold mt-0.5 tracking-wider">
+                      深学细悟 · 以考促行
                     </p>
                   </div>
-
-                  {/* 右侧引导图标 */}
-                  <div className="shrink-0 ml-4 flex items-center">
-                    <div className="bg-white/10 p-2 rounded-full group-hover:bg-white/20 transition-colors text-white">
-                      <ExternalLink className="group-hover:scale-110 transition-transform" size={20} />
-                    </div>
+                  <div className="shrink-0 flex items-center gap-1 text-[10px] font-black bg-white/15 px-3 py-1.5 rounded-full group-hover:bg-white/25 transition-all duration-300 border border-white/10">
+                    <span>开始答题</span>
+                    <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform duration-300" />
                   </div>
-
-                  {/* 底部亮线 */}
-                  <div className="absolute bottom-0 left-0 h-1 bg-white/30 w-0 group-hover:w-full transition-all duration-500"></div>
-                </a>
-              );
-            })}
-
-            {/* 更多功能即将上线 - 占位条 */}
-            <div className={`
-              group relative flex flex-row items-center
-              text-left rounded-2xl border-2 border-dashed border-slate-200
-              transition-all duration-300 hover:border-blue-300 hover:bg-blue-50/30
-              overflow-hidden p-4 md:p-6 min-h-[80px] md:min-h-[100px]
-              bg-white/50
-            `}>
-              {/* 左侧图标 */}
-              <div className="shrink-0 p-3 md:p-4 rounded-xl bg-slate-100 text-slate-300 mr-4 md:mr-6 group-hover:bg-blue-100 group-hover:text-blue-400 transition-all duration-500">
-                <Clock size={28} />
-              </div>
-
-              {/* 中间文字 */}
-              <div className="flex-1 min-w-0">
-                <h3 className="text-lg md:text-2xl font-black text-slate-300 group-hover:text-blue-400 transition-colors mb-0.5 md:mb-1 leading-tight tracking-wide truncate">
-                  更多功能即将上线
-                </h3>
-                <p className="text-[10px] md:text-sm text-slate-200 font-medium group-hover:text-blue-300 transition-colors leading-tight">
-                  敬请期待
-                </p>
-              </div>
-
-              {/* 右侧占位 */}
-              <div className="shrink-0 ml-4 flex items-center">
-                <div className="bg-slate-100 p-2 rounded-full group-hover:bg-blue-100 transition-colors text-slate-300 group-hover:text-blue-400">
-                  <ChevronRight size={20} />
                 </div>
+
+                {/* 底部扫光 */}
+                <div className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-transparent via-yellow-300/50 to-transparent w-0 group-hover:w-full transition-all duration-700"></div>
+              </a>
+
+              {/* 合理化建议提报 */}
+              <a
+                href={suggestionUrl || '#'}
+                target={suggestionUrl ? '_blank' : undefined}
+                rel={suggestionUrl ? 'noopener noreferrer' : undefined}
+                onClick={!suggestionUrl ? (e) => e.preventDefault() : undefined}
+                className="group relative overflow-hidden bg-gradient-to-br from-indigo-600 via-blue-600 to-violet-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 p-3.5 md:p-5 text-white cursor-pointer active:scale-[0.98]"
+              >
+                {/* 扁平装饰 */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none"></div>
+
+                <Sparkles size={14} className="absolute top-3 right-3 text-blue-200/40 animate-pulse" style={{ animationDuration: '2.4s' }} />
+
+                <div className="relative z-10 flex flex-row items-center gap-3 md:gap-4">
+                  <div className="shrink-0 p-1.5 bg-white/15 rounded-lg ring-1 ring-white/20 group-hover:scale-110 transition-all duration-300">
+                    <Lightbulb size={20} className="text-yellow-200" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm md:text-xl font-black drop-shadow-sm tracking-wide">
+                      合理化建议提报
+                    </h3>
+                    <p className="text-[10px] md:text-xs text-blue-100/90 font-semibold mt-0.5 tracking-wider">
+                      建言献策 · 共筑未来
+                    </p>
+                  </div>
+                  <div className="shrink-0 flex items-center gap-1 text-[10px] font-black bg-white/15 px-3 py-1.5 rounded-full group-hover:bg-white/25 transition-all duration-300 border border-white/10">
+                    <span>立即提报</span>
+                    <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
+                </div>
+
+                {/* 底部扫光 */}
+                <div className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-transparent via-blue-300/50 to-transparent w-0 group-hover:w-full transition-all duration-700"></div>
+              </a>
+            </div>
+          </section>
+
+          {/* ========== 五周年讲话学习龙虎榜 · 嵌入式看板 ========== */}
+          <section>
+            <div className="flex items-center gap-2 mb-3 md:mb-4 px-1">
+              <Trophy size={18} className="text-amber-500" />
+              <h2 className="text-sm md:text-base font-black text-slate-700 tracking-tight">五周年讲话学习龙虎榜</h2>
+              <div className="flex-1 h-px bg-gradient-to-r from-slate-200 to-transparent ml-2"></div>
+              <a
+                href={examDashboardUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 px-2.5 py-1 bg-amber-50 text-amber-700 rounded-full text-[10px] md:text-xs font-bold hover:bg-amber-100 transition-colors border border-amber-200 shrink-0"
+              >
+                <span className="hidden md:inline">全屏查看</span>
+                <Maximize2 size={12} />
+              </a>
+            </div>
+
+            <div className="relative bg-white border-[4px] border-white ring-1 ring-slate-200 shadow-2xl overflow-hidden rounded-2xl h-[450px] md:rounded-[2rem] md:h-[650px]">
+              <SafariBridge url={examDashboardUrl} title="五周年讲话学习龙虎榜" onUnlocked={() => {}} />
+
+              {isIframeLoading && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 to-white z-0">
+                  <div className="relative">
+                    <Loader2 className="animate-spin text-amber-500 mb-4" size={40} />
+                  </div>
+                  <p className="text-slate-500 font-bold tracking-widest animate-pulse text-center px-4 text-sm">
+                    正在加载成绩数据
+                  </p>
+                  <p className="text-[10px] text-slate-400 mt-2 font-medium">请稍候 ...</p>
+                </div>
+              )}
+
+              <iframe
+                src={examDashboardUrl}
+                className="w-full h-full border-none relative z-10"
+                onLoad={() => setIsIframeLoading(false)}
+                title="五周年讲话学习龙虎榜"
+                loading="eager"
+                // @ts-ignore
+                fetchpriority="high"
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-downloads"
+              />
+            </div>
+
+            <div className="mt-3 flex items-center justify-center md:justify-end px-2">
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-slate-100 shadow-sm">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
+                <span className="text-[10px] md:text-xs font-black text-slate-400 uppercase tracking-widest">Data Syncing</span>
               </div>
             </div>
-          </div>
+          </section>
 
-          {/* 底部填充 */}
-          <div className="h-10"></div>
+          {/* 底部留白 */}
+          <div className="h-6"></div>
         </div>
       </div>
     </div>

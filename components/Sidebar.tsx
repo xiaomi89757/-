@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { 
-  Factory, X, HelpCircle, 
-  Home, FolderOpen, FileText, AlertTriangle, BookOpen, Send, 
-  BarChart3, Wrench, ShieldCheck, Siren, Search, Box, 
+import {
+  Factory, X, HelpCircle,
+  Home, FolderOpen, FileText, AlertTriangle, BookOpen, Send,
+  BarChart3, Wrench, ShieldCheck, Siren, Search, Box,
   ClipboardList, Download, User, ChevronRight, MessageSquare,
-  ClipboardCheck
+  ClipboardCheck, Flame
 } from 'lucide-react';
 import { ViewState, MenuItem } from '../types';
 import { SIDEBAR_MENU_ITEMS } from '../constants';
@@ -37,14 +37,15 @@ const ICON_MAP: Record<string, React.FC<any>> = {
   'X': X,
   'HelpCircle': HelpCircle,
   'MessageSquare': MessageSquare,
-  'ClipboardCheck': ClipboardCheck
+  'ClipboardCheck': ClipboardCheck,
+  'Flame': Flame
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, setIsOpen }) => {
 
   const getIcon = (iconName: string) => {
     const IconComponent = ICON_MAP[iconName] || ICON_MAP['HelpCircle'];
-    return <IconComponent size={24} />; 
+    return <IconComponent size={24} />;
   };
 
   const handleMenuItemClick = (item: MenuItem) => {
@@ -53,31 +54,31 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
     } else {
       setView(item.id);
     }
-    setIsOpen(false); 
+    setIsOpen(false);
   };
 
   return (
     <>
       {/* Mobile Overlay */}
-      <div 
+      <div
         className={`fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsOpen(false)}
       />
 
       {/* Sidebar Container */}
       <div className={`
-        fixed inset-y-0 left-0 z-50 w-72 
+        fixed inset-y-0 left-0 z-50 w-72
         bg-slate-900/95 backdrop-blur-xl border-r border-white/5
-        shadow-[10px_0_30px_rgba(0,0,0,0.5)] 
-        transform transition-transform duration-300 ease-out 
+        shadow-[10px_0_30px_rgba(0,0,0,0.5)]
+        transform transition-transform duration-300 ease-out
         lg:translate-x-0 lg:static lg:inset-0 lg:shadow-none lg:z-30
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="absolute inset-0 bg-gradient-to-b from-slate-800/20 to-blue-900/10 pointer-events-none"></div>
 
         <div className="flex flex-col h-full relative z-10">
-          
-          <button 
+
+          <button
             onClick={() => setIsOpen(false)}
             className="absolute top-5 right-4 p-2 text-slate-400 hover:text-white lg:hidden transition-colors"
           >
@@ -105,7 +106,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
                   </div>
                 );
               }
-              
+
               const isActive = currentView === item.id;
 
               return (
@@ -113,9 +114,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
                   key={item.id}
                   onClick={() => handleMenuItemClick(item)}
                   className={`
-                    group relative flex items-center w-full px-4 py-3.5 rounded-xl transition-all duration-300 
+                    group relative flex items-center w-full px-4 py-3.5 rounded-xl transition-all duration-300
                     ${isActive
-                      ? 'bg-gradient-to-r from-blue-600/90 to-blue-700/90 shadow-md shadow-blue-900/30 ring-1 ring-blue-500/50' 
+                      ? 'bg-gradient-to-r from-blue-600/90 to-blue-700/90 shadow-md shadow-blue-900/30 ring-1 ring-blue-500/50'
                       : 'hover:bg-white/5'
                     }
                   `}
@@ -126,11 +127,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
 
                   <span className={`
                     mr-4 transition-colors duration-200
-                    ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-blue-300'}
+                    ${item.icon === 'Flame'
+                      ? 'text-amber-400 group-hover:text-amber-300 drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]'
+                      : isActive ? 'text-white' : 'text-slate-400 group-hover:text-blue-300'
+                    }
                   `}>
                     {getIcon(item.icon)}
                   </span>
-                  
+
                   <span className={`
                     text-lg tracking-wide transition-colors duration-200
                     ${isActive ? 'font-bold text-white' : 'font-medium text-slate-400 group-hover:text-slate-100'}

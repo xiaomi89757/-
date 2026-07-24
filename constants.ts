@@ -3,7 +3,7 @@ import { MenuItem, ViewState, Resource } from './types';
 
 export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
   { id: ViewState.HOME, label: '主页', icon: 'Home', type: 'component' },
-  { id: ViewState.TEMP_ASSIGNMENT, label: '临时交办', icon: 'BellRing', type: 'component' },
+  { id: ViewState.TEMP_ASSIGNMENT, label: '五周年重要讲话专题', icon: 'Flame', type: 'component' },
   {
     id: ViewState.IMPORTANT_FILES,
     label: '重要文件',
