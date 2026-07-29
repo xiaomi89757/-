@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Loader2, Sparkles, Trophy, Lightbulb, Star,
   ArrowRight, Medal, Award, Flame, Maximize2, BookOpen, Heart,
-  Quote, X, Eye, Calendar, User
+  Quote, X, Eye, Calendar, User, FileText, PenTool, CheckCircle, HelpCircle, ListOrdered, MessageSquare, FileSpreadsheet
 } from 'lucide-react';
 import { SafariBridge } from './SafariBridge';
 
@@ -209,6 +209,108 @@ const MOCK_THOUGHTS: ThoughtArticle[] = [
     color: 'emerald',
     icon: 'Lightbulb',
     date: '2026-07-21',
+  },
+];
+
+const QUESTION_BANKS = [
+  {
+    id: 1,
+    title: '五周年题库01-单选1',
+    tag: '单选题',
+    icon: 'CheckCircle',
+    count: '30道题',
+    url: 'https://f.wps.cn/g/GVLAHdXW/',
+    colors: { from: '#3b82f6', to: '#6366f1', glow: '#93c5fd' },
+  },
+  {
+    id: 2,
+    title: '五周年题库02-单选2',
+    tag: '单选题',
+    icon: 'CheckCircle',
+    count: '30道题',
+    url: 'https://f.wps.cn/g/szl2IF2z/',
+    colors: { from: '#3b82f6', to: '#6366f1', glow: '#93c5fd' },
+  },
+  {
+    id: 3,
+    title: '五周年题库03-判断1',
+    tag: '判断题',
+    icon: 'HelpCircle',
+    count: '30道题',
+    url: 'https://f.wps.cn/g/9528th1w/',
+    colors: { from: '#f59e0b', to: '#f97316', glow: '#fcd34d' },
+  },
+  {
+    id: 4,
+    title: '五周年题库04-判断2',
+    tag: '判断题',
+    icon: 'HelpCircle',
+    count: '30道题',
+    url: 'https://f.wps.cn/g/HiGmQAfc/',
+    colors: { from: '#f59e0b', to: '#f97316', glow: '#fcd34d' },
+  },
+  {
+    id: 5,
+    title: '五周年题库05-多选1',
+    tag: '多选题',
+    icon: 'ListOrdered',
+    count: '30道题',
+    url: 'https://f.wps.cn/g/3tE23JTE/',
+    colors: { from: '#8b5cf6', to: '#a855f7', glow: '#c4b5fd' },
+  },
+  {
+    id: 6,
+    title: '五周年题库06-多选2',
+    tag: '多选题',
+    icon: 'ListOrdered',
+    count: '30道题',
+    url: 'https://f.wps.cn/g/tZQLPWEV/',
+    colors: { from: '#8b5cf6', to: '#a855f7', glow: '#c4b5fd' },
+  },
+  {
+    id: 7,
+    title: '五周年题库07-填空1',
+    tag: '填空题',
+    icon: 'PenTool',
+    count: '30道题',
+    url: 'https://f.wps.cn/g/yMzpIYbi/',
+    colors: { from: '#10b981', to: '#14b8a6', glow: '#6ee7b7' },
+  },
+  {
+    id: 8,
+    title: '五周年题库08-填空2',
+    tag: '填空题',
+    icon: 'PenTool',
+    count: '30道题',
+    url: 'https://f.wps.cn/g/8eWKuTWA/',
+    colors: { from: '#10b981', to: '#14b8a6', glow: '#6ee7b7' },
+  },
+  {
+    id: 9,
+    title: '五周年题库09-简答1',
+    tag: '简答题',
+    icon: 'MessageSquare',
+    count: '13道题',
+    url: 'https://f.wps.cn/g/MQzBKCmv/',
+    colors: { from: '#f43f5e', to: '#e11d48', glow: '#fca5a5' },
+  },
+  {
+    id: 10,
+    title: '五周年题库10-简答2',
+    tag: '简答题',
+    icon: 'MessageSquare',
+    count: '12道题',
+    url: 'https://f.wps.cn/g/n7nSXotI/',
+    colors: { from: '#f43f5e', to: '#e11d48', glow: '#fca5a5' },
+  },
+  {
+    id: 11,
+    title: '五周年题库11-论述1',
+    tag: '论述题',
+    icon: 'FileSpreadsheet',
+    count: '12道题',
+    url: 'https://f.wps.cn/g/9jMr9ejG/',
+    colors: { from: '#06b6d4', to: '#0ea5e9', glow: '#7dd3fc' },
   },
 ];
 
@@ -471,6 +573,205 @@ export const TempAssignmentPage: React.FC = () => {
                       </div>
                     </div>
                   </button>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* ========== 重要讲话题库练习专区 ========== */}
+          <section>
+            <div className="flex items-center gap-2 mb-3 md:mb-4 px-1">
+              <PenTool size={18} className="text-indigo-500" />
+              <h2 className="text-sm md:text-base font-black text-slate-700 tracking-tight">重要讲话题库练习专区</h2>
+              <div className="flex-1 h-px bg-gradient-to-r from-slate-200 to-transparent ml-2"></div>
+            </div>
+
+            {/* 通知/介绍卡片 */}
+            <div className="bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 rounded-2xl p-5 md:p-6 mb-5 md:mb-6 shadow-sm">
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="shrink-0 p-2.5 bg-indigo-100 rounded-xl text-indigo-600">
+                  <FileText size={20} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm md:text-base font-black text-indigo-800 mb-2">人力资源管理处通知</h3>
+                  <div className="text-[11px] md:text-xs text-slate-600 leading-relaxed space-y-2">
+                    <p>
+                      为深入贯彻落实李总讲话文件精神，我处将于八月份组织专项抽考检查工作，
+                      范围覆盖公司所有在册人员。
+                    </p>
+                    <p>
+                      为了方便分厂职工练习，现将题库题目进行分块分解：
+                    </p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-1.5 text-[11px] md:text-xs font-medium">
+                      <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></span>填空题 2套（各30道）</span>
+                      <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0"></span>单选题 2套（各30道）</span>
+                      <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-violet-400 shrink-0"></span>多选题 2套（各30道）</span>
+                      <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>判断题 2套（各30道）</span>
+                      <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-rose-400 shrink-0"></span>简答题 2套（13道+12道）</span>
+                      <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span>论述题 1套（12道）</span>
+                    </div>
+                    <div className="mt-3 bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border-l-4 border-amber-400 rounded-r-lg px-4 py-3 shadow-sm">
+                      <div className="flex items-start gap-2.5">
+                        <Sparkles size={16} className="text-amber-500 shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-[13px] md:text-sm font-black text-amber-900 leading-relaxed">
+                            职工可进行自由练习，<span className="text-amber-700 underline decoration-amber-300 decoration-2 underline-offset-2">成绩不记录不考核</span>，仅供自己查验掌握情况。
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 题库卡片网格 */}
+            <style>{`
+              .qb-card {
+                position: relative;
+                width: 100%;
+                min-height: 200px;
+                background-color: #1a1a2e;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 24px 22px;
+                border-radius: 12px;
+                cursor: pointer;
+                color: white;
+                overflow: hidden;
+                z-index: 1;
+                border: none;
+                outline: none;
+                text-decoration: none;
+                transition: transform 0.3s ease;
+              }
+              .qb-card::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                left: -4px;
+                margin: auto;
+                width: calc(100% + 8px);
+                height: calc(100% + 8px);
+                border-radius: 16px;
+                background: linear-gradient(-45deg, var(--qb-from) 0%, var(--qb-to) 100%);
+                z-index: -10;
+                pointer-events: none;
+                transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+              }
+              .qb-card::after {
+                content: "";
+                z-index: -1;
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(-45deg, var(--qb-from) 0%, var(--qb-glow) 100%);
+                transform: translate3d(0, 0, 0) scale(0.95);
+                filter: blur(20px);
+                transition: filter 0.6s ease;
+                opacity: 0.6;
+              }
+              .qb-card:hover::after {
+                filter: blur(30px);
+                opacity: 1;
+              }
+              .qb-card:hover::before {
+                transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
+              }
+              .qb-card:hover {
+                transform: translateY(-2px);
+              }
+              .qb-tag {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 3px 12px;
+                border-radius: 999px;
+                font-size: 10px;
+                font-weight: 900;
+                background: rgba(255,255,255,0.12);
+                color: rgba(255,255,255,0.9);
+                backdrop-filter: blur(4px);
+                margin-bottom: 14px;
+                width: fit-content;
+                border: 1px solid rgba(255,255,255,0.08);
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+              }
+              .qb-title {
+                font-size: 16px;
+                font-weight: 900;
+                color: #fff;
+                line-height: 1.45;
+                margin-bottom: 6px;
+                text-shadow: 0 0 16px rgba(255,255,255,0.1);
+                letter-spacing: 0.02em;
+              }
+              .qb-count {
+                font-size: 12px;
+                font-weight: 600;
+                color: rgba(255,255,255,0.45);
+                margin-bottom: 0;
+                letter-spacing: 0.06em;
+              }
+              .qb-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                font-weight: 900;
+                color: rgba(255,255,255,0.4);
+                transition: all 0.3s ease;
+                letter-spacing: 0.04em;
+                margin-top: 16px;
+              }
+              .qb-card:hover .qb-btn {
+                color: #fff;
+                text-shadow: 0 0 10px rgba(255,255,255,0.2);
+              }
+              .qb-btn svg {
+                transition: transform 0.3s ease;
+              }
+              .qb-card:hover .qb-btn svg {
+                transform: translateX(3px);
+              }
+            `}</style>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+              {QUESTION_BANKS.map((bank) => {
+                const IconComponent = {
+                  CheckCircle, HelpCircle, ListOrdered,
+                  PenTool, MessageSquare, FileSpreadsheet,
+                }[bank.icon] || CheckCircle;
+
+                return (
+                  <a
+                    key={bank.id}
+                    href={bank.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="qb-card"
+                    style={{
+                      '--qb-from': bank.colors.from,
+                      '--qb-to': bank.colors.to,
+                      '--qb-glow': bank.colors.glow,
+                    } as React.CSSProperties}
+                  >
+                    {/* 类型标签 */}
+                    <div className="qb-tag">
+                      <IconComponent size={10} />
+                      <span>{bank.tag}</span>
+                    </div>
+                    {/* 标题 */}
+                    <h3 className="qb-title">{bank.title}</h3>
+                    {/* 题目数量 */}
+                    <p className="qb-count">{bank.count}</p>
+                    {/* 开始练习按钮 */}
+                    <div className="qb-btn">
+                      <span>开始练习</span>
+                      <ArrowRight size={10} />
+                    </div>
+                  </a>
                 );
               })}
             </div>
