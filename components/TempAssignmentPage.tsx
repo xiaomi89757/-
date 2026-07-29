@@ -382,7 +382,7 @@ export const TempAssignmentPage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              {/* 重要讲话学习答题 */}
+              {/* 重要讲话试题随机组卷测验 */}
               <a
                 href={examFormUrl || '#'}
                 target={examFormUrl ? '_blank' : undefined}
@@ -401,7 +401,7 @@ export const TempAssignmentPage: React.FC = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm md:text-xl font-black drop-shadow-sm tracking-wide">
-                      重要讲话学习答题
+                      重要讲话试题随机组卷测验
                     </h3>
                     <p className="text-[10px] md:text-xs text-red-100/90 font-semibold mt-0.5 tracking-wider">
                       深学细悟 · 以考促行
@@ -507,83 +507,22 @@ export const TempAssignmentPage: React.FC = () => {
             </div>
           </section>
 
-          {/* ========== 职工学习重要讲话心得体会 · 图文卡片墙 ========== */}
-          <section>
-            <div className="flex items-center gap-2 mb-3 md:mb-4 px-1">
-              <Heart size={18} className="text-red-500" />
-              <h2 className="text-sm md:text-base font-black text-slate-700 tracking-tight">职工学习重要讲话心得体会</h2>
-              <div className="flex-1 h-px bg-gradient-to-r from-slate-200 to-transparent ml-2"></div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-              {MOCK_THOUGHTS.map((item, index) => {
-                const theme = CARD_THEMES[index % CARD_THEMES.length];
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => setSelectedThought(item)}
-                    className="group text-left bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 hover:border-slate-200 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer focus:outline-none"
-                  >
-                    {/* 彩色图 Banner */}
-                    <div className={`relative h-28 md:h-32 bg-gradient-to-br ${theme.from} ${theme.to} flex items-center justify-center overflow-hidden`}>
-                      {/* 装饰性光晕 */}
-                      <div className="absolute -top-6 -right-6 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-                      <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-white/5 rounded-full blur-xl"></div>
-                      {/* 图标 */}
-                      <div className={`relative z-10 ${theme.icon}`}>
-                        {item.icon === 'Star' && <Star size={40} className="opacity-60" />}
-                        {item.icon === 'Flame' && <Flame size={40} className="opacity-60" />}
-                        {item.icon === 'Award' && <Award size={40} className="opacity-60" />}
-                        {item.icon === 'Lightbulb' && <Lightbulb size={40} className="opacity-60" />}
-                        {item.icon === 'Heart' && <Heart size={40} className="opacity-60" />}
-                        {item.icon === 'BookOpen' && <BookOpen size={40} className="opacity-60" />}
-                      </div>
-                      {/* 底部阅读提示 */}
-                      <div className="absolute bottom-2 right-3 flex items-center gap-1 text-[10px] text-white/70 font-bold">
-                        <Eye size={10} />
-                        <span>点击阅读</span>
-                      </div>
-                    </div>
-
-                    {/* 文字内容 */}
-                    <div className="p-4 md:p-5">
-                      {/* 标题 */}
-                      <h3 className="text-sm md:text-base font-black text-slate-800 mb-2 leading-snug line-clamp-2 min-h-[2.5em]">
-                        {item.title}
-                      </h3>
-
-                      {/* 作者信息 */}
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className={`w-6 h-6 rounded-full bg-gradient-to-br ${theme.from} ${theme.to} flex items-center justify-center text-white text-[10px] font-black shadow-sm`}>
-                          {item.author.charAt(0)}
-                        </div>
-                        <span className="text-xs font-bold text-slate-400">{item.author}</span>
-                        <span className="text-[9px] text-slate-300">·</span>
-                        <span className="text-[9px] text-slate-400">{item.department}</span>
-                      </div>
-
-                      {/* 摘要 */}
-                      <p className="text-[11px] md:text-xs text-slate-500 leading-relaxed line-clamp-3">
-                        {item.excerpt}
-                      </p>
-
-                      {/* 阅读全文 */}
-                      <div className="mt-3 flex items-center gap-1 text-[10px] font-black text-slate-400 group-hover:text-red-500 transition-colors duration-300">
-                        阅读全文 <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform" />
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </section>
-
           {/* ========== 重要讲话题库练习专区 ========== */}
           <section>
-            <div className="flex items-center gap-2 mb-3 md:mb-4 px-1">
-              <PenTool size={18} className="text-indigo-500" />
-              <h2 className="text-sm md:text-base font-black text-slate-700 tracking-tight">重要讲话题库练习专区</h2>
-              <div className="flex-1 h-px bg-gradient-to-r from-slate-200 to-transparent ml-2"></div>
+            <div className="relative mb-5 md:mb-6 overflow-hidden rounded-xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800"></div>
+              <div className="absolute -top-6 -right-6 w-24 h-24 bg-indigo-400/20 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-indigo-300/10 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="relative flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3.5 md:py-4">
+                <div className="shrink-0 p-2 bg-white/15 rounded-lg ring-1 ring-white/20 shadow-lg">
+                  <PenTool size={20} className="text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-sm md:text-lg font-black text-white tracking-wide drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)]">重要讲话题库练习专区</h2>
+                  <p className="text-[9px] md:text-xs text-indigo-200 font-bold tracking-[0.2em] mt-0.5">自测练习 · 不记录不考核</p>
+                </div>
+                <Sparkles size={14} className="text-indigo-300/40 shrink-0 animate-pulse" style={{ animationDuration: '3s' }} />
+              </div>
             </div>
 
             {/* 通知/介绍卡片 */}
@@ -772,6 +711,87 @@ export const TempAssignmentPage: React.FC = () => {
                       <ArrowRight size={10} />
                     </div>
                   </a>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* ========== 职工学习重要讲话心得体会 · 图文卡片墙 ========== */}
+          <section>
+            <div className="relative mb-5 md:mb-6 overflow-hidden rounded-xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-green-700 to-emerald-800"></div>
+              <div className="absolute -top-6 -right-6 w-24 h-24 bg-rose-400/20 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-rose-300/10 rounded-full blur-2xl pointer-events-none"></div>
+              <div className="relative flex items-center gap-3 md:gap-4 px-4 md:px-6 py-3.5 md:py-4">
+                <div className="shrink-0 p-2 bg-white/15 rounded-lg ring-1 ring-white/20 shadow-lg">
+                  <Heart size={20} className="text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-sm md:text-lg font-black text-white tracking-wide drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)]">职工学习重要讲话心得体会</h2>
+                  <p className="text-[9px] md:text-xs text-emerald-200 font-bold tracking-[0.2em] mt-0.5">学习感悟 · 思想碰撞</p>
+                </div>
+                <Sparkles size={14} className="text-emerald-300/40 shrink-0 animate-pulse" style={{ animationDuration: '3s' }} />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+              {MOCK_THOUGHTS.map((item, index) => {
+                const theme = CARD_THEMES[index % CARD_THEMES.length];
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setSelectedThought(item)}
+                    className="group text-left bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-100 hover:border-slate-200 transition-all duration-300 hover:-translate-y-1 overflow-hidden cursor-pointer focus:outline-none"
+                  >
+                    {/* 彩色图 Banner */}
+                    <div className={`relative h-28 md:h-32 bg-gradient-to-br ${theme.from} ${theme.to} flex items-center justify-center overflow-hidden`}>
+                      {/* 装饰性光晕 */}
+                      <div className="absolute -top-6 -right-6 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                      <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-white/5 rounded-full blur-xl"></div>
+                      {/* 图标 */}
+                      <div className={`relative z-10 ${theme.icon}`}>
+                        {item.icon === 'Star' && <Star size={40} className="opacity-60" />}
+                        {item.icon === 'Flame' && <Flame size={40} className="opacity-60" />}
+                        {item.icon === 'Award' && <Award size={40} className="opacity-60" />}
+                        {item.icon === 'Lightbulb' && <Lightbulb size={40} className="opacity-60" />}
+                        {item.icon === 'Heart' && <Heart size={40} className="opacity-60" />}
+                        {item.icon === 'BookOpen' && <BookOpen size={40} className="opacity-60" />}
+                      </div>
+                      {/* 底部阅读提示 */}
+                      <div className="absolute bottom-2 right-3 flex items-center gap-1 text-[10px] text-white/70 font-bold">
+                        <Eye size={10} />
+                        <span>点击阅读</span>
+                      </div>
+                    </div>
+
+                    {/* 文字内容 */}
+                    <div className="p-4 md:p-5">
+                      {/* 标题 */}
+                      <h3 className="text-sm md:text-base font-black text-slate-800 mb-2 leading-snug line-clamp-2 min-h-[2.5em]">
+                        {item.title}
+                      </h3>
+
+                      {/* 作者信息 */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className={`w-6 h-6 rounded-full bg-gradient-to-br ${theme.from} ${theme.to} flex items-center justify-center text-white text-[10px] font-black shadow-sm`}>
+                          {item.author.charAt(0)}
+                        </div>
+                        <span className="text-xs font-bold text-slate-400">{item.author}</span>
+                        <span className="text-[9px] text-slate-300">·</span>
+                        <span className="text-[9px] text-slate-400">{item.department}</span>
+                      </div>
+
+                      {/* 摘要 */}
+                      <p className="text-[11px] md:text-xs text-slate-500 leading-relaxed line-clamp-3">
+                        {item.excerpt}
+                      </p>
+
+                      {/* 阅读全文 */}
+                      <div className="mt-3 flex items-center gap-1 text-[10px] font-black text-slate-400 group-hover:text-red-500 transition-colors duration-300">
+                        阅读全文 <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </button>
                 );
               })}
             </div>
