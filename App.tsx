@@ -12,7 +12,8 @@ import { ExamDownloadPage } from './components/ExamDownloadPage';
 import { ProceduresPage } from './components/ProceduresPage';
 import { SafetyResponsibilitiesPage } from './components/SafetyResponsibilitiesPage';
 import { AppDownloadsLandingPage } from './components/AppDownloadsLandingPage';
-import { LeanLearningPage } from './components/LeanLearningPage'; 
+import { LeanLearningPage } from './components/LeanLearningPage';
+import { QualityMonthPage } from './components/QualityMonthPage';
 import { FeedbackPage } from './components/FeedbackPage';
 import { TempAssignmentPage } from './components/TempAssignmentPage';
 import { ViewState } from './types';
@@ -77,7 +78,8 @@ const App: React.FC = () => {
         if (activeMenuItem.id === ViewState.APP_DOWNLOADS) return <AppDownloadsLandingPage setView={setCurrentView} />;
         if (activeMenuItem.id === ViewState.JOB_OPERATING_PROCEDURES) return <ProceduresPage />;
         if (activeMenuItem.id === ViewState.JOB_SAFETY_RESPONSIBILITIES) return <SafetyResponsibilitiesPage />;
-        if (activeMenuItem.id === ViewState.LEAN_LEARNING) return <LeanLearningPage onNavigate={setCurrentView} />; 
+        if (activeMenuItem.id === ViewState.LEAN_LEARNING) return <LeanLearningPage onNavigate={setCurrentView} />;
+        if (activeMenuItem.id === ViewState.QUALITY_MONTH) return <QualityMonthPage />;
         if (activeMenuItem.id === ViewState.FEEDBACK) return <FeedbackPage />;
         return <div className="p-8">未知页面。</div>;
       case 'iframe':

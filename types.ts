@@ -2,6 +2,7 @@
 export enum ViewState {
   HOME = 'HOME',
   TEMP_ASSIGNMENT = 'TEMP_ASSIGNMENT',
+  QUALITY_MONTH = 'QUALITY_MONTH',
   IMPORTANT_FILES = 'IMPORTANT_FILES',
   COMPREHENSIVE_REMEDIATION_PLAN = 'COMPRE_PLAN',
   HAZARD_CRITERIA_STANDARD = 'HAZARD_STD',
@@ -54,6 +55,7 @@ export interface MenuItem {
   path?: string;
   subLinks?: NavLinkItem[];
   hidden?: boolean;
+  badge?: string;
 }
 
 export interface DocumentSection {

@@ -5,7 +5,7 @@ import {
   Home, FolderOpen, FileText, AlertTriangle, BookOpen, Send,
   BarChart3, Wrench, ShieldCheck, Siren, Search, Box,
   ClipboardList, Download, User, ChevronRight, MessageSquare,
-  ClipboardCheck, Flame
+  ClipboardCheck, Flame, BadgeCheck
 } from 'lucide-react';
 import { ViewState, MenuItem } from '../types';
 import { SIDEBAR_MENU_ITEMS } from '../constants';
@@ -38,7 +38,8 @@ const ICON_MAP: Record<string, React.FC<any>> = {
   'HelpCircle': HelpCircle,
   'MessageSquare': MessageSquare,
   'ClipboardCheck': ClipboardCheck,
-  'Flame': Flame
+  'Flame': Flame,
+  'BadgeCheck': BadgeCheck
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, setIsOpen }) => {
@@ -136,10 +137,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, isOpen, 
                   </span>
 
                   <span className={`
-                    text-lg tracking-wide transition-colors duration-200
+                    flex items-center gap-1.5 min-w-0 transition-colors duration-200
                     ${isActive ? 'font-bold text-white' : 'font-medium text-slate-400 group-hover:text-slate-100'}
                   `}>
-                    {item.label}
+                    {item.badge && (
+                      <span className="shrink-0 inline-flex items-center gap-0.5 px-1.5 py-px bg-gradient-to-r from-red-500 to-orange-500 text-white text-[9px] font-black rounded-full shadow-sm shadow-red-500/30 ring-1 ring-red-300/40">
+                        <Flame size={9} className="text-yellow-200" />
+                        {item.badge}
+                      </span>
+                    )}
+                    <span className="truncate">{item.label}</span>
                   </span>
 
                   {isActive && (

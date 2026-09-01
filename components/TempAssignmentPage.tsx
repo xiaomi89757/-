@@ -359,7 +359,7 @@ export const TempAssignmentPage: React.FC = () => {
             </h1>
             <p className="text-[10px] md:text-xs text-yellow-200/80 font-semibold mt-1.5 tracking-[0.15em] flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 bg-yellow-300/60 rounded-full inline-block"></span>
-              五周年重要讲话专题 · 2026 DIGITAL YEAR
+              12234专题 · 2026 DIGITAL YEAR
             </p>
           </div>
           {/* 装饰性年份标识 */}

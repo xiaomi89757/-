@@ -3,7 +3,8 @@ import { MenuItem, ViewState, Resource } from './types';
 
 export const SIDEBAR_MENU_ITEMS: MenuItem[] = [
   { id: ViewState.HOME, label: '主页', icon: 'Home', type: 'component' },
-  { id: ViewState.TEMP_ASSIGNMENT, label: '五周年重要讲话专题', icon: 'Flame', type: 'component' },
+  { id: ViewState.TEMP_ASSIGNMENT, label: '12234专题', icon: 'BadgeCheck', type: 'component', hidden: true }, // 暂隐藏，需要展示时删除 hidden: true
+  { id: ViewState.QUALITY_MONTH, label: '质量月专题', icon: 'BadgeCheck', type: 'component', badge: '火爆' },
   {
     id: ViewState.IMPORTANT_FILES,
     label: '重要文件',
