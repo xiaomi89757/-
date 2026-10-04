@@ -44,7 +44,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
   useEffect(() => {
     const mockNotices = [
       '🎉 2026：数智松钢，行稳致远！祝全厂职工工作顺利！',
-      '🔥 质量月：2026年质量月专题活动正式启动，人人都是质量关、工序互保你我他！',
+      '🔥 降本增效降耗：聚点滴之力、创降本增效之实，精益求精，向行业标杆看齐！',
       '站内更新：精益知识平台已更新',
       '重要通知：【2026年各项安全生产工作已全面启动，请各部门积极配合。',
       '事项提醒：【精益提案申报】截止日期为每月25日，请按时提交。',
@@ -199,12 +199,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onInstall, canIn
             <div className="marquee-wrapper flex items-center h-full whitespace-nowrap">
               <div className="marquee-content flex items-center gap-16 pr-16">
                 {notices.map((n, i) => (
-                  <span key={i} className={`text-base md:text-xl font-bold tracking-wide ${n.includes('🎉') ? 'text-yellow-400' : n.includes('质量月') ? 'text-cyan-300' : 'text-white'}`}>{n}</span>
+                  <span key={i} className={`text-base md:text-xl font-bold tracking-wide ${n.includes('🎉') ? 'text-yellow-400' : n.includes('降本增效') ? 'text-cyan-300' : 'text-white'}`}>{n}</span>
                 ))}
               </div>
               <div className="marquee-content flex items-center gap-16 pr-16">
                 {notices.map((n, i) => (
-                  <span key={i} className={`text-base md:text-xl font-bold tracking-wide ${n.includes('🎉') ? 'text-yellow-400' : n.includes('质量月') ? 'text-cyan-300' : 'text-white'}`}>{n}</span>
+                  <span key={i} className={`text-base md:text-xl font-bold tracking-wide ${n.includes('🎉') ? 'text-yellow-400' : n.includes('降本增效') ? 'text-cyan-300' : 'text-white'}`}>{n}</span>
                 ))}
               </div>
             </div>
