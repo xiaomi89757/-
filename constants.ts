@@ -1137,6 +1137,114 @@ export const LEAN_RESOURCES: Resource[] = [
     rating: 5,
     isNew: true,
     shareIndex: '96'
+  },
+  {
+    id: 'l-97',
+    title: '平民改善与精英改善谁最重要？',
+    description: '对比平民改善与精英改善的价值与适用场景，激发全员参与改善的积极性。',
+    category: '改善实战',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cshCt3uOyfuq',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '97'
+  },
+  {
+    id: 'l-98',
+    title: '高炉入炉有害元素以及控制方法',
+    description: '解析高炉入炉有害元素的来源与危害，系统梳理控制方法，保障炉况稳定顺行。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cs8Pi09aatOe',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '98'
+  },
+  {
+    id: 'l-99',
+    title: '安全班前会：九种方式让宣教见效',
+    description: '九种接地气的班前会开法，让安全宣教入脑入心，告别天天讲不见效。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cl9D8xWAnWFk',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '99'
+  },
+  {
+    id: 'l-100',
+    title: '班组长如何用心做5S',
+    description: '从整理整顿到素养养成，班组长用心推动5S落地，夯实现场管理根基。',
+    category: '现场管理',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cilzJDpv5UjY',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '100'
+  },
+  {
+    id: 'l-101',
+    title: '高炉煤气利用率如何提高',
+    description: '围绕高炉煤气回收与利用环节，分析利用率影响因素并提出提效路径。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cdsXQwLWJMEI',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '101'
+  },
+  {
+    id: 'l-102',
+    title: '面对繁重任务，精益工作是绊脚石还是救生筏',
+    description: '直面繁重任务下的心态与方法之争，阐明精益化繁为简、减负增效的价值。',
+    category: '改善实战',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/ch2kyE7Bjvhp',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '102'
+  },
+  {
+    id: 'l-103',
+    title: '它山之石：某钢厂大成本攻坚战',
+    description: '借鉴兄弟钢厂大成本攻坚战实例，学习对标挖潜与降本增效的实战打法。',
+    category: '改善实战',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/co0qxJ7DJx7D',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '103'
+  },
+  {
+    id: 'l-104',
+    title: '生产现场的人机料法环，到底应该怎么管？',
+    description: '立足生产现场，讲透人、机、料、法、环五大要素的系统管理方法。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/cbf0yliypFPV',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '104'
+  },
+  {
+    id: 'l-105',
+    title: '精益审核与体系审核有何区别',
+    description: '辨析精益审核与体系审核的目的、方法与差异，助力两套体系协同增效。',
+    category: '基础理论',
+    type: 'pdf',
+    url: 'https://www.kdocs.cn/l/ckdp9L4WzLYy',
+    updateDate: '2026-10-07',
+    rating: 5,
+    isNew: true,
+    shareIndex: '105'
   }
 ];
 
