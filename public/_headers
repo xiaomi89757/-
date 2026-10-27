@@ -1,0 +1,12 @@
+# 对外发布的 TVBox 配置（直播源 + 点播源），会被周期性更新。
+# 必须禁止中间缓存，否则电视会拿到旧版本 —— 表现为「改了源但没生效」。
+# 这里不写死 Content-Type：交给 Cloudflare 按扩展名判断
+# （.txt → text/plain，.json → application/json）。写死会把 json 也标成纯文本，反而容易解析失败。
+
+/usghgdfdra/live.txt
+  Cache-Control: no-store, no-cache, must-revalidate
+  Access-Control-Allow-Origin: *
+
+/usghgdfdra/tvbox.json
+  Cache-Control: no-store, no-cache, must-revalidate
+  Access-Control-Allow-Origin: *

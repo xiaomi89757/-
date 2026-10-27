@@ -5,5 +5,7 @@ dist
 *.local
 temp_compare
 *.txt
+# 例外：public/ 子目录下是对外发布的静态配置，必须提交（否则电视拉 404）
+!public/*/*.txt
 local_files.txt
 remote_files.txt
