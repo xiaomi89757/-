@@ -4,6 +4,7 @@ CCTV1,http://204.12.221.218:8181/3m1080p/cctv1.m3u8
 CCTV1,http://74.91.26.218:82/live/cctv1hd.m3u8
 CCTV1,http://107.150.60.122/live/cctv1hd.m3u8
 CCTV2,http://74.91.26.218:82/live/cctv2hd.m3u8
+CCTV2,http://107.150.60.122/live/cctv2hd.m3u8
 CCTV3,http://74.91.26.218:82/live/cctv3hd.m3u8
 CCTV3,http://107.150.60.122/live/cctv3hd.m3u8
 CCTV4,http://74.91.26.218:82/live/cctv4hd.m3u8
