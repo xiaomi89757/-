@@ -20,9 +20,9 @@
   },
   {
    "key": "src03",
-   "name": "最大资源",
+   "name": "电影天堂",
    "type": 1,
-   "api": "http://api.zuidapi.com/api.php/provide/vod",
+   "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
@@ -38,24 +38,6 @@
   },
   {
    "key": "src05",
-   "name": "U酷影视",
-   "type": 1,
-   "api": "http://api.ukuapi88.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src06",
-   "name": "暴风资源",
-   "type": 1,
-   "api": "http://bfzyapi.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src07",
    "name": "飘零资源",
    "type": 1,
    "api": "http://p2100.net/api.php/provide/vod",
@@ -64,16 +46,16 @@
    "filterable": 1
   },
   {
-   "key": "src08",
-   "name": "速播资源",
+   "key": "src06",
+   "name": "最大资源",
    "type": 1,
-   "api": "http://subocaiji.com/api.php/provide/vod",
+   "api": "http://api.zuidapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
   },
   {
-   "key": "src09",
+   "key": "src07",
    "name": "豪华资源",
    "type": 1,
    "api": "http://hhzyapi.com/api.php/provide/vod",
@@ -82,19 +64,37 @@
    "filterable": 1
   },
   {
-   "key": "src10",
-   "name": "魔都资源",
+   "key": "src08",
+   "name": "U酷影视",
    "type": 1,
-   "api": "http://www.mdzyapi.com/api.php/provide/vod",
+   "api": "http://api.ukuapi88.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src09",
+   "name": "非凡资源",
+   "type": 1,
+   "api": "http://api.ffzyapi.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src10",
+   "name": "速播资源",
+   "type": 1,
+   "api": "http://subocaiji.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
   },
   {
    "key": "src11",
-   "name": "极速资源",
+   "name": "光速资源",
    "type": 1,
-   "api": "http://jszyapi.com/api.php/provide/vod",
+   "api": "http://api.guangsuapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
@@ -110,18 +110,18 @@
   },
   {
    "key": "src13",
-   "name": "魔都动漫",
+   "name": "360 资源",
    "type": 1,
-   "api": "http://caiji.moduapi.cc/api.php/provide/vod",
+   "api": "http://360zyzz.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
   },
   {
    "key": "src14",
-   "name": "360 资源",
+   "name": "暴风资源",
    "type": 1,
-   "api": "http://360zyzz.com/api.php/provide/vod",
+   "api": "http://bfzyapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
@@ -137,15 +137,24 @@
   },
   {
    "key": "src16",
-   "name": "光速资源",
+   "name": "魔都资源",
    "type": 1,
-   "api": "http://api.guangsuapi.com/api.php/provide/vod",
+   "api": "http://www.mdzyapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
   },
   {
    "key": "src17",
+   "name": "极速资源",
+   "type": 1,
+   "api": "http://jszyapi.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src18",
    "name": "无尽影视",
    "type": 1,
    "api": "http://api.wujinapi.com/api.php/provide/vod",
@@ -154,7 +163,7 @@
    "filterable": 1
   },
   {
-   "key": "src18",
+   "key": "src19",
    "name": "新浪资源",
    "type": 1,
    "api": "http://api.xinlangapi.com/xinlangapi.php/provide/vod",
@@ -163,28 +172,19 @@
    "filterable": 1
   },
   {
-   "key": "src19",
-   "name": "非凡资源",
-   "type": 1,
-   "api": "http://api.ffzyapi.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
    "key": "src20",
-   "name": "-爱奇艺-",
+   "name": "魔都动漫",
    "type": 1,
-   "api": "http://iqiyizyapi.com/api.php/provide/vod",
+   "api": "http://caiji.moduapi.cc/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
   },
   {
    "key": "src21",
-   "name": "电影天堂",
+   "name": "-爱奇艺-",
    "type": 1,
-   "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
+   "api": "http://iqiyizyapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
