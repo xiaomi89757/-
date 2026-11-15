@@ -34,7 +34,9 @@ const THEMES: Record<string, { bg: string, iconBg: string, text: string, shadow:
 
 export const MicroImprovementPage: React.FC<MicroImprovementPageProps> = ({ title, links, onNavigate }) => {
   const [isIframeLoading, setIsIframeLoading] = useState(true);
-  const dashboardUrl = "https://www.kdocs.cn/l/cdyYuiCbYIBN?R=L1MvMw==&disableNoviceGuide=";
+  // 2026-11-15 更新：原 cdyYuiCbYIBN 文档已于 2026/11/3 删除，改用 WPS 表单「数据大屏」生成的统计表(4) 驾驶舱
+  // 旧链接留档：https://www.kdocs.cn/l/cdyYuiCbYIBN?R=L1MvMw==&disableNoviceGuide=
+  const dashboardUrl = "https://www.kdocs.cn/l/crGXIaY6frwr?R=L1MvMw%3D%3D&disableNoviceGuide=";
 
   return (
     <div className="h-full flex flex-col bg-slate-50 overflow-hidden animate-fade-in font-sans">
