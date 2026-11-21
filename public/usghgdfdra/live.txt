@@ -84,6 +84,7 @@ CCTV17,http://38.75.136.137:98/gslb/dsdqpub/cctv17hd.m3u8?auth=testpub
 山西卫视,http://38.75.136.137:98/gslb/dsdqpub/sxwshd.m3u8?auth=testpub
 重庆卫视,http://107.150.60.122/live/cqwshd.m3u8
 重庆卫视,http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cqwshd
+重庆卫视,http://38.75.136.137:98/gslb/dsdqpub/cqwshd.m3u8?auth=testpub
 厦门卫视,http://107.150.60.122/live/xmws.m3u8
 其他频道,#genre#
 CGTN,http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
