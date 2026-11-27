@@ -20,15 +20,6 @@
   },
   {
    "key": "src03",
-   "name": "非凡资源",
-   "type": 1,
-   "api": "http://api.ffzyapi.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src04",
    "name": "金鹰点播",
    "type": 1,
    "api": "http://jyzyapi.com/provide/vod/from/jinyingyun/at/json",
@@ -37,16 +28,7 @@
    "filterable": 1
   },
   {
-   "key": "src05",
-   "name": "豪华资源",
-   "type": 1,
-   "api": "http://hhzyapi.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src06",
+   "key": "src04",
    "name": "U酷影视",
    "type": 1,
    "api": "http://api.ukuapi88.com/api.php/provide/vod",
@@ -55,7 +37,16 @@
    "filterable": 1
   },
   {
-   "key": "src07",
+   "key": "src05",
+   "name": "魔都资源",
+   "type": 1,
+   "api": "http://www.mdzyapi.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src06",
    "name": "魔都动漫",
    "type": 1,
    "api": "http://caiji.moduapi.cc/api.php/provide/vod",
@@ -64,10 +55,19 @@
    "filterable": 1
   },
   {
-   "key": "src08",
+   "key": "src07",
    "name": "红牛资源",
    "type": 1,
    "api": "http://www.hongniuzy2.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src08",
+   "name": "豪华资源",
+   "type": 1,
+   "api": "http://hhzyapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
@@ -83,15 +83,6 @@
   },
   {
    "key": "src10",
-   "name": "魔都资源",
-   "type": 1,
-   "api": "http://www.mdzyapi.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src11",
    "name": "最大资源",
    "type": 1,
    "api": "http://api.zuidapi.com/api.php/provide/vod",
@@ -100,10 +91,19 @@
    "filterable": 1
   },
   {
-   "key": "src12",
+   "key": "src11",
    "name": "-爱奇艺-",
    "type": 1,
    "api": "http://iqiyizyapi.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src12",
+   "name": "非凡资源",
+   "type": 1,
+   "api": "http://api.ffzyapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
