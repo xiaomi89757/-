@@ -2,9 +2,9 @@
  "sites": [
   {
    "key": "src01",
-   "name": "猫眼资源",
+   "name": "非凡资源",
    "type": 1,
-   "api": "http://api.maoyanapi.top/api.php/provide/vod",
+   "api": "http://api.ffzyapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
@@ -29,51 +29,6 @@
   },
   {
    "key": "src04",
-   "name": "U酷影视",
-   "type": 1,
-   "api": "http://api.ukuapi88.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src05",
-   "name": "魔都资源",
-   "type": 1,
-   "api": "http://www.mdzyapi.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src06",
-   "name": "魔都动漫",
-   "type": 1,
-   "api": "http://caiji.moduapi.cc/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src07",
-   "name": "红牛资源",
-   "type": 1,
-   "api": "http://www.hongniuzy2.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src08",
-   "name": "豪华资源",
-   "type": 1,
-   "api": "http://hhzyapi.com/api.php/provide/vod",
-   "searchable": 1,
-   "quickSearch": 1,
-   "filterable": 1
-  },
-  {
-   "key": "src09",
    "name": "无尽影视",
    "type": 1,
    "api": "http://api.wujinapi.com/api.php/provide/vod",
@@ -82,7 +37,43 @@
    "filterable": 1
   },
   {
-   "key": "src10",
+   "key": "src05",
+   "name": "猫眼资源",
+   "type": 1,
+   "api": "http://api.maoyanapi.top/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src06",
+   "name": "U酷影视",
+   "type": 1,
+   "api": "http://api.ukuapi88.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src07",
+   "name": "豪华资源",
+   "type": 1,
+   "api": "http://hhzyapi.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src08",
+   "name": "红牛资源",
+   "type": 1,
+   "api": "http://www.hongniuzy2.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src09",
    "name": "最大资源",
    "type": 1,
    "api": "http://api.zuidapi.com/api.php/provide/vod",
@@ -91,19 +82,28 @@
    "filterable": 1
   },
   {
-   "key": "src11",
-   "name": "-爱奇艺-",
+   "key": "src10",
+   "name": "魔都资源",
    "type": 1,
-   "api": "http://iqiyizyapi.com/api.php/provide/vod",
+   "api": "http://www.mdzyapi.com/api.php/provide/vod",
+   "searchable": 1,
+   "quickSearch": 1,
+   "filterable": 1
+  },
+  {
+   "key": "src11",
+   "name": "魔都动漫",
+   "type": 1,
+   "api": "http://caiji.moduapi.cc/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
   },
   {
    "key": "src12",
-   "name": "非凡资源",
+   "name": "-爱奇艺-",
    "type": 1,
-   "api": "http://api.ffzyapi.com/api.php/provide/vod",
+   "api": "http://iqiyizyapi.com/api.php/provide/vod",
    "searchable": 1,
    "quickSearch": 1,
    "filterable": 1
